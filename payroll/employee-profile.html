@@ -58,6 +58,8 @@ h1{margin:0;font-size:24px;font-weight:600}
 .loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
 .loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
 td.empty{text-align:center;color:#5b6575;padding:18px 10px}
+.nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
+.nores-i{width:72px;height:72px;color:#9aa4b2}
 .notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
 .notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
 .notes ul{margin:0;padding-left:18px}
@@ -247,7 +249,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <div class="accd-p hist">
     <button type="button" class="crumb" onClick="{{status_toDet}}">‹ Back to Status details</button>
     <div class="lhead"><h2>Status History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Status Date</th><th scope="col">Action</th><th scope="col">Position Type</th><th scope="col">Work Schedule</th><th scope="col">Holiday Schedule</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Status Date</th><th scope="col">Action</th><th scope="col">Position Type</th><th scope="col">Work Schedule</th><th scope="col">Holiday Schedule</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -258,11 +260,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -289,7 +289,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <div class="accd-p hist">
     <button type="button" class="crumb" onClick="{{comp_toDet}}">‹ Back to Compensation details</button>
     <div class="lhead"><h2>Compensation History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Action</th><th scope="col">Base Rate</th><th scope="col">Adj Rate</th><th scope="col">Amt. Of Change</th><th scope="col">% Change</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="8">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Action</th><th scope="col">Base Rate</th><th scope="col">Adj Rate</th><th scope="col">Amt. Of Change</th><th scope="col">% Change</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -301,11 +301,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -332,7 +330,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <div class="accd-p hist">
     <button type="button" class="crumb" onClick="{{pos_toDet}}">‹ Back to Position details</button>
     <div class="lhead"><h2>Position History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Eff Date</th><th scope="col">Action</th><th scope="col">Emp Status</th><th scope="col">Occup Code</th><th scope="col">Range</th><th scope="col">Step</th><th scope="col">D/B/D</th><th scope="col">Svc Type</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="10">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Eff Date</th><th scope="col">Action</th><th scope="col">Emp Status</th><th scope="col">Occup Code</th><th scope="col">Range</th><th scope="col">Step</th><th scope="col">D/B/D</th><th scope="col">Svc Type</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -343,11 +341,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -387,7 +383,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <div class="accd-p hist">
     <button type="button" class="crumb" onClick="{{demo_toDet}}">‹ Back to Demographics details</button>
     <div class="lhead"><h2>Demographics History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Name</th><th scope="col">Marital Status</th><th scope="col">Racial/Ethnic ID</th><th scope="col">Gender</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Name</th><th scope="col">Marital Status</th><th scope="col">Racial/Ethnic ID</th><th scope="col">Gender</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -397,11 +393,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -429,7 +423,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <div class="accd-p hist">
     <button type="button" class="crumb" onClick="{{other_toDet}}">‹ Back to Other Information details</button>
     <div class="lhead"><h2>Other Information History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Shift</th><th scope="col">Record Status</th><th scope="col">Sequence #</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Shift</th><th scope="col">Record Status</th><th scope="col">Sequence #</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -439,11 +433,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -486,7 +478,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="lhead"><h2>Address History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <div class="abar"><div class="segs" role="group" aria-label="History of"><button type="button" class="{{h_home}}" onClick="{{h_toHome}}">Home</button><button type="button" class="{{h_mail}}" onClick="{{h_toMail}}">Mailing</button></div></div>
     <template data-sc-if value="{{h_isHome}}">
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Street Address</th><th scope="col">City</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Street Address</th><th scope="col">City</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -497,7 +489,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     </template>
     <template data-sc-if value="{{h_isMail}}">
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Address Type</th><th scope="col">Name</th><th scope="col">Street Address</th><th scope="col">City</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Address Type</th><th scope="col">Name</th><th scope="col">Street Address</th><th scope="col">City</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -508,11 +500,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
    </template>
@@ -561,7 +551,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Pay Period Year<input type="text" placeholder=""></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Check Date</th><th scope="col">Period</th><th scope="col">Year</th><th scope="col">Gross</th><th scope="col">Net Pay</th><th scope="col">Action</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Check Date</th><th scope="col">Period</th><th scope="col">Year</th><th scope="col">Gross</th><th scope="col">Net Pay</th><th scope="col">Action</th></tr></thead><tbody>
@@ -574,11 +564,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -587,7 +575,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Unchanged from your current tab. Details opens Check Detail (its own screen: it has actions). Create New Check (Payroll Processor only) opens a new, not-yet-posted check.</li>
       <li>Gross to Net switches this tab to the Gross to Net list, as it does today.</li>
       <li>Calls: <code>PayCheckHistory_List</code>; Create New Check = <code>PayOnlineCheck_Start</code>.</li>
-      <li>Paged: <code>PayCheckHistory_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayCheckHistory_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>Mockup: this list is set up as three pages (Next twice reaches “Page 3 of 3”); the sample rows don’t change between pages. Every other list here fits on one page, so it shows “Page 1 of 1”.</li>
     </ul>
   </div>
@@ -604,7 +592,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Tax Entity<select><option>Select…</option><option>10000 – CITY OF LONG BEACH</option></select></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Tax Entity</th><th scope="col">Month</th><th scope="col">YTD Gross</th><th scope="col">YTD Net</th><th scope="col">Action</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Tax Entity</th><th scope="col">Month</th><th scope="col">YTD Gross</th><th scope="col">YTD Net</th><th scope="col">Action</th></tr></thead><tbody>
@@ -613,11 +601,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -625,7 +611,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <ul>
       <li>Your current Gross to Net list, unchanged. Details opens the read-only detail <strong>inside this tab</strong>.</li>
       <li>Calls: <code>PayGrossToNet_List</code> (blank Effective Date = every record).</li>
-      <li>Paged: <code>PayGrossToNet_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayGrossToNet_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -693,7 +679,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax ID</th><th scope="col">Effective Date</th><th scope="col">Marital Status</th><th scope="col">Exemptions</th><th scope="col">Tax Status</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax ID</th><th scope="col">Effective Date</th><th scope="col">Marital Status</th><th scope="col">Exemptions</th><th scope="col">Tax Status</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -705,11 +691,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -718,7 +702,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayTaxControlList links each row to its detail and to the Tax Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayTaxControl_List</code>. Accumulator = <code>PayTaxAccumulator_Get</code> with the row’s Tax ID.</li>
-      <li>Paged: <code>PayTaxControl_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayTaxControl_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -774,7 +758,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -786,11 +770,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -799,7 +781,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayDeductionControlList: every deduction (direct deposits and bonds too, as on the legacy screen). Rows link to the detail and to the Deduction Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayDeductionControl_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code> with the row’s deduction code.</li>
-      <li>Paged: <code>PayDeductionControl_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayDeductionControl_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>Bond deductions have their own legacy list (PayBondDeductionList). Not mocked: say if Payroll still uses bonds and want a sub-tab.</li>
     </ul>
   </div>
@@ -889,7 +871,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Earning ID</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Earning ID</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -901,11 +883,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -914,7 +894,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Unchanged from your current tab. Details opens the payment; Accumulator opens the Earnings Accumulator for that earnings ID.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayAdditionalPayments_List</code>. Accumulator = <code>PayEarningsAccumulator_Get</code>.</li>
-      <li>Paged: <code>PayAdditionalPayments_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayAdditionalPayments_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -982,7 +962,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan</th><th scope="col">Accrual Type</th><th scope="col">Status</th><th scope="col">Service Date</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan</th><th scope="col">Accrual Type</th><th scope="col">Status</th><th scope="col">Service Date</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -993,11 +973,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1006,7 +984,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayAccrualControlList links each plan to its detail and to the Accrual Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayAccrualControl_List</code>. Accumulator = <code>PayAccrualAccumulator_Get</code> with the row’s accrual type.</li>
-      <li>Paged: <code>PayAccrualControl_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayAccrualControl_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -1077,7 +1055,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Year</th><th scope="col">Federal Wages</th><th scope="col">Federal Tax Withheld</th><th scope="col">State Tax Withheld</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Year</th><th scope="col">Federal Wages</th><th scope="col">Federal Tax Withheld</th><th scope="col">State Tax Withheld</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1108,7 +1086,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Account Type</th><th scope="col">Calc</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Account Type</th><th scope="col">Calc</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1118,11 +1096,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1131,7 +1107,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayDirectDepositList links each row to its detail and to the Deduction Accumulator (a direct deposit is a deduction).</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayDirectDeposit_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code>.</li>
-      <li>Paged: <code>PayDirectDeposit_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayDirectDeposit_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -1221,7 +1197,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">CalPERS ID</th><th scope="col">Appointment ID</th><th scope="col">Employer ID</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">CalPERS ID</th><th scope="col">Appointment ID</th><th scope="col">Employer ID</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1231,11 +1207,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1244,14 +1218,14 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayCalPERSIDList: history, newest first. Details opens the record; only the current (top) one can be edited.</li>
       <li>Accumulators switches this tab to the PERS Accumulators list (breadcrumb back), the way Gross to Net works on Paychecks. Shown to every role: it’s read-only.</li>
       <li>Calls: <code>PayCalPersId_List</code>.</li>
-      <li>Paged: <code>PayCalPersId_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayCalPersId_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
    <template data-sc-if value="{{vPersList}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to CalPERS</button>
     <div class="lhead"><div><h2>PERS Accumulators<span class="tag">Read-only</span></h2></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">PRC Amount</th><th scope="col">PRE Amount</th><th scope="col">PST Amount</th><th scope="col">PNC Amount</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">PRC Amount</th><th scope="col">PRE Amount</th><th scope="col">PST Amount</th><th scope="col">PNC Amount</th></tr></thead><tbody>
@@ -1263,11 +1237,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1276,7 +1248,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Columns and labels: legacy PayPERSAccumulatorsList. One row per effective date, newest first. Read-only for every role: the legacy screen is select-only and has no detail screen, so rows have no Actions column.</li>
       <li>No Effective Date filter: the legacy form shows the box but its select never binds it, so it always lists every record. The gateway’s call has no <code>asOf</code> either.</li>
       <li>Calls: <code>PayPERSAccumulators_List</code>.</li>
-      <li>Paged: <code>PayPERSAccumulators_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayPERSAccumulators_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>Sample amounts are made up. What PRC / PRE / PST / PNC stand for isn’t in LifeView’s help (it just says “Amount”), so the labels are kept as LifeView shows them.</li>
     </ul>
   </div>
@@ -1295,7 +1267,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax Entity</th><th scope="col">Effective Date</th><th scope="col">Pay Action</th><th scope="col">Pay Status</th><th scope="col">Stop Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax Entity</th><th scope="col">Effective Date</th><th scope="col">Pay Action</th><th scope="col">Pay Status</th><th scope="col">Stop Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1304,11 +1276,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1317,7 +1287,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayStatusList: one row per tax entity (home + any alternates). No Add here: a new record comes from Payroll New Hire Enrollment.</li>
       <li>Proposal: Check Distribution and Time Sheet Control live here as header buttons. Each edits one field on the home Pay Status record and has no list of its own.</li>
       <li>Calls: <code>PayStatus_List</code>. An alternate tax entity row would open Add Alternate Enrollment instead (not mocked: no alternates in the sample).</li>
-      <li>Paged: <code>PayStatus_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayStatus_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -1334,7 +1304,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1343,11 +1313,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1356,7 +1324,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy PayGarnishmentsList: deductions with Checking / Savings Ind E. Rows link to the detail and to the Deduction Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayGarnishments_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code>.</li>
-      <li>Paged: <code>PayGarnishments_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Paged: <code>PayGarnishments_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -1442,7 +1410,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>As of<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Benefit ID</th><th scope="col">Benefit Plan</th><th scope="col">Status</th><th scope="col">Plan Effective Date</th><th scope="col">Coverage</th><th scope="col">Fee</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Benefit ID</th><th scope="col">Benefit Plan</th><th scope="col">Status</th><th scope="col">Plan Effective Date</th><th scope="col">Coverage</th><th scope="col">Fee</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1456,11 +1424,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <template data-sc-if value="{{lsRows}}"><div class="totals"><span>Costs<b>1,986.10</b></span><span>Employer<b>-1,650.00</b></span><span>Employee<b>336.10</b></span></div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1469,7 +1435,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Current benefits = legacy BenEnrollmentInquiryList (view ALT65): its columns exactly, plus the screen’s Costs / Employer / Employee totals (credits count as employer). <strong>As of</strong> = the screen’s “as of a different date” (default today).</li>
       <li>Details opens <strong>Benefit Enrollment</strong> (view / edit / terminate one benefit). Not enrolled in something yet? That’s the Enrollment tab.</li>
       <li><strong>History</strong> and <strong>Beneficiaries</strong> swap this list for theirs <strong>in this tab</strong> (breadcrumb back), the way Gross to Net works on Payroll.</li>
-      <li>Calls: <code>BenEnrollmentInquiry_Get</code> (built, PR #226) → participant block, enrollments and totals. Paged: <code>BenEnrollmentInquiry_Get</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Calls: <code>BenEnrollmentInquiry_Get</code> (built, PR #226) → participant block, enrollments and totals. Paged: <code>BenEnrollmentInquiry_Get</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>Benefit Enrollment’s read and write are <strong>not built yet</strong> (marked on that screen).</li>
     </ul>
   </div>
@@ -1481,7 +1447,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Benefit ID<select><option>Select…</option><option>0040 – HEALTH INSURANCE</option><option>0041 – BASIC LIFE INSURANCE</option><option>0042 – DENTAL INSURANCE</option><option>0049 – VISION</option><option>9999 – FLEX CREDITS</option></select></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Benefit ID</th><th scope="col">Record Status</th><th scope="col">Effective Date</th><th scope="col">Benefit Plan</th><th scope="col">Coverage</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Benefit ID</th><th scope="col">Record Status</th><th scope="col">Effective Date</th><th scope="col">Benefit Plan</th><th scope="col">Coverage</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1494,11 +1460,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1506,7 +1470,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <ul>
       <li>Legacy BenEmployeeBenefitsHistoryList (view BPA55): its columns exactly. Benefit ID filters to one benefit (blank = all). Details opens that record on Benefit Enrollment, read-only.</li>
       <li>Display Reversed: unchecked by default; checked = <code>includeReversed=true</code>.</li>
-      <li>Calls: <code>BenEmployeeBenefitsHistory_List</code> (built, PR #226) with <code>benefitId</code>. Paged: <code>BenEmployeeBenefitsHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Calls: <code>BenEmployeeBenefitsHistory_List</code> (built, PR #226) with <code>benefitId</code>. Paged: <code>BenEmployeeBenefitsHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>Benefit Plan here decodes against table 00503, not the 00505 the current list uses (each screen’s own decode); its codes aren’t exported from TEST yet, so until then it may show the raw code.</li>
     </ul>
   </div>
@@ -1519,7 +1483,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>As of<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Allocation Date</th><th scope="col">Benefit ID</th><th scope="col">Plan ID</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="4">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Allocation Date</th><th scope="col">Benefit ID</th><th scope="col">Plan ID</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1529,11 +1493,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1541,7 +1503,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <ul>
       <li>Legacy BenBeneficiaryHistoryList (view BPA67): its columns exactly, every allocation by date. Details opens the allocation (who gets what share); Add opens it empty.</li>
       <li>LifeView’s other list, BenBeneficiaryList, is unfinished in the vendor’s own help (“being developed”) and isn’t built; this one covers it.</li>
-      <li>Calls: <code>BenBeneficiaryHistory_List</code> (built, PR #226) with <code>benefitId</code> / <code>asOf</code>. Paged: <code>BenBeneficiaryHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Calls: <code>BenBeneficiaryHistory_List</code> (built, PR #226) with <code>benefitId</code> / <code>asOf</code>. Paged: <code>BenBeneficiaryHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>The allocation’s Add / Edit are <strong>not built yet</strong> (marked on that screen).</li>
     </ul>
   </div>
@@ -1554,7 +1516,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>As of<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Plan Effective Date</th><th scope="col">Status</th><th scope="col">Relationship</th><th scope="col">Designee Action</th><th scope="col">Designee Special Category</th><th scope="col">Birth Date</th><th scope="col">SSN</th><th scope="col">Gender</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="11">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Plan Effective Date</th><th scope="col">Status</th><th scope="col">Relationship</th><th scope="col">Designee Action</th><th scope="col">Designee Special Category</th><th scope="col">Birth Date</th><th scope="col">SSN</th><th scope="col">Gender</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1565,11 +1527,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1578,7 +1538,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <li>Legacy BenDependentsInformationList (view BPA66C): its columns exactly. SSN masked to the last 4 (gateway PII rule). Dependents and beneficiaries are both here (LifeView’s “designees”).</li>
       <li>Details opens the <strong>Dependent</strong> screen (view / edit / reverse); Add opens it empty. <strong>Benefits</strong> swaps in that dependent’s benefits <strong>in this tab</strong>; <strong>History</strong> swaps in every dependent record by date. Enrolling a dependent in a benefit is on the Enrollment tab.</li>
       <li>Designee Action / Special Category show their codes: their tables (00140 / 00142) aren’t exported from TEST yet.</li>
-      <li>Calls: <code>BenDependents_List</code> (built, PR #226) with <code>asOf</code> (default today). Paged: <code>BenDependents_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Calls: <code>BenDependents_List</code> (built, PR #226) with <code>asOf</code> (default today). Paged: <code>BenDependents_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
       <li>The Dependent screen’s read and writes are <strong>not built yet</strong> (marked there).</li>
     </ul>
   </div>
@@ -1591,7 +1551,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>As of<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Effective Date</th><th scope="col">Status Indicator</th><th scope="col">Relationship</th><th scope="col">Designee Action</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Effective Date</th><th scope="col">Status Indicator</th><th scope="col">Relationship</th><th scope="col">Designee Action</th></tr></thead><tbody>
@@ -1603,11 +1563,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1615,7 +1573,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <ul>
       <li>Legacy BenDependentsInformationHistoryList (view BPA68): its columns exactly. Dependent filters to one designee (blank = all), As of = records effective on or before.</li>
       <li>No Actions column: every field the legacy history detail shows is already in the row (plus SSN / gender / birth date, which the current Dependent screen has).</li>
-      <li>Calls: <code>BenDependentsHistory_List</code> (built, PR #226) with <code>dependentId</code> / <code>asOf</code> / <code>includeReversed</code>. Paged: <code>BenDependentsHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Next = skip + pageSize, enabled while <code>hasMore</code>; Previous enabled when skip &gt; 0. No total count: show “Page n”, and “Page n of n” once <code>hasMore</code> is false. Run the search again from page 1 when a filter changes.</li>
+      <li>Calls: <code>BenDependentsHistory_List</code> (built, PR #226) with <code>dependentId</code> / <code>asOf</code> / <code>includeReversed</code>. Paged: <code>BenDependentsHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
@@ -1623,7 +1581,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Dependents</button>
     <div class="lhead"><h2>Benefits · 01 – SAMPLE,JORDAN K<span class="tag">Read-only</span></h2><div class="actions"></div></div>
     <div class="sum"><div class="g4"><div><div class="lbl">Relationship</div><div class="val">SP – SPOUSE</div></div><div><div class="lbl">Status</div><div class="val">A – ACTIVE</div></div><div><div class="lbl">Birth Date</div><div class="val">07/30/1982</div></div><div><div class="lbl">Gender</div><div class="val">F – FEMALE</div></div></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan ID</th><th scope="col">Record Status</th><th scope="col">Coverage Effective Date</th><th scope="col">Termination Date</th><th scope="col">Action</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan ID</th><th scope="col">Record Status</th><th scope="col">Coverage Effective Date</th><th scope="col">Termination Date</th><th scope="col">Action</th></tr></thead><tbody>
@@ -1635,11 +1593,9 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
-      <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
-      <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1665,7 +1621,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <template data-sc-if value="{{banner}}"><div class="banner" role="status">{{banner}}</div></template>
     <template data-sc-if value="{{e_isEmp}}">
     <div class="lhead"><h2>Employee Enrollment<span class="nb">Endpoint not built yet</span></h2><div class="actions"></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Enroll</th><th scope="col">Record Status</th><th scope="col">Benefit ID</th><th scope="col">Benefit Plan</th><th scope="col">Amount of Coverage</th><th scope="col">Disability</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Enroll</th><th scope="col">Record Status</th><th scope="col">Benefit ID</th><th scope="col">Benefit Plan</th><th scope="col">Amount of Coverage</th><th scope="col">Disability</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1692,7 +1648,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <label>Dependent<select><option>Select…</option><option>01 – SAMPLE,JORDAN K</option><option>02 – SAMPLE,RILEY M</option><option>03 – SAMPLE,QUINN A</option></select></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Update</th><th scope="col">Benefit ID</th><th scope="col">Enrolled?</th><th scope="col">Dependent Action</th><th scope="col">Effective Date</th><th scope="col">Termination Date</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Update</th><th scope="col">Benefit ID</th><th scope="col">Enrolled?</th><th scope="col">Dependent Action</th><th scope="col">Effective Date</th><th scope="col">Termination Date</th></tr></thead><tbody>
@@ -1714,7 +1670,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{e_isMod}}">
     <div class="lhead"><h2>Benefits Modeling<span class="nb">Endpoint not built yet</span></h2><div class="actions"></div></div>
-    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Model?</th><th scope="col">Benefit ID</th><th scope="col">Plan ID</th><th scope="col">Coverage</th><th scope="col">Costs</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Model?</th><th scope="col">Benefit ID</th><th scope="col">Plan ID</th><th scope="col">Coverage</th><th scope="col">Costs</th></tr></thead><tbody>

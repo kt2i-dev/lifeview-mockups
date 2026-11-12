@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom widgets</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px;align-self:center}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
+.radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
+.radio{display:flex;gap:6px;align-items:center;font-size:14px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+.dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
+.loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+td.empty{text-align:center;color:#5b6575;padding:18px 10px}
+.nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
+.nores-i{width:72px;height:72px;color:#9aa4b2}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
+
+.page{max-width:1440px}
+.ptitle{margin:6px 0 16px;font-size:22px;font-weight:700}
+.shell{background:#fff;border-radius:10px;padding:24px 26px 32px}
+.emp{border:1px solid #dde2e9;border-left:4px solid #0a5bd3;border-radius:8px;padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.emp .nm{font-size:18px;font-weight:700}
+.emp .k{font-size:12px;color:#8a93a1}.emp .v{font-size:13px;font-weight:600;margin-left:4px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:16px 0 18px}
+.tile{border:1px solid #dde2e9;border-radius:6px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:600;font-size:14px;color:#2b3340;background:#fff}
+.tile .ic{color:#0a5bd3;font-size:16px}
+.tile.on{background:#e3edfb;border-color:#0a5bd3;color:#0a5bd3}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #d3d9e1;margin-bottom:22px}
+.tabs button{border:0;background:none;font:inherit;font-size:13px;color:#2b3340;padding:10px 13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{border-bottom-color:#1c2431;font-weight:600}
+.lhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.lhead h2{margin:0;font-size:16px;font-weight:700}
+.sbtn{min-height:32px;padding:0 14px;border-radius:4px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #0a5bd3;background:#0a5bd3;color:#fff;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.sbtn.out{background:#fff;color:#0a5bd3}
+.filters{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;margin-bottom:14px}
+.filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
+.filters input{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;box-sizing:border-box}
+table.list{border-collapse:collapse;width:100%;font-size:12px}
+table.list th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;padding:12px 10px}
+table.list td{padding:7px 10px;border-bottom:1px solid #e3e8ef;height:30px}
+table.list tbody tr:nth-child(even) td{background:#eaf1fb}
+.lact{display:flex;gap:12px}
+.lact .sbtn{background:#fff;color:#0a5bd3}
+.muted{color:#8a93a1}
+.ltbl{overflow-x:auto}
+.sum{border:1px solid #dde2e9;border-radius:8px;margin-bottom:14px}
+.sum .hd{padding:14px 18px;font-size:13px;border-bottom:1px solid #e3e8ef;display:flex;justify-content:space-between}
+.sum .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 24px;padding:16px 32px 20px}
+.sum .g4 .lbl{font-size:12px;color:#5b6575}.sum .g4 .val{font-size:12px;font-weight:500;margin-top:3px}
+@media (max-width:760px){.tiles,.sum .g4{grid-template-columns:minmax(0,1fr)}}
+
+.crumb{border:0;background:none;padding:0;font:inherit;font-size:13px;color:#0a5bd3;cursor:pointer;margin:0 0 10px}
+.crumb:hover{color:#0848a8;text-decoration:underline}
+.lhead .sub{margin-top:4px;font-size:13px;color:#5b6575}
+.filters select{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;background:#fff}
+.accd{border:1px solid #dde2e9;border-radius:6px}
+.accd-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:13px;border-top:1px solid #dde2e9}
+.accd-h:first-child{border-top:0}
+.chev{width:9px;height:9px;border-right:1.5px solid #2b3340;border-bottom:1.5px solid #2b3340;transform:rotate(45deg);margin-right:6px}
+.chev.up{transform:rotate(-135deg)}
+.accd-b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 24px;padding:6px 32px 20px}
+.accd-b .lbl{font-size:12px;color:#5b6575}.accd-b .val{font-size:12px;margin-top:3px}
+@media (max-width:760px){.accd-b{grid-template-columns:minmax(0,1fr)}}
+.pager{display:flex;justify-content:center;align-items:center;gap:16px;margin:16px 0 4px}
+.pager .sbtn{background:#fff;color:#0a5bd3}
+.pager .sbtn:disabled{border-color:#c5ccd6;color:#8a93a1;cursor:not-allowed}
+.pager .pg{font-size:13px;color:#2b3340;min-width:96px;text-align:center}
+
+.wd{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.wd-h{padding:14px 20px;border-bottom:1px solid #e8ecf1}
+.wd-h h2{margin:0;font-size:16px;font-weight:600}.wd-h h2 code{font-size:15px}
+.wd-h p{margin:4px 0 0;font-size:13px;color:#5b6575}
+.wd-b{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px 28px;padding:18px 20px 20px}
+@media (max-width:900px){.wd-b{grid-template-columns:minmax(0,1fr)}}
+.demo{display:flex;flex-direction:column;gap:14px}
+.demo-t{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#8a93a1}
+.spec{font-size:13px;line-height:1.5;color:#2b3340}
+.spec dl{margin:0;display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px 14px}
+.spec dt{font-size:12px;color:#5b6575;font-weight:600;padding-top:1px}.spec dd{margin:0}
+.spec ul{margin:0;padding-left:18px}
+.spec code,.wd-h code{font-size:12px;background:#f3f5f8;border-radius:4px;padding:1px 4px}
+.dd-l{font-size:13px;color:#3a4350;margin-bottom:6px}
+.dd{display:flex;align-items:center;justify-content:space-between;height:40px;border:1px solid #c5ccd6;border-radius:6px;padding:0 12px;font-size:14px;background:#fff;box-sizing:border-box}
+.dd.open{border-color:#0a5bd3;outline:1px solid #0a5bd3}
+.dd .ctl{display:flex;gap:12px;color:#5b6575;font-size:13px}
+.dd-menu{border:1px solid #c5ccd6;border-radius:6px;margin-top:4px;background:#fff;box-shadow:0 4px 12px rgba(16,24,40,.08);overflow:hidden}
+.dd-s{padding:9px 12px;border-bottom:1px solid #e3e8ef;font-size:13px;color:#8a93a1}
+.dd-o{padding:8px 12px;font-size:13px}.dd-o small{display:block;font-size:11px;color:#5b6575;margin-top:2px}
+.dd-o.on{background:#e9edf2}
+.fbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end}
+.fbar label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
+.fbar .date{height:38px;width:230px;max-width:100%;border:1px solid #c5ccd6;border-radius:6px;padding:0 10px;font:inherit;font-size:13px;color:#8a93a1;display:flex;align-items:center;box-sizing:border-box}
+.txt{font-size:14px}
+.wd .pager{justify-content:flex-start;margin:0}
+.wd .nores{padding:8px 0 4px;align-items:flex-start}.wd .loadbox{justify-content:flex-start;padding:4px 0}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<template id="dc-template">
+<div class="page">
+  <div class="titlebar"><div><h1>Custom widgets</h1><div class="sub">The shared blocks in CustomWidgets, what they take and when to use them. Don’t change them for one screen: fix the block or ask. The button blocks are on the <a href="buttons.html">Button standard</a>.</div></div></div>
+  <section class="wd" id="CodeTableDropdown"><div class="wd-h"><h2><code>CodeTableDropdown</code></h2><p>The dropdown for every coded field on an edit form. Loads the code table from the gateway (<code>/v1/codes/{table}</code>).</p></div><div class="wd-b"><div class="demo"><span class="demo-t">Closed</span><div><div class="dd-l">Location</div><div class="dd"><span>CITY HALL</span><span class="ctl"><span aria-hidden="true">×</span><span aria-hidden="true">⌄</span></span></div></div><span class="demo-t">Open: search, description with the code under it</span><div><div class="dd-l">Location</div><div class="dd open"><span>CITY HALL</span><span class="ctl"><span aria-hidden="true">×</span><span aria-hidden="true">⌃</span></span></div><div class="dd-menu"><div class="dd-s">⌕ Search…</div><div class="dd-o on">CITY HALL<small>CHL</small></div><div class="dd-o">CITY SAFETY &amp; WORKERS COMP<small>CSO</small></div><div class="dd-o">COLLABORATIVE RESPONSE DIVISION<small>CRD</small></div></div></div></div><div class="spec"><dl><dt>Inputs</dt><dd><ul><li><code>Table</code> (CodeTables identifier) and <code>Code_Input</code> (Text): mandatory</li><li><code>Qualifier</code>: only for a two-key table (e.g. the benefit plan’s affiliation)</li><li><code>IsRequired</code>, <code>IsValid</code>, <code>IsValidating</code>, <code>ValidationMessage</code>: the red border and message</li><li><code>IsEnabled</code>, <code>IsReadOnly</code>, <code>DropdownLabel</code>, <code>TabIndex</code>, <code>NextTabIndex</code></li></ul></dd><dt>Event</dt><dd><code>CodeSelected(Code)</code>. Wire it on every use: the handler sets the record’s field (e.g. <code>TaxEntitySelected</code> sets <code>EditForm.taxEntityCode</code>). Focus then moves to <code>NextTabIndex</code>.</dd><dt>Shows</dt><dd>A searchable list sorted by description, the code under each one; a red asterisk when required. In read-only mode, the description alone.</dd><dt>Use it</dt><dd><ul><li>In the edit branch of the field’s If on <code>IsEditing</code>. In View show the description the GET already returns as plain text: <code>IsReadOnly</code> runs a lookup per field.</li><li>A field with no code table (Bureau, Division, Region) is a plain text input.</li><li>Don’t change the block for one screen: it’s used in about 97 places.</li></ul></dd></dl></div></div></section>
+  <section class="wd" id="IncentiveCodeDropdown"><div class="wd-h"><h2><code>IncentiveCodeDropdown</code></h2><p>The same dropdown for the City’s 30 incentive (Additional Pay) codes, from <code>/v1/hr/incentive-codes</code>.</p></div><div class="wd-b"><div class="demo"><div><div class="dd-l">Incentive Code</div><div class="dd"><span>AUTO ALLOWANCE</span><span class="ctl"><span aria-hidden="true">×</span><span aria-hidden="true">⌄</span></span></div></div></div><div class="spec"><dl><dt>Inputs</dt><dd><code>Code_Input</code> (mandatory) plus the same optional inputs as CodeTableDropdown. No <code>Table</code>; <code>Qualifier</code> isn’t used.</dd><dt>Event</dt><dd><code>CodeSelected(IncentiveCode)</code> passes the whole <code>HRIncentiveCode_GetResponse</code> (rate, amount source, payment defaults), not just the code, so the form can fill the amount and defaults.</dd><dt>Shows</dt><dd>The label “Incentive Code” (fixed in the block) and the same searchable list.</dd><dt>Use it</dt><dd>Additional Pay detail, the HR1 Request and the New Hire Request: anywhere HR picks an incentive payment.</dd></dl></div></div></section>
+  <section class="wd" id="CodeTableText"><div class="wd-h"><h2><code>CodeTableText</code></h2><p>Shows the description for a code stored in OutSystems, looked up live. <strong>Only for the HR1 and New Hire request flows.</strong></p></div><div class="wd-b"><div class="demo"><div><div class="dd-l">Location</div><div class="txt">CITY HALL</div></div></div><div class="spec"><dl><dt>Inputs</dt><dd><code>Table</code> and <code>Code</code> (mandatory), <code>Qualifier</code>, <code>Label</code>.</dd><dt>Events</dt><dd>None.</dd><dt>Shows</dt><dd>An optional label, then the description. Blank when <code>Code</code> is empty.</dd><dt>Use it</dt><dd><ul><li>HR1 and New Hire store only the codes, so their detail screens look each one up (one call per field, rerun whenever an input changes). HRMS stores codes the same way.</li><li>Everywhere else the gateway GET already returns the description: show that as plain text instead.</li></ul></dd></dl></div></div></section>
+  <section class="wd" id="DateExpression"><div class="wd-h"><h2><code>DateExpression</code></h2><p>Every date shown as text: list columns and detail screens in View.</p></div><div class="wd-b"><div class="demo"><div class="txt">04/21/2023</div><span class="demo-t">Null date</span><div class="txt" style="min-height:20px"></div></div><div class="spec"><dl><dt>Inputs</dt><dd><code>Date</code> (mandatory), <code>ExtendedClass</code>.</dd><dt>Events</dt><dd>None.</dd><dt>Shows</dt><dd>MM/dd/yyyy, never wrapping. Blank for a null date (OutSystems’ null date is 01/01/1900, the gateway’s “no date”).</dd><dt>Use it</dt><dd>For every displayed date, so null dates are blank everywhere: no N/A, no placeholder date.</dd></dl></div></div></section>
+  <section class="wd" id="EffectiveDateFilter"><div class="wd-h"><h2><code>EffectiveDateFilter</code></h2><p>The Effective Date filter row above a payroll list, with its Search and Reset buttons.</p></div><div class="wd-b"><div class="demo"><div class="fbar"><label>Effective Date<span class="date">mm/dd/yyyy</span></label><button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button></div></div><div class="spec"><dl><dt>Inputs</dt><dd>None.</dd><dt>Event</dt><dd><code>DateSelected(Date)</code>. Search sends the date in the box; Reset sends an empty date (= every record).</dd><dt>Use it</dt><dd>The handler stores the date, sets the list’s StartIndex back to 0 and refreshes it. The date goes to the list’s <code>asOf</code>.</dd><dt>Known issue</dt><dd>Reset doesn’t clear the box yet, so the old date stays visible after a Reset.</dd></dl></div></div></section>
+  <section class="wd" id="APIPagination"><div class="wd-h"><h2><code>APIPagination</code></h2><p>Paging, loading and empty state for every list read from the gateway. Lists from an OutSystems aggregate use the standard OutSystems pagination.</p></div><div class="wd-b"><div class="demo"><span class="demo-t">Middle page</span><nav class="pager"><button type="button" class="sbtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button><span class="pg">Page 2</span><button type="button" class="sbtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></nav><span class="demo-t">Last page</span><nav class="pager"><button type="button" class="sbtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button><span class="pg">Page 3 of 3</span></nav><span class="demo-t">Loading (IsSearching)</span><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div><span class="demo-t">Empty (IsEmpty)</span><div class="nores"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></div><div class="spec"><dl><dt>Inputs</dt><dd>All mandatory: <code>IsSearching</code>, <code>IsEmpty</code>, <code>StartIndex</code>, <code>PageSize</code>, <code>HasMore</code>.</dd><dt>Events</dt><dd><code>NextPage</code>, <code>PreviousPage</code>: the parent adds or subtracts PageSize from StartIndex and refreshes.</dd><dt>Shows</dt><dd>A spinner while searching, the empty message when there are no rows, otherwise Previous (after page 1) · “Page n” (“Page n of n” on the last page) · Next (while HasMore).</dd><dt>Wiring</dt><dd><ul><li>Send StartIndex as <code>skip</code> and PageSize as <code>pageSize</code> on the gateway call. If <code>pageSize</code> isn’t sent the gateway uses the list’s own default (25 or 50), and pages overlap.</li><li><code>HasMore</code> = the response’s <code>hasMore</code>; <code>IsSearching</code> = not yet fetched; <code>IsEmpty</code> = no rows.</li><li>StartIndex back to 0 when a filter changes.</li></ul></dd></dl></div></div></section>
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

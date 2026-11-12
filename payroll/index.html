@@ -15,6 +15,7 @@ h3{font-size:13px;margin:16px 0 8px;color:#2b3340}</style></head>
 <p>One Employee Profile for HR Operations, Payroll and Benefits Administration: the three tiles switch areas, and each area’s tabs open their screens the way the app will. Below, every screen is listed by area with its own link: use that link in the screen’s story. The yellow strip on each page only switches mock states (mode, role, loading, empty list, and what the next Save returns).</p>
 <a class="start" href="employee-profile.html">Employee Profile<span>Start here: HR Operations, Payroll and Benefits Administration, with working links</span></a>
 <a href="buttons.html">Button standard<span>Icons, labels, placement, and which buttons are shared blocks</span></a>
+<a href="widgets.html">Custom widgets<span>CodeTableDropdown, IncentiveCodeDropdown, CodeTableText, DateExpression, EffectiveDateFilter, APIPagination: inputs, events, when to use them</span></a>
 
 <h2>HR Operations</h2>
 <p>No separate screens: what’s new is <strong>History</strong>, which opens inside the profile (the section’s details, or the address cards, swap for the history list; Details on a row shows that record read-only). The rest of the HR tabs are the existing app. Each link opens the profile on that view.</p>
@@ -47,9 +48,9 @@ h3{font-size:13px;margin:16px 0 8px;color:#2b3340}</style></head>
 <li class="grp">Fields</li>
 <li><input type="checkbox" aria-label="Done"><span>No typed asterisks: required markers come from Mandatory and show only while editing.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>Max length matches the bound attribute; number input type for decimals and currency.</span></li>
-<li><input type="checkbox" aria-label="Done"><span>Coded fields use <code>CodeTableDropdown</code> (from <code>/v1/codes/{table}</code> or the GET’s <code>*Options</code>), with a plain label beside it and its selected-code handler wired. Fields with no code table are plain text inputs.</span></li>
+<li><input type="checkbox" aria-label="Done"><span>Coded fields use <code>CodeTableDropdown</code> (<code>IncentiveCodeDropdown</code> for incentive codes) in the edit branch only, with <code>CodeSelected</code> wired. In View they show the description the GET returns as plain text; <code>CodeTableText</code> is only for the HR1 and New Hire requests. Fields with no code table are plain text inputs.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>No value repeated from the title or the header card.</span></li>
-<li><input type="checkbox" aria-label="Done"><span>Dates use the format <code>MM/dd/yyyy</code>, exactly that (capital MM, lowercase dd and yyyy): it’s the mask the OutSystems date formatter expects. Null dates (none, or 01/01/1900) are <strong>blank everywhere</strong>, never N/A or the placeholder date. Currency has 2 decimals; SSN and other masked IDs show last 4 only.</span></li>
+<li><input type="checkbox" aria-label="Done"><span>Dates use the format <code>MM/dd/yyyy</code>, exactly that (capital MM, lowercase dd and yyyy): it’s the mask the OutSystems date formatter expects. Displayed dates use the <code>DateExpression</code> block, which does both. Null dates (none, or 01/01/1900) are <strong>blank everywhere</strong>, never N/A or the placeholder date. Currency has 2 decimals; SSN and other masked IDs show last 4 only.</span></li>
 <li class="grp">Saving and errors</li>
 <li><input type="checkbox" aria-label="Done"><span>Save sends every field the form shows, including blanks, and passes <code>colToken</code> back unchanged.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>Effective Date never defaults to <code>CurrentDate()</code>. On Add, leaving it blank lets the gateway use the current pay period begin date (as the mockups say).</span></li>
@@ -59,9 +60,9 @@ h3{font-size:13px;margin:16px 0 8px;color:#2b3340}</style></head>
 <li><input type="checkbox" aria-label="Done"><span>Delete asks first and names the record (“Delete deduction 068 effective 08/08/2026?”).</span></li>
 <li class="grp">Lists and data</li>
 <li><input type="checkbox" aria-label="Done"><span>Shared table style and heading class (<code>heading5</code>); row buttons are the outlined “Details” (and “Accumulator”) blocks; the list button says “Add”.</span></li>
-<li><input type="checkbox" aria-label="Done"><span>Empty list shows “No items to show”.</span></li>
-<li><input type="checkbox" aria-label="Done"><span>Gateway lists use the <code>APIPagination</code> block (Previous · Page n · Next, “Page n of n” on the last page; Next from <code>hasMore</code>). Aggregates use the standard OutSystems pagination.</span></li>
-<li><input type="checkbox" aria-label="Done"><span>Filters: Search (primary) and Reset (secondary) in the shared filter-actions container.</span></li>
+<li><input type="checkbox" aria-label="Done"><span>Loading and empty states come from <code>APIPagination</code> (spinner; “No results found matching search criteria.”).</span></li>
+<li><input type="checkbox" aria-label="Done"><span>Gateway lists use the <code>APIPagination</code> block (Previous · Page n · Next, “Page n of n” on the last page), and the call sends its StartIndex as <code>skip</code> and PageSize as <code>pageSize</code>. Aggregates use the standard OutSystems pagination.</span></li>
+<li><input type="checkbox" aria-label="Done"><span>An Effective Date filter is the <code>EffectiveDateFilter</code> block. Other filters: Search (primary) and Reset (secondary) in the shared filter-actions container. A filter change goes back to page 1.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>Data comes from data actions with Fetch at start, never a server action in the initialization action. A loading state shows while each one runs.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>Calls go to the persona’s own gateway endpoints (HR, Payroll, Benefits), not new calls to the Employee folder’s actions.</span></li>
 <li class="grp">Styling and hand-off</li>

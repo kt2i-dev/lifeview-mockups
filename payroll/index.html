@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Payroll Mockups</title>
+<title>LifeView Mockups</title>
 <style>body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
 main{max-width:760px;margin:0 auto;padding:32px 16px}h1{font-size:24px;font-weight:600;margin:0 0 6px}h2{font-size:14px;margin:24px 0 8px;color:#5b6575;text-transform:uppercase;letter-spacing:.05em}
 p{color:#5b6575;font-size:14px;margin:0 0 16px}a{display:block;background:#fff;border:1px solid #dde2e9;border-radius:10px;padding:12px 18px;margin-bottom:8px;color:#0a5bd3;text-decoration:none;font-weight:500}
@@ -9,20 +9,31 @@ a.start{border-color:#0a5bd3;background:#e3edfb}a span{display:block;color:#5b65
 .check ul{list-style:none;margin:0;padding:0}.check li{display:flex;gap:10px;padding:6px 0;border-top:1px solid #eef1f5}.check li:first-child{border-top:0}
 .check input{margin-top:4px;flex:none}.check .grp{font-size:12px;font-weight:600;color:#5b6575;text-transform:uppercase;letter-spacing:.05em;padding-top:14px;border-top:0}
 .check .grp:first-child{padding-top:0}code{font-size:12.5px;background:#f3f5f8;border-radius:4px;padding:1px 4px}
-.note{font-size:13px;color:#5b6575;margin:10px 0 0}</style></head>
-<body><main><h1>Payroll mockups</h1>
-<p>Start at the Employee Profile: each Payroll tab’s list links to Add, Details and Accumulator, the same way the app will. The yellow strip on each page only switches mock states (mode, role, loading, empty list, and what the next Save returns).</p>
-<a class="start" href="employee-profile.html">Employee Profile – Payroll tabs<span>Start here: the lists, with working links</span></a>
+.note{font-size:13px;color:#5b6575;margin:10px 0 0}.sub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 8px}@media (max-width:600px){.sub{grid-template-columns:minmax(0,1fr)}}
+h3{font-size:13px;margin:16px 0 8px;color:#2b3340}</style></head>
+<body><main><h1>LifeView mockups</h1>
+<p>One Employee Profile for HR Operations, Payroll and Benefits Administration: the three tiles switch areas, and each area’s tabs open their screens the way the app will. Below, every screen is listed by area with its own link: use that link in the screen’s story. The yellow strip on each page only switches mock states (mode, role, loading, empty list, and what the next Save returns).</p>
+<a class="start" href="employee-profile.html">Employee Profile<span>Start here: HR Operations, Payroll and Benefits Administration, with working links</span></a>
 <a href="buttons.html">Button standard<span>Icons, labels, placement, and which buttons are shared blocks</span></a>
-<h2>Detail / edit / add</h2>
+
+<h2>HR Operations</h2>
+<p>No separate screens: what’s new is <strong>History</strong>, which opens inside the profile (the section’s details, or the address cards, swap for the history list; Details on a row shows that record read-only). The rest of the HR tabs are the existing app. Each link opens the profile on that view.</p>
+<div class="sub"><a href="employee-profile.html?area=hr&tab=details&history=status">Status History<span>Details tab · built</span></a><a href="employee-profile.html?area=hr&tab=details&history=comp">Compensation History<span>Details tab · built</span></a><a href="employee-profile.html?area=hr&tab=details&history=pos">Position History<span>Details tab · built</span></a><a href="employee-profile.html?area=hr&tab=details&history=demo">Demographics History<span>Details tab · endpoint not built yet</span></a><a href="employee-profile.html?area=hr&tab=details&history=other">Other Information History<span>Details tab · endpoint not built yet</span></a><a href="employee-profile.html?area=hr&tab=addresses&history=home">Home Address History<span>Addresses tab · endpoint not built yet</span></a><a href="employee-profile.html?area=hr&tab=addresses&history=mail">Mailing Address History<span>Addresses tab · endpoint not built yet</span></a></div>
+
+<h2>Payroll</h2>
+<h3>Detail / edit / add</h3>
 <p>Every screen here is the <strong>Editable</strong> pattern from the UI/UX Guidelines: one block for view and edit. What differs is which actions the endpoint allows.</p>
-<a href="direct-deposit.html">Direct Deposit<span>Editable · Add, Edit, Delete</span></a><a href="tax-control.html">Tax Control<span>Editable · Add, Edit, Delete</span></a><a href="deduction-control.html">Deduction<span>Editable · Add, Edit, Delete</span></a>
-<a href="additional-payment.html">Additional Payment<span>Editable · Add, Edit, Delete</span></a><a href="accrual-control.html">Accrual Plan<span>Editable · Add, Edit, Delete</span></a><a href="garnishment.html">Garnishment<span>Editable · Add, Edit, Delete</span></a>
-<a href="calpers-ids.html">CalPERS IDs<span>Editable · Add, Edit (no Delete)</span></a><a href="pay-status.html">Payroll Status<span>Editable · Edit only</span></a>
-<a href="check-distribution.html">Check Distribution<span>Editable · Edit only · from the Payroll Status tab</span></a><a href="time-sheet-control.html">Time Sheet Control<span>Editable · Edit only · from the Payroll Status tab</span></a>
-<a href="check-detail.html">Check Detail<span>Special actions: Calculate, Post, Reverse</span></a>
-<h2>Read-only views</h2>
-<p>Gross to Net and the accumulators open inside their tab on the Employee Profile (breadcrumb back to the list), not as separate screens. They follow the <strong>Read-only</strong> pattern: Back only.</p>
+<div class="sub"><a href="direct-deposit.html">Direct Deposit<span>Editable · Add, Edit, Delete · Direct Deposits tab</span></a><a href="tax-control.html">Tax Control<span>Editable · Add, Edit, Delete · Taxes tab</span></a><a href="deduction-control.html">Deduction<span>Editable · Add, Edit, Delete · Deductions tab</span></a><a href="additional-payment.html">Additional Payment<span>Editable · Add, Edit, Delete · Additional Payments tab</span></a><a href="accrual-control.html">Accrual Plan<span>Editable · Add, Edit, Delete · Accruals tab</span></a><a href="garnishment.html">Garnishment<span>Editable · Add, Edit, Delete · Garnishments tab</span></a><a href="calpers-ids.html">CalPERS IDs<span>Editable · Add, Edit (no Delete) · CalPERS tab</span></a><a href="pay-status.html">Payroll Status<span>Editable · Edit only · Payroll Status tab</span></a><a href="check-distribution.html">Check Distribution<span>Editable · Edit only · Payroll Status tab</span></a><a href="time-sheet-control.html">Time Sheet Control<span>Editable · Edit only · Payroll Status tab</span></a><a href="check-detail.html">Check Detail<span>Special actions: Calculate, Post, Reverse · Paychecks tab</span></a></div>
+<h3>Read-only views (inside the profile)</h3>
+<p>Gross to Net and the accumulators open inside their tab (breadcrumb back to the list), not as separate screens. They follow the <strong>Read-only</strong> pattern: Back only. The accumulators open from a list row’s Accumulator button.</p>
+<div class="sub"><a href="employee-profile.html?area=payroll&tab=paychecks&view=g2nList">Gross to Net<span>Paychecks tab</span></a><a href="employee-profile.html?area=payroll&tab=calpers&view=persList">PERS Accumulators<span>CalPERS tab</span></a></div>
+
+<h2>Benefits Administration</h2>
+<h3>Detail / edit / add</h3>
+<p>The <strong>Editable</strong> pattern again. The gateway has the Benefits reads; every write here is mocked from the legacy LifeView screen and marked <strong>“Endpoint not built yet”</strong>.</p>
+<div class="sub"><a href="benefit-detail.html">Benefit Enrollment<span>Editable · Edit (incl. terminate) · Benefits tab</span></a><a href="enrollment.html?mode=add">Enroll in Benefit<span>Add only · Enrollment tab</span></a><a href="dependent.html">Dependent<span>Editable · Add, Edit, Delete (reverse) · Dependents tab</span></a><a href="beneficiary.html">Beneficiaries<span>Editable · Add, Edit · view built · Benefits tab</span></a></div>
+<h3>Views inside the profile</h3>
+<div class="sub"><a href="employee-profile.html?area=benefits&tab=benefits">Benefits (current)<span>Benefits tab · built</span></a><a href="employee-profile.html?area=benefits&tab=benefits&view=hist">Benefits History<span>Benefits tab · built</span></a><a href="employee-profile.html?area=benefits&tab=benefits&view=bens">Beneficiaries<span>Benefits tab · built</span></a><a href="employee-profile.html?area=benefits&tab=dependents">Dependents<span>Dependents tab · built</span></a><a href="employee-profile.html?area=benefits&tab=dependents&view=depHist">Dependents History<span>Dependents tab · built</span></a><a href="employee-profile.html?area=benefits&tab=dependents&view=depBen">A dependent’s Benefits<span>Dependents tab · built</span></a><a href="employee-profile.html?area=benefits&tab=enrollment&en=emp">Employee Enrollment<span>Enrollment tab · not built yet</span></a><a href="employee-profile.html?area=benefits&tab=enrollment&en=dep">Dependent Enrollment<span>Enrollment tab · not built yet</span></a><a href="employee-profile.html?area=benefits&tab=enrollment&en=mod">Benefits Modeling<span>Enrollment tab · not built yet</span></a><a href="employee-profile.html?area=benefits&tab=transactions">Transactions<span>Coming soon</span></a></div>
 
 <h2>Review checklist</h2>
 <p>Check your screen against this before handing it off for review. It follows the LongBeachAdmin UI/UX Guidelines. Where the mockups were decided differently (pager label, the plain “Add” button, Effective Date on Add, blank null dates), this list follows the mockups.</p>
@@ -38,7 +49,7 @@ a.start{border-color:#0a5bd3;background:#e3edfb}a span{display:block;color:#5b65
 <li><input type="checkbox" aria-label="Done"><span>Max length matches the bound attribute; number input type for decimals and currency.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>Coded fields use <code>CodeTableDropdown</code> (from <code>/v1/codes/{table}</code> or the GET’s <code>*Options</code>), with a plain label beside it and its selected-code handler wired. Fields with no code table are plain text inputs.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>No value repeated from the title or the header card.</span></li>
-<li><input type="checkbox" aria-label="Done"><span>Dates are MM/DD/YYYY. Null dates (none, or 01/01/1900) are <strong>blank everywhere</strong>, never N/A or the placeholder date. Currency has 2 decimals; SSN and other masked IDs show last 4 only.</span></li>
+<li><input type="checkbox" aria-label="Done"><span>Dates use the format <code>MM/dd/yyyy</code>, exactly that (capital MM, lowercase dd and yyyy): it’s the mask the OutSystems date formatter expects. Null dates (none, or 01/01/1900) are <strong>blank everywhere</strong>, never N/A or the placeholder date. Currency has 2 decimals; SSN and other masked IDs show last 4 only.</span></li>
 <li class="grp">Saving and errors</li>
 <li><input type="checkbox" aria-label="Done"><span>Save sends every field the form shows, including blanks, and passes <code>colToken</code> back unchanged.</span></li>
 <li><input type="checkbox" aria-label="Done"><span>Effective Date never defaults to <code>CurrentDate()</code>. On Add, leaving it blank lets the gateway use the current pay period begin date (as the mockups say).</span></li>

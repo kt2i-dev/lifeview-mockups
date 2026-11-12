@@ -143,9 +143,6 @@ table.acc tr.total td{font-weight:600}
     <div class="warn" role="alert">Someone else changed this record after you opened it, so it has been reloaded with the latest values. Make your change again.</div>
   </template>
   
-  <template data-sc-if value="{{showEditingNote}}" hint-placeholder-val="{{ false }}">
-    <div class="editing">Fields with a box can be changed. Everything else is shown for reference and can’t be edited here.</div>
-  </template>
 
   <template data-sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
     <section class="card"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></section>
@@ -308,7 +305,6 @@ class Component extends DCLogic {
       saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
       showSaveActions: mode !== 'view' && !ld,
       showEditDelete: mode === 'edit' && S.canDelete,
-      showEditingNote: mode !== 'view',
       banner: this.state.banner,
       showDialog: this.state.dialog,
       segView: mode === 'view' ? 'on' : '', segEdit: mode === 'edit' ? 'on' : '', segAdd: mode === 'add' ? 'on' : '',

@@ -35,7 +35,8 @@ h1{margin:0;font-size:24px;font-weight:600}
 .card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
 .card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .lbl{font-size:12px;color:#5b6575;font-weight:500}
 .req{color:#b42318;margin-left:3px}
@@ -245,36 +246,50 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vG2n}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showG2nList}}">‹ Back to Gross To Net</button>
     <div class="lhead"><div><h2>Gross to Net<span class="tag">Read-only</span></h2>
-      <div class="sub">10000 – City of Long Beach · As of 10/09/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Year to Date Gross</span><span class="big">106,580.15</span></div>
-      <div class="f"><span class="lbl">Year to Date Net</span><span class="big">78,129.41</span></div>
-      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
-      <div class="f"><span class="lbl">Last Pay Date</span><span class="val">10/09/2026</span></div>
-      <div class="f"><span class="lbl">Last Regular Pay Date</span><span class="val">10/09/2026</span></div>
-      <div class="f"><span class="lbl">Final Check Date</span><span class="val">—</span></div>
+      <div class="sub">10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Tax Entity</span><span class="val">10000 – City of Long Beach</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Gross</th><th scope="col" class="num">Net</th></tr></thead><tbody>
-        <tr class="group"><td colspan="3">Current</td></tr>
-        <tr><td>Current pay period</td><td class="num">4,793.35</td><td class="num">3,515.83</td></tr>
-        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Month to date (October)</td><td class="num">4,793.35</td><td class="num">3,515.83</td></tr>
-        <tr class="group"><td colspan="3">Calendar year 2026</td></tr>
-        <tr><td>Quarter 1</td><td class="num">34,950.40</td><td class="num">25,618.14</td></tr>
-        <tr><td>Quarter 2</td><td class="num">28,640.10</td><td class="num">20,993.19</td></tr>
-        <tr><td>Quarter 3</td><td class="num">33,402.95</td><td class="num">24,484.33</td></tr>
-        <tr><td>Quarter 4</td><td class="num">9,586.70</td><td class="num">7,033.75</td></tr>
-        <tr class="total"><td>Year to date</td><td class="num">106,580.15</td><td class="num">78,129.41</td></tr>
-        <tr class="group"><td colspan="3">Fiscal year</td></tr>
-        <tr><td>FY ending Sept 30</td><td class="num">126,402.11</td><td class="num">92,655.02</td></tr>
-        <tr><td>FY beginning Oct 1</td><td class="num">9,586.70</td><td class="num">7,033.75</td></tr>
-      </tbody></table></div></section>
+    <section class="card"><div class="grid c2">
+      <div class="f"><span class="lbl">Current Gross</span><span class="val">4,793.35</span></div>
+      <div class="f"><span class="lbl">Period Net</span><span class="val">3,515.83</span></div>
+      <div class="f"><span class="lbl">Current Manual Check</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Online Check Net</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
+      <div class="f"><span class="lbl">Month Gross</span><span class="val">4,793.35</span></div>
+      <div class="f"><span class="lbl">Month Net</span><span class="val">3,515.83</span></div>
+    </div></section>
+    <section class="card"><div class="grid c2">
+      <div class="f"><span class="lbl">Qtr 1 Gross</span><span class="val">34,950.40</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Net</span><span class="val">25,618.14</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Gross</span><span class="val">28,640.10</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Net</span><span class="val">20,993.19</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Gross</span><span class="val">33,402.95</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Net</span><span class="val">24,484.33</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Gross</span><span class="val">9,586.70</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Net</span><span class="val">7,033.75</span></div>
+    </div></section>
+    <section class="card"><div class="grid c2">
+      <div class="f"><span class="lbl">Ytd Gross</span><span class="val">106,580.15</span></div>
+      <div class="f"><span class="lbl">Ytd Net</span><span class="val">78,129.41</span></div>
+      <div class="f"><span class="lbl">Fy Ending Sept 30th</span><span class="val">126,402.11</span></div>
+      <div class="f"><span class="lbl">Fiscal 1-to-date Net</span><span class="val">92,655.02</span></div>
+      <div class="f"><span class="lbl">Fy Beginning Oct 1st</span><span class="val">9,586.70</span></div>
+      <div class="f"><span class="lbl">Fiscal 2-to-date Net</span><span class="val">7,033.75</span></div>
+    </div></section>
+    <section class="card"><div class="grid c2">
+      <div class="f"><span class="lbl">Last Pay Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Final Check Date</span><span class="val">—</span></div>
+      <div class="f"><span class="lbl">Last Regular Pay</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Previous Regular Pay</span><span class="val">09/25/2026</span></div>
+    </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayGrossToNetDetail, select-only. Opened from the Gross To Net list’s Details, inside the Paychecks tab.</li>
-      <li>Call: <code>PayGrossToNet_Get</code> with <code>taxEntityCode</code> 10000 (the home tax entity). An employee with alternate tax entities would need a picker; none do today in the sample data.</li>
+      <li>Sections, field order and labels: legacy PayGrossToNetDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayGrossToNet_Get</code> with the Gross To Net row’s tax entity.</li>
+      <li>LifeView separates these with untitled bands, so there are no headings here either.</li>
       <li>Net is the paper-check net only: direct deposits are deductions (see Check Detail).</li>
     </ul>
   </div>
@@ -310,34 +325,39 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Taxes</button>
     <div class="lhead"><div><h2>Tax Accumulator<span class="tag">Read-only</span></h2>
-      <div class="sub">$$002 – U.S. Tax · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Current Period Tax</span><span class="big">412.36</span></div>
-      <div class="f"><span class="lbl">Calendar YTD Tax</span><span class="big">9,104.58</span></div>
+      <div class="sub">$$002 – U.S. Tax · 10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
       <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Tax ID</span><span class="val">$$002 – U.S. Tax</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Taxable Base</th><th scope="col" class="num">Tax</th></tr></thead><tbody>
-        <tr class="group"><td colspan="3">Current</td></tr>
-        <tr><td>Current pay period</td><td class="num">4,793.35</td><td class="num">412.36</td></tr>
-        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Month to date (October)</td><td class="num">4,793.35</td><td class="num">412.36</td></tr>
-        <tr class="group"><td colspan="3">Calendar year 2026</td></tr>
-        <tr><td>Quarter 1</td><td class="num">34,950.40</td><td class="num">3,015.22</td></tr>
-        <tr><td>Quarter 2</td><td class="num">28,640.10</td><td class="num">2,470.31</td></tr>
-        <tr><td>Quarter 3</td><td class="num">33,402.95</td><td class="num">2,881.07</td></tr>
-        <tr><td>Quarter 4</td><td class="num">9,586.70</td><td class="num">737.98</td></tr>
-        <tr class="total"><td>Year to date</td><td class="num">106,580.15</td><td class="num">9,104.58</td></tr>
-        <tr class="group"><td colspan="3">Fiscal year</td></tr>
-        <tr><td>FY ending Sept 30</td><td class="num">126,402.11</td><td class="num">10,893.20</td></tr>
-        <tr><td>FY beginning Oct 1</td><td class="num">9,586.70</td><td class="num">737.98</td></tr>
-      </tbody></table></div></section>
+    <section class="card"><div class="grid c2">
+      <div class="f"><span class="lbl">Current Base</span><span class="val">4,793.35</span></div>
+      <div class="f"><span class="lbl">Current Amount</span><span class="val">412.36</span></div>
+      <div class="f"><span class="lbl">Current Manual Check</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Online Check Amount</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Month Base</span><span class="val">4,793.35</span></div>
+      <div class="f"><span class="lbl">Month Amount</span><span class="val">412.36</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Base</span><span class="val">34,950.40</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Amount</span><span class="val">3,015.22</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Base</span><span class="val">28,640.10</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Amount</span><span class="val">2,470.31</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Base</span><span class="val">33,402.95</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Amount</span><span class="val">2,881.07</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Base</span><span class="val">9,586.70</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Amount</span><span class="val">737.98</span></div>
+      <div class="f"><span class="lbl">YTD Base</span><span class="val">106,580.15</span></div>
+      <div class="f"><span class="lbl">YTD Amount</span><span class="val">9,104.58</span></div>
+      <div class="f"><span class="lbl">FY Ending Sept 30th</span><span class="val">126,402.11</span></div>
+      <div class="f"><span class="lbl">Fiscal 1-to-date Amount</span><span class="val">10,893.20</span></div>
+      <div class="f"><span class="lbl">FY Beginning Oct 1st</span><span class="val">9,586.70</span></div>
+      <div class="f"><span class="lbl">Fiscal 2-to-date Amount</span><span class="val">737.98</span></div>
+    </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayTaxAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
-      <li>Call: <code>PayTaxAccumulator_Get</code> with the Taxes row’s <code>taxCode</code>.</li>
-      <li>Same layout as the Deduction Accumulator: one row per period, one column per measure.</li>
+      <li>Sections, field order and labels: legacy PayTaxAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayTaxAccumulator_Get</code> with the Taxes row’s Tax ID.</li>
+      <li>LifeView shows these in one untitled band (no section headings), so they have none here either.</li>
     </ul>
   </div>
    </template>
@@ -373,37 +393,72 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Deductions</button>
     <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
-      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Prepaid</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Arrears</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Deduction Type</span><span class="val">999 – Direct Deposit</span></div>
       <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
-      <div class="f"><span class="lbl">Current Month</span><span class="val">10</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Base</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Bond Purchases</th><th scope="col" class="num">Arrears</th><th scope="col" class="num">Towards Limit</th></tr></thead><tbody>
-        <tr class="group"><td colspan="6">Current</td></tr>
-        <tr><td>Current pay period</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td><td class="na">—</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Month to date (October)</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Calendar year 2026</td></tr>
-        <tr><td>Quarter 1</td><td class="num">35,906.76</td><td class="num">25,760.63</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 2</td><td class="num">29,439.55</td><td class="num">21,292.15</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 3</td><td class="num">34,332.16</td><td class="num">24,827.37</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 4</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr class="total"><td>Year to date</td><td class="num">104,596.82</td><td class="num">75,446.27</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Fiscal year</td></tr>
-        <tr><td>FY ending Sept 30</td><td class="num">129,852.81</td><td class="num">93,281.57</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>FY beginning Oct 1</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
-      </tbody></table></div></section>
+    <section class="card"><h2>Perpetual Amount Fields</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Prepaid</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Arrears</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Period-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Current Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Current Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Current Period Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Online Check</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Current Manual Check</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Online Check Amount</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Month-To-Date Information</h2><div class="grid c4">
+      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
+      <div class="f"><span class="lbl">Month Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Month Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Current Month Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Quarter-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Qtr 1 Base</span><span class="val">35,906.76</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Amount</span><span class="val">25,760.63</span></div>
+      <div class="f"><span class="lbl">Quarter 1 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Base</span><span class="val">29,439.55</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Amount</span><span class="val">21,292.15</span></div>
+      <div class="f"><span class="lbl">Quarter 2 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Base</span><span class="val">34,332.16</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Amount</span><span class="val">24,827.37</span></div>
+      <div class="f"><span class="lbl">Quarter 3 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Quarter 4 Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Year-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">YTD Base</span><span class="val">104,596.82</span></div>
+      <div class="f"><span class="lbl">YTD Amount</span><span class="val">75,446.27</span></div>
+      <div class="f"><span class="lbl">Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Fiscal-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">FY Ending Sept 30th</span><span class="val">129,852.81</span></div>
+      <div class="f"><span class="lbl">Fiscal 1-to-date Amount</span><span class="val">93,281.57</span></div>
+      <div class="f"><span class="lbl">FY Beginning Oct 1st</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Fiscal 2-to-date Amount</span><span class="val">3,566.12</span></div>
+    </div></section>
+    <section class="card"><h2>Arrears Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Onl Chk Arr Amt</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Check Monthly Arrears</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Check YTD Arrears</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Accumulator Limits</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Online Accum Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accum Monthly Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accum YTD Towards Limit</span><span class="val">0.00</span></div>
+    </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayDeductionAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
-      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s <code>deductionCode</code> (and its <code>taxEntityCode</code> as <code>taxEntity</code>).</li>
-      <li>“—” means the host keeps no figure for that cell. The same view opens from Deductions, Direct Deposits and Garnishments.</li>
+      <li>Sections, field order and labels: legacy PayDeductionAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s deduction code (and its tax entity).</li>
+      <li>The same view opens from Deductions, Direct Deposits and Garnishments.</li>
     </ul>
   </div>
    </template>
@@ -438,33 +493,51 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Additional Payments</button>
     <div class="lhead"><div><h2>Earnings Accumulator<span class="tag">Read-only</span></h2>
-      <div class="sub">AA – Auto Allowance · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Year to Date Amount</span><span class="big">3,461.60</span></div>
-      <div class="f"><span class="lbl">Worker Comp</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Hours Accum Towards HI</span><span class="big">0.00</span></div>
+      <div class="sub">AA – Auto Allowance · 10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Earnings ID</span><span class="val">AA – Auto Allowance</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Amount</th></tr></thead><tbody>
-        <tr class="group"><td colspan="3">Current</td></tr>
-        <tr><td>Current pay period</td><td class="num">0.00</td><td class="num">173.08</td></tr>
-        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Month to date (October)</td><td class="num">0.00</td><td class="num">173.08</td></tr>
-        <tr class="group"><td colspan="3">Calendar year 2026</td></tr>
-        <tr><td>Quarter 1</td><td class="num">0.00</td><td class="num">1,038.48</td></tr>
-        <tr><td>Quarter 2</td><td class="num">0.00</td><td class="num">1,038.48</td></tr>
-        <tr><td>Quarter 3</td><td class="num">0.00</td><td class="num">1,211.56</td></tr>
-        <tr><td>Quarter 4</td><td class="num">0.00</td><td class="num">173.08</td></tr>
-        <tr class="total"><td>Year to date</td><td class="num">0.00</td><td class="num">3,461.60</td></tr>
-        <tr class="group"><td colspan="3">Fiscal year</td></tr>
-        <tr><td>FY ending Sept 30</td><td class="num">0.00</td><td class="num">4,499.08</td></tr>
-        <tr><td>FY beginning Oct 1</td><td class="num">0.00</td><td class="num">173.08</td></tr>
-      </tbody></table></div></section>
+    <section class="card"><h2>Period-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">Current Period</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Period Amount</span><span class="val">173.08</span></div>
+      <div class="f"><span class="lbl">Current Manual Check</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Online Check Amount</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
+    </div></section>
+    <section class="card"><h2>Month-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">Month Hours</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Month Amount</span><span class="val">173.08</span></div>
+    </div></section>
+    <section class="card"><h2>Quarter-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">Qtr 1 Hours</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Amount</span><span class="val">1,038.48</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Hours</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Amount</span><span class="val">1,038.48</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Hours</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Amount</span><span class="val">1,211.56</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Hours</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Amount</span><span class="val">173.08</span></div>
+    </div></section>
+    <section class="card"><h2>Year-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">YTD Hours</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">YTD Amount</span><span class="val">3,461.60</span></div>
+    </div></section>
+    <section class="card"><h2>Fiscal-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">FY Ending Sept 30th</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Fiscal 1-to-date Amount</span><span class="val">4,499.08</span></div>
+      <div class="f"><span class="lbl">FY Beginning Oct 1st</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Fiscal 2-to-date Amount</span><span class="val">173.08</span></div>
+    </div></section>
+    <section class="card"><h2>Other Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">Worker Comp</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Hours Accum Towards HI</span><span class="val">0.00</span></div>
+    </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayEarningsAccumulatorDetail is select-only: no Add, Update or Delete.</li>
-      <li>Call: <code>PayEarningsAccumulator_Get</code> with the Additional Payments row’s <code>earningsCode</code>.</li>
+      <li>Sections, field order and labels: legacy PayEarningsAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayEarningsAccumulator_Get</code> with the Additional Payments row’s earnings ID.</li>
     </ul>
   </div>
    </template>
@@ -498,41 +571,55 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Accruals</button>
     <div class="lhead"><div><h2>Accrual Accumulator<span class="tag">Read-only</span></h2>
-      <div class="sub">V – Vacation · 10000 – City of Long Beach · As of 01/01/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Balance</span><span class="big">550.82</span></div>
-      <div class="f"><span class="lbl">Banked</span><span class="big">475.82</span></div>
-      <div class="f"><span class="lbl">Used This Year</span><span class="big">42.00</span></div>
-      <div class="f"><span class="lbl">Accrual Year</span><span class="val">2026</span></div>
-      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
-      <div class="f"><span class="lbl">Available Hours</span><span class="val">550.82</span></div>
+      <div class="sub">V – Vacation · 10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Tax Entity</span><span class="val">10000 – City of Long Beach</span></div>
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">01/01/2026</span></div>
+      <div class="f"><span class="lbl">Type</span><span class="val">V – Vacation</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Accrued</th><th scope="col" class="num">Bonus</th><th scope="col" class="num">Used</th><th scope="col" class="num">Banked</th><th scope="col" class="num">Borrowed</th></tr></thead><tbody>
-        <tr class="group"><td colspan="6">This period</td></tr>
-        <tr><td>Current</td><td class="num">5.85</td><td class="num">0.00</td><td class="num">9.00</td><td class="na">—</td><td class="num">0.00</td></tr>
-        <tr><td>Adjustments</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Online check</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Accrual year</td></tr>
-        <tr><td>Year to date</td><td class="num">117.00</td><td class="num">0.00</td><td class="num">42.00</td><td class="num">475.82</td><td class="num">0.00</td></tr>
-        <tr class="total"><td>Balance</td><td class="num">117.00</td><td class="num">0.00</td><td class="num">42.00</td><td class="num">475.82</td><td class="num">0.00</td></tr>
-      </tbody></table></div></section>
-    <section class="card"><h2>Allowed and Carryover</h2><div class="grid">
+    <section class="card"><h2>Current</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Award</span><span class="val">5.85</span></div>
+      <div class="f"><span class="lbl">Used</span><span class="val">9.00</span></div>
+    </div></section>
+    <section class="card"><h2>Adjustments</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Allowed</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Carryover</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Banked</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accrued</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Used</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Online Check</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Used</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Current Year</h2><div class="grid c3">
       <div class="f"><span class="lbl">Allowed</span><span class="val">144.66</span></div>
       <div class="f"><span class="lbl">Carryover</span><span class="val">331.16</span></div>
+      <div class="f"><span class="lbl">Banked</span><span class="val">475.82</span></div>
+      <div class="f"><span class="lbl">Accrued</span><span class="val">117.00</span></div>
+      <div class="f"><span class="lbl">Used</span><span class="val">42.00</span></div>
+    </div></section>
+    <section class="card"><h2>Current Balance</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Allowed</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Carryover</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Banked</span><span class="val">475.82</span></div>
+      <div class="f"><span class="lbl">Accrued</span><span class="val">117.00</span></div>
+      <div class="f"><span class="lbl">Used</span><span class="val">42.00</span></div>
       <div class="f"><span class="lbl">Balance</span><span class="val">550.82</span></div>
     </div></section>
-    <section class="card"><h2>Award and Usage Dates</h2><div class="grid">
+    <section class="card"><h2>Award and Usage Dates</h2><div class="grid c3">
       <div class="f"><span class="lbl">Last Award Date</span><span class="val">10/09/2026</span></div>
       <div class="f"><span class="lbl">Last Usage Date</span><span class="val">09/25/2026</span></div>
-      <div class="f"><span class="lbl">Previous Last Usage Date</span><span class="val">08/14/2026</span></div>
+      <div class="f"><span class="lbl">Prev Last Usage Date</span><span class="val">08/14/2026</span></div>
+      <div class="f"><span class="lbl">Last Award Date Adjustment</span><span class="val">—</span></div>
+      <div class="f"><span class="lbl">Last Usage Date Adjustment</span><span class="val">—</span></div>
+      <div class="f"><span class="lbl">Prev Last Usage Date Adjustment</span><span class="val">—</span></div>
     </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayAccrualAccumulatorDetail’s adjustment Insert/Update is NOT built in the gateway, so this is read-only for now.</li>
-      <li>Call: <code>PayAccrualAccumulator_Get</code> with the Accruals row’s <code>accrualTypeCode</code>.</li>
-      <li>The three “Carryover” fields came back identical live; which one to show is still open.</li>
+      <li>Sections, field order and labels: legacy PayAccrualAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayAccrualAccumulator_Get</code> with the Accruals row’s accrual type.</li>
+      <li>The legacy screen’s adjustment Insert/Update isn’t built in the gateway, so this stays read-only for now.</li>
     </ul>
   </div>
    </template>
@@ -590,37 +677,72 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Direct Deposits</button>
     <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
-      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Prepaid</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Arrears</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Deduction Type</span><span class="val">999 – Direct Deposit</span></div>
       <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
-      <div class="f"><span class="lbl">Current Month</span><span class="val">10</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Base</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Bond Purchases</th><th scope="col" class="num">Arrears</th><th scope="col" class="num">Towards Limit</th></tr></thead><tbody>
-        <tr class="group"><td colspan="6">Current</td></tr>
-        <tr><td>Current pay period</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td><td class="na">—</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Month to date (October)</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Calendar year 2026</td></tr>
-        <tr><td>Quarter 1</td><td class="num">35,906.76</td><td class="num">25,760.63</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 2</td><td class="num">29,439.55</td><td class="num">21,292.15</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 3</td><td class="num">34,332.16</td><td class="num">24,827.37</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 4</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr class="total"><td>Year to date</td><td class="num">104,596.82</td><td class="num">75,446.27</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Fiscal year</td></tr>
-        <tr><td>FY ending Sept 30</td><td class="num">129,852.81</td><td class="num">93,281.57</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>FY beginning Oct 1</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
-      </tbody></table></div></section>
+    <section class="card"><h2>Perpetual Amount Fields</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Prepaid</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Arrears</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Period-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Current Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Current Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Current Period Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Online Check</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Current Manual Check</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Online Check Amount</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Month-To-Date Information</h2><div class="grid c4">
+      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
+      <div class="f"><span class="lbl">Month Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Month Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Current Month Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Quarter-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Qtr 1 Base</span><span class="val">35,906.76</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Amount</span><span class="val">25,760.63</span></div>
+      <div class="f"><span class="lbl">Quarter 1 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Base</span><span class="val">29,439.55</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Amount</span><span class="val">21,292.15</span></div>
+      <div class="f"><span class="lbl">Quarter 2 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Base</span><span class="val">34,332.16</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Amount</span><span class="val">24,827.37</span></div>
+      <div class="f"><span class="lbl">Quarter 3 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Quarter 4 Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Year-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">YTD Base</span><span class="val">104,596.82</span></div>
+      <div class="f"><span class="lbl">YTD Amount</span><span class="val">75,446.27</span></div>
+      <div class="f"><span class="lbl">Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Fiscal-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">FY Ending Sept 30th</span><span class="val">129,852.81</span></div>
+      <div class="f"><span class="lbl">Fiscal 1-to-date Amount</span><span class="val">93,281.57</span></div>
+      <div class="f"><span class="lbl">FY Beginning Oct 1st</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Fiscal 2-to-date Amount</span><span class="val">3,566.12</span></div>
+    </div></section>
+    <section class="card"><h2>Arrears Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Onl Chk Arr Amt</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Check Monthly Arrears</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Check YTD Arrears</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Accumulator Limits</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Online Accum Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accum Monthly Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accum YTD Towards Limit</span><span class="val">0.00</span></div>
+    </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayDeductionAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
-      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s <code>deductionCode</code> (and its <code>taxEntityCode</code> as <code>taxEntity</code>).</li>
-      <li>“—” means the host keeps no figure for that cell. The same view opens from Deductions, Direct Deposits and Garnishments.</li>
+      <li>Sections, field order and labels: legacy PayDeductionAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s deduction code (and its tax entity).</li>
+      <li>The same view opens from Deductions, Direct Deposits and Garnishments.</li>
     </ul>
   </div>
    </template>
@@ -703,37 +825,72 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Garnishments</button>
     <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
-      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
-    <section class="card"><h2>Summary</h2><div class="grid">
-      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Prepaid</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Arrears</span><span class="big">0.00</span></div>
-      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach</div></div></div>
+    <section class="card"><h2>Details</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Deduction Type</span><span class="val">999 – Direct Deposit</span></div>
       <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
-      <div class="f"><span class="lbl">Current Month</span><span class="val">10</span></div>
     </div></section>
-    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
-      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Base</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Bond Purchases</th><th scope="col" class="num">Arrears</th><th scope="col" class="num">Towards Limit</th></tr></thead><tbody>
-        <tr class="group"><td colspan="6">Current</td></tr>
-        <tr><td>Current pay period</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td><td class="na">—</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr><td>Month to date (October)</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Calendar year 2026</td></tr>
-        <tr><td>Quarter 1</td><td class="num">35,906.76</td><td class="num">25,760.63</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 2</td><td class="num">29,439.55</td><td class="num">21,292.15</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 3</td><td class="num">34,332.16</td><td class="num">24,827.37</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>Quarter 4</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr class="total"><td>Year to date</td><td class="num">104,596.82</td><td class="num">75,446.27</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
-        <tr class="group"><td colspan="6">Fiscal year</td></tr>
-        <tr><td>FY ending Sept 30</td><td class="num">129,852.81</td><td class="num">93,281.57</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
-        <tr><td>FY beginning Oct 1</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
-      </tbody></table></div></section>
+    <section class="card"><h2>Perpetual Amount Fields</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Prepaid</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Arrears</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Period-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Current Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Current Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Current Period Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Online Check</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Current Manual Check</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Online Check Amount</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Month-To-Date Information</h2><div class="grid c4">
+      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
+      <div class="f"><span class="lbl">Month Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Month Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Current Month Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Quarter-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Qtr 1 Base</span><span class="val">35,906.76</span></div>
+      <div class="f"><span class="lbl">Qtr 1 Amount</span><span class="val">25,760.63</span></div>
+      <div class="f"><span class="lbl">Quarter 1 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Base</span><span class="val">29,439.55</span></div>
+      <div class="f"><span class="lbl">Qtr 2 Amount</span><span class="val">21,292.15</span></div>
+      <div class="f"><span class="lbl">Quarter 2 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Base</span><span class="val">34,332.16</span></div>
+      <div class="f"><span class="lbl">Qtr 3 Amount</span><span class="val">24,827.37</span></div>
+      <div class="f"><span class="lbl">Quarter 3 Bond Purchase Count</span><span class="val">0</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Base</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Qtr 4 Amount</span><span class="val">3,566.12</span></div>
+      <div class="f"><span class="lbl">Quarter 4 Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Year-To-Date Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">YTD Base</span><span class="val">104,596.82</span></div>
+      <div class="f"><span class="lbl">YTD Amount</span><span class="val">75,446.27</span></div>
+      <div class="f"><span class="lbl">Bond Purchase Count</span><span class="val">0</span></div>
+    </div></section>
+    <section class="card"><h2>Fiscal-To-Date Information</h2><div class="grid c2">
+      <div class="f"><span class="lbl">FY Ending Sept 30th</span><span class="val">129,852.81</span></div>
+      <div class="f"><span class="lbl">Fiscal 1-to-date Amount</span><span class="val">93,281.57</span></div>
+      <div class="f"><span class="lbl">FY Beginning Oct 1st</span><span class="val">4,918.35</span></div>
+      <div class="f"><span class="lbl">Fiscal 2-to-date Amount</span><span class="val">3,566.12</span></div>
+    </div></section>
+    <section class="card"><h2>Arrears Information</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Onl Chk Arr Amt</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Check Monthly Arrears</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Check YTD Arrears</span><span class="val">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Accumulator Limits</h2><div class="grid c3">
+      <div class="f"><span class="lbl">Online Accum Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accum Monthly Towards Limit</span><span class="val">0.00</span></div>
+      <div class="f"><span class="lbl">Accum YTD Towards Limit</span><span class="val">0.00</span></div>
+    </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayDeductionAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
-      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s <code>deductionCode</code> (and its <code>taxEntityCode</code> as <code>taxEntity</code>).</li>
-      <li>“—” means the host keeps no figure for that cell. The same view opens from Deductions, Direct Deposits and Garnishments.</li>
+      <li>Sections, field order and labels: legacy PayDeductionAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
+      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s deduction code (and its tax entity).</li>
+      <li>The same view opens from Deductions, Direct Deposits and Garnishments.</li>
     </ul>
   </div>
    </template>

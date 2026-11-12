@@ -35,7 +35,8 @@ h1{margin:0;font-size:24px;font-weight:600}
 .card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
 .card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .lbl{font-size:12px;color:#5b6575;font-weight:500}
 .req{color:#b42318;margin-left:3px}
@@ -120,8 +121,8 @@ table.acc tr.total td{font-weight:600}
 
   <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
     <section class="card">
-      <h2>{{s.title}}</h2>
-      <div class="grid">
+      <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
+      <div class="{{s.gridCls}}">
         <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
           <div class="f">
             <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
@@ -138,6 +139,9 @@ table.acc tr.total td{font-weight:600}
                 <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
               </div>
             </template>
+            <template data-sc-if value="{{f.isCheck}}">
+              <label class="radio"><input type="checkbox" id="{{f.id}}" defaultChecked="{{f.checked}}">{{f.cbText}}</label>
+            </template>
             <template data-sc-if value="{{f.showValue}}">
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
@@ -151,10 +155,9 @@ table.acc tr.total td{font-weight:600}
   <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayCalPERSIdDetail buttons: <strong>Add, Update</strong> (no Delete).</li>
+      <li>Fields and labels: legacy PayCalPERSIdDetail (one block, no sections). Buttons: <strong>Add, Update</strong> (no Delete).</li>
       <li>Calls: <code>PayCalPersId_Get</code>, <code>_Put</code> (Edit), <code>_Post</code> (Add). The tab’s list is <code>PayCalPersId_List</code>.</li>
-      <li>Edit changes the current record in place. Add creates a new dated record, so the old IDs stay in the list as history.</li>
-      <li>Details from an older row on the tab opens it read-only (no Edit), since only the current record can be updated.</li>
+      <li>Edit changes the current record in place; Add creates a new dated record, so the old IDs stay in the list as history.</li>
     </ul>
   </div>
 
@@ -205,7 +208,7 @@ class Component extends DCLogic {
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
     this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
-  spec() { return {"modes": ["view", "edit", "add"], "canDelete": false, "title": "CalPERS IDs", "subtitle": "Current record · Effective 07/01/2025", "addTitle": "Add CalPERS IDs", "addSubtitle": "New dated record", "addedMsg": "CalPERS IDs added.", "deletedMsg": "", "sections": [{"title": "CalPERS", "fields": [{"label": "Effective Date", "view": "07/01/2025", "e": "add", "k": "text", "val": "07/01/2025", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "A new date keeps the old IDs as history."}, {"label": "CalPERS ID", "view": "7700123456", "e": "both", "k": "text", "val": "7700123456", "req": true, "ph": "Up to 70 characters"}, {"label": "Appointment ID", "view": "0042", "e": "both", "k": "text", "val": "0042", "ph": "Up to 70 characters"}, {"label": "Employer ID", "view": "1500", "e": "both", "k": "text", "val": "1500", "ph": "Up to 70 characters"}, {"label": "Record Status", "view": "A – Active", "e": "none", "k": "text", "val": "A – Active", "addView": "A – Active"}]}]}; }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": false, "title": "CalPERS IDs", "subtitle": "Current record · Effective 07/01/2025", "addTitle": "Add CalPERS IDs", "addSubtitle": "New dated record", "addedMsg": "CalPERS IDs added.", "deletedMsg": "", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "07/01/2025", "e": "add", "k": "text", "val": "07/01/2025", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "A new date keeps the old IDs as history."}, {"label": "CalPERS ID", "view": "7700123456", "e": "both", "k": "text", "val": "7700123456", "req": true, "ph": "Up to 70 characters"}, {"label": "Appointment ID", "view": "0042", "e": "both", "k": "text", "val": "0042", "ph": "Up to 70 characters"}, {"label": "Employer ID", "view": "1500", "e": "both", "k": "text", "val": "1500", "ph": "Up to 70 characters"}], "cols": 3}]}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -217,6 +220,7 @@ class Component extends DCLogic {
       id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
       cur: cur, ph: f.ph || '', options: opts,
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
       reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
     };
@@ -225,7 +229,7 @@ class Component extends DCLogic {
     var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
     var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
     var n = 0;
-    var sections = S.sections.map(function (s) { return { title: s.title, fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
     var set = function (o) { return function () { self.setState(o); }; };
     return {
       sections: sections,

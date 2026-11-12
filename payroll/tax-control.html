@@ -35,7 +35,8 @@ h1{margin:0;font-size:24px;font-weight:600}
 .card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
 .card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .lbl{font-size:12px;color:#5b6575;font-weight:500}
 .req{color:#b42318;margin-left:3px}
@@ -120,8 +121,8 @@ table.acc tr.total td{font-weight:600}
 
   <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
     <section class="card">
-      <h2>{{s.title}}</h2>
-      <div class="grid">
+      <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
+      <div class="{{s.gridCls}}">
         <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
           <div class="f">
             <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
@@ -138,6 +139,9 @@ table.acc tr.total td{font-weight:600}
                 <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
               </div>
             </template>
+            <template data-sc-if value="{{f.isCheck}}">
+              <label class="radio"><input type="checkbox" id="{{f.id}}" defaultChecked="{{f.checked}}">{{f.cbText}}</label>
+            </template>
             <template data-sc-if value="{{f.showValue}}">
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
@@ -151,11 +155,10 @@ table.acc tr.total td{font-weight:600}
   <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayTaxControlDetail buttons: <strong>Add, Update, Delete</strong>. Delete is in Edit only, with a confirmation.</li>
+      <li>Sections, field order and labels: legacy PayTaxControlDetail. Buttons: <strong>Add, Update, Delete</strong> (Delete in Edit only, confirmed).</li>
       <li>Calls: <code>PayTaxControl_Get</code>, <code>_Put</code>, <code>_Post</code>, <code>_Delete</code>.</li>
-      <li>Tax Entity and Tax ID identify the record, so they are set on Add only.</li>
-      <li>The Step 2 checkbox applies to Federal ($$002) only. On CA the same slot is “Service Member Civil Relief Act” exempt, which needs Tax Status N. Show whichever matches the record’s Tax ID.</li>
-      <li>This is the raw admin screen: none of the ESS Tax Withholding rules (exemptions over 9, CA cross-check) apply.</li>
+      <li>Tax Entity and Tax ID identify the record: set on Add only.</li>
+      <li>The two checkboxes share one field (TSO09): the Step 2 box is live on $$002 only, the CA box on CA only (and needs Tax Status N), as in LifeView.</li>
     </ul>
   </div>
 
@@ -218,7 +221,7 @@ class Component extends DCLogic {
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
     this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
-  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Tax Control", "subtitle": "$$002 – U.S. Tax · Effective 01/01/2026", "addTitle": "Add Tax Control", "addSubtitle": "New tax record", "addedMsg": "Tax record added.", "deletedMsg": "Tax record deleted. (In the app this returns to the Taxes tab.)", "sections": [{"title": "Tax", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "both", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "help": "Changing this date moves the record to the new date.", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Tax ID", "view": "$$002 – U.S. Tax", "e": "add", "k": "select", "val": "$$002", "req": true, "options": [{"v": "$$002", "l": "$$002 – U.S. Tax"}, {"v": "$$001", "l": "$$001 – U.S. FICA"}, {"v": "$$00M", "l": "$$00M – U.S. Med"}, {"v": "CA", "l": "CA – CA State"}, {"v": "CA006", "l": "CA006 – CA Disabil"}]}, {"label": "Tax Status", "view": "Y", "e": "both", "k": "text", "val": "Y", "ph": "Y / N / Z"}, {"label": "Resident Status", "view": "N/A", "e": "both", "k": "select", "val": "", "options": [{"v": "", "l": "N/A"}, {"v": "R", "l": "Resident"}, {"v": "N", "l": "Non-resident"}]}, {"label": "ESS", "view": "Y", "e": "none", "k": "text", "val": "Y", "addView": "Set by ESS"}]}, {"title": "W-4 Withholding", "fields": [{"label": "Marital Status", "view": "S – Single or Married Filing Separately", "e": "both", "k": "select", "val": "S", "options": [{"v": "S", "l": "S – Single or Married Filing Separately"}, {"v": "M", "l": "M – Married Filing Jointly"}, {"v": "H", "l": "H – Head of Household"}]}, {"label": "Exemptions Requested", "view": "0", "e": "both", "k": "text", "val": "0", "ph": "0"}, {"label": "Exemptions Mandated", "view": "—", "e": "both", "k": "text", "val": "", "ph": "Up to 3 characters"}, {"label": "No. Exemptions", "view": "0", "e": "none", "k": "text", "val": "0"}, {"label": "Step 2: Multiple Jobs or Spouse Works", "view": "No", "e": "both", "k": "radio", "val": "N", "help": "Federal ($$002) only.", "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}]}, {"label": "Additional Allowances", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Step 3 Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Step 4A Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Step 4B Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}]}, {"title": "Overrides", "fields": [{"label": "Override Code", "view": "T – No Override, Use Table", "e": "both", "k": "select", "val": "T", "options": [{"v": "T", "l": "T – No Override, Use Table"}, {"v": "A", "l": "A – Add Extra Tax, % of Base"}, {"v": "F", "l": "F – Fixed Amount Override"}, {"v": "P", "l": "P – Percent Override"}, {"v": "M", "l": "M – Maximum Amount Limit"}]}, {"label": "Override Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Tax Method", "view": "—", "e": "both", "k": "text", "val": "", "ph": "1 character"}, {"label": "Extra Deduction Code", "view": "T – Use Table Values", "e": "both", "k": "select", "val": "T", "options": [{"v": "T", "l": "T – Use Table Values"}, {"v": "A", "l": "A – Additional % of Pay"}, {"v": "F", "l": "F – Fixed Amount"}, {"v": "P", "l": "P – Percent"}]}, {"label": "Extra Deduction Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}]}]}; }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Tax Control", "subtitle": "$$002 – U.S. Tax · Effective 01/01/2026", "addTitle": "Add Tax Control", "addSubtitle": "New tax record", "addedMsg": "Tax record added.", "deletedMsg": "Tax record deleted. (In the app this returns to the Taxes tab.)", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "both", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "help": "Changing this date moves the record to the new date.", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Tax ID", "view": "$$002 – U.S. Tax", "e": "add", "k": "select", "val": "$$002", "req": true, "options": [{"v": "$$002", "l": "$$002 – U.S. Tax"}, {"v": "$$001", "l": "$$001 – U.S. FICA"}, {"v": "$$00M", "l": "$$00M – U.S. Med"}, {"v": "CA", "l": "CA – CA State"}, {"v": "CA006", "l": "CA006 – CA Disabil"}]}], "cols": 3}, {"title": "W-4 Settings", "fields": [{"label": "Marital Status", "view": "S", "e": "both", "k": "text", "val": "S", "ph": "1 character"}, {"label": "No. Exemptions Requested", "view": "0", "e": "both", "k": "text", "val": "0", "ph": "0"}, {"label": "No. Exemptions Mandated", "view": "—", "e": "both", "k": "text", "val": "", "ph": "Up to 3 characters"}, {"label": "No. Exemptions", "view": "0", "e": "none", "k": "text", "val": "0"}, {"label": "Res Status", "view": "N/A", "e": "both", "k": "select", "val": "", "options": [{"v": "", "l": "N/A"}, {"v": "R", "l": "R – Resident"}, {"v": "N", "l": "N – Non-resident"}]}, {"label": "Tax Status", "view": "Y", "e": "both", "k": "text", "val": "Y", "ph": "1 character"}, {"label": "ESS", "view": "Y", "e": "none", "k": "text", "val": "Y", "addView": "—"}, {"label": "Step 3", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Step 4A", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Step 4B", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}], "cols": 3}, {"title": "", "fields": [{"label": "W-4 Form Step 2: Multiple Jobs or Spouse Works", "view": "No", "e": "both", "k": "checkbox", "cb": "Check this box if the employee has indicated this on their W-4 form.", "val": "N"}, {"label": "CA: Service Member Civil Relief Act", "view": "No", "e": "none", "k": "text", "val": "No", "help": "Only on a CA record (with Tax Status N): the employee certifies they aren’t subject to California withholding."}], "cols": 2}, {"title": "Override Settings", "fields": [{"label": "Override Cd", "view": "T – No Override, Use Table", "e": "both", "k": "select", "val": "T", "options": [{"v": "T", "l": "T – No Override, Use Table"}, {"v": "A", "l": "A – Add Extra Tax, % of Base"}, {"v": "F", "l": "F – Fixed Amount Override"}, {"v": "P", "l": "P – Percent Override"}, {"v": "M", "l": "M – Maximum Amount Limit"}]}, {"label": "Override Amt", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Extra Ded Cd", "view": "T – Use Table Values", "e": "both", "k": "select", "val": "T", "options": [{"v": "T", "l": "T – Use Table Values"}, {"v": "A", "l": "A – Additional % of Pay"}, {"v": "F", "l": "F – Fixed Amount"}, {"v": "P", "l": "P – Percent"}]}, {"label": "Extra Ded Amt", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Tax Method", "view": "—", "e": "both", "k": "text", "val": "", "ph": "1 character"}, {"label": "Additional Allowances", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}], "cols": 3}]}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -230,6 +233,7 @@ class Component extends DCLogic {
       id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
       cur: cur, ph: f.ph || '', options: opts,
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
       reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
     };
@@ -238,7 +242,7 @@ class Component extends DCLogic {
     var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
     var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
     var n = 0;
-    var sections = S.sections.map(function (s) { return { title: s.title, fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
     var set = function (o) { return function () { self.setState(o); }; };
     return {
       sections: sections,

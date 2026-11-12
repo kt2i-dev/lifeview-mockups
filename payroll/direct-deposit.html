@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Direct Deposit detail</title>
+<title>Direct Deposit</title>
 <!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
      open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
 a{color:#0a5bd3}a:hover{color:#0848a8}
@@ -19,12 +19,14 @@ a{color:#0a5bd3}a:hover{color:#0848a8}
 .seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
 .seg button:last-child{border-right:0}
 .seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
 .back{font-size:13px;text-decoration:none}
 .titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
 h1{margin:0;font-size:24px;font-weight:600}
 .sub{margin-top:4px;font-size:14px;color:#5b6575}
-.actions{display:flex;flex-wrap:wrap;gap:8px}
-.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
 .btn.primary{background:#0a5bd3;color:#fff}
 .btn.danger{border-color:#b42318;color:#b42318}
 .btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
@@ -33,12 +35,14 @@ h1{margin:0;font-size:24px;font-weight:600}
 .card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
 .card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .lbl{font-size:12px;color:#5b6575;font-weight:500}
 .req{color:#b42318;margin-left:3px}
 .val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
 .val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
 .in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
 .in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
 .help{font-size:12px;color:#5b6575}
@@ -46,6 +50,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 .radio{display:flex;gap:6px;align-items:center;font-size:14px}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
 .editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
 .notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
 .notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
 .notes ul{margin:0;padding-left:18px}
@@ -53,6 +58,15 @@ h1{margin:0;font-size:24px;font-weight:600}
 .dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
 .dialog h2{margin:0 0 8px;font-size:18px}
 .dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
 /*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
 </head>
 <body>
@@ -66,6 +80,7 @@ h1{margin:0;font-size:24px;font-weight:600}
         <button type="button" class="{{segEdit}}" onClick="{{toEdit}}">Edit</button>
         <button type="button" class="{{segAdd}}" onClick="{{toAdd}}">Add</button>
       </div>
+      
     </div>
     <div class="mock-g">Role
       <div class="seg">
@@ -99,14 +114,15 @@ h1{margin:0;font-size:24px;font-weight:600}
   <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}">
     <div class="banner" role="status">{{banner}}</div>
   </template>
+  
   <template data-sc-if value="{{showEditingNote}}" hint-placeholder-val="{{ false }}">
     <div class="editing">Fields with a box can be changed. Everything else is shown for reference and can’t be edited here.</div>
   </template>
 
   <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
     <section class="card">
-      <h2>{{s.title}}</h2>
-      <div class="grid">
+      <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
+      <div class="{{s.gridCls}}">
         <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
           <div class="f">
             <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
@@ -123,6 +139,9 @@ h1{margin:0;font-size:24px;font-weight:600}
                 <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
               </div>
             </template>
+            <template data-sc-if value="{{f.isCheck}}">
+              <label class="radio"><input type="checkbox" id="{{f.id}}" defaultChecked="{{f.checked}}">{{f.cbText}}</label>
+            </template>
             <template data-sc-if value="{{f.showValue}}">
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
@@ -136,13 +155,10 @@ h1{margin:0;font-size:24px;font-weight:600}
   <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy buttons on PayDirectDepositDetail: <strong>Add, Update, Delete</strong>. Delete is a real delete, not a reversal, so it gets a confirmation dialog. Delete shows only in Edit (never in View or Add), set apart from Cancel/Save.</li>
-      <li>Calls (Payroll dispatcher): <code>PayDirectDeposit_Get</code> (view), <code>_Put</code> (Save in Edit), <code>_Post</code> (Save in Add), <code>_Delete</code>; Add’s dropdown comes from <code>PayDirectDeposit_Options</code>.</li>
-      <li>Tax Entity and Deduction Type pick the record, so they’re set on Add only. Deduction Type is limited to 997 / 998 / 999.</li>
-      <li>Changing Effective Date in Edit <em>moves</em> the record (legacy “Correct”). Begin Date is never editable.</li>
-      <li>Date Code T sets End Date to 12/31/2099 on save (the gateway does this, the page doesn’t need to).</li>
-      <li>Open question: the account number is masked in View here; the gateway returns it in full. Confirm the masking policy.</li>
-      <li>No employee ID/name on the page: it comes from the Employee Profile.</li>
+      <li>Sections, field order and labels: legacy PayDirectDepositDetail. Buttons: <strong>Add, Update, Delete</strong> (Delete is a real delete, in Edit only, confirmed).</li>
+      <li>Calls: <code>PayDirectDeposit_Get</code>, <code>_Put</code>, <code>_Post</code>, <code>_Delete</code>; Add’s Deduction Type list = <code>PayDirectDeposit_Options</code> (997 / 998 / 999 only).</li>
+      <li>Changing Effective Date in Edit moves the record (legacy “Correct”). Begin Date is shown but never written.</li>
+      <li>Open question: the account number is masked in View here; LifeView and the gateway show it in full. Confirm the masking policy.</li>
     </ul>
   </div>
 
@@ -201,69 +217,41 @@ h1{margin:0;font-size:24px;font-weight:600}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    var q = (props && props.query) || {};
-    this.state = { mode: q.mode === 'add' ? 'add' : 'view', role: 'admin', dialog: false, banner: '' };
+    var q = (props && props.query) || {}, S = this.spec();
+    var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
+    this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Direct Deposit", "subtitle": "999 – Direct Deposit · Effective 04/21/2023", "addTitle": "Add Direct Deposit", "addSubtitle": "New direct deposit", "addedMsg": "Direct deposit added.", "deletedMsg": "Direct deposit deleted. (In the app this returns to the Direct Deposits tab.)", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "04/21/2023", "e": "both", "k": "text", "val": "04/21/2023", "req": true, "ph": "MM/DD/YYYY", "help": "Changing this date moves the record to the new date.", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Deduction Type", "view": "999 – Direct Deposit", "e": "add", "k": "select", "val": "999", "req": true, "options": [{"v": "999", "l": "999 – Direct Deposit"}, {"v": "998", "l": "998 – Direct Deposit"}, {"v": "997", "l": "997 – Direct Deposit"}]}], "cols": 3}, {"title": "Direct Deposit Settings", "fields": [{"label": "Frequency", "view": "5 – Every Period", "e": "both", "k": "select", "val": "5", "req": true, "options": [{"v": "1", "l": "1 – 1st Period of Month"}, {"v": "2", "l": "2 – 2nd Period of Month"}, {"v": "4", "l": "4 – 1st and 2nd Period of Month"}, {"v": "5", "l": "5 – Every Period"}, {"v": "N", "l": "N – No Deduction"}, {"v": "T", "l": "T – Table Driven"}]}, {"label": "Begin Date", "view": "05/01/2023", "e": "none", "k": "text", "val": "05/01/2023", "addView": "Set by Payroll"}, {"label": "Transit Routing #", "view": "122235821", "e": "both", "k": "text", "val": "122235821", "req": true, "ph": "9 digits"}, {"label": "Deposit Account #", "view": "••••••••7301", "e": "both", "k": "text", "val": "004418827301", "req": true, "ph": "Up to 17 digits"}, {"label": "Checking/Savings Ind", "view": "C", "e": "both", "k": "text", "val": "C", "req": true, "ph": "C or S"}], "cols": 3}, {"title": "Direct Deposit Formula", "fields": [{"label": "Calc 1 Code", "view": "A – All of Net", "e": "both", "k": "select", "val": "A", "req": true, "options": [{"v": "A", "l": "A – All of Net"}, {"v": "F", "l": "F – Flat Amount"}, {"v": "P", "l": "P – Percent Calculation"}, {"v": "Q", "l": "Q – Deduction Is Percent of Net"}]}, {"label": "Calc 1 Amt/Pct", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Limit Code", "view": "N – No Limit to Apply", "e": "both", "k": "select", "val": "N", "options": [{"v": "N", "l": "N – No Limit to Apply"}, {"v": "H", "l": "H – Period High Limit"}, {"v": "L", "l": "L – Minimum Deduction Amount"}, {"v": "R", "l": "R – Period Limits"}]}, {"label": "Low Limit Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "High Limit Amount", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Date Code", "view": "T", "e": "both", "k": "text", "val": "T", "ph": "e.g. T", "help": "T sets End Date to 12/31/2099 on save."}, {"label": "End Date", "view": "12/31/2099", "e": "both", "k": "text", "val": "12/31/2099", "ph": "MM/DD/YYYY"}], "cols": 3}]}; }
   field(f, mode, n) {
-    var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : false);
+    var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
     var kind = f.k || 'text';
     var opts = (f.options || []).map(function (o) { return { v: o.v, l: o.l, checked: o.v === cur }; });
     if (kind === 'select' && cur === '') opts = [{ v: '', l: 'Select…', checked: true }].concat(opts);
+    var help = mode === 'add' && f.helpAdd ? f.helpAdd : (f.help || '');
     return {
       id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
       cur: cur, ph: f.ph || '', options: opts,
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
-      reqMark: edit && !!f.req, hasHelp: edit && !!f.help, help: f.help || ''
+      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
     };
   }
   renderVals() {
-    var self = this, mode = this.state.mode, admin = this.state.role === 'admin';
-    var yes = function (v, l) { return { v: v, l: l }; };
-    var raw = [
-      { title: 'Deposit', fields: [
-        { label: 'Effective Date', view: '04/21/2023', val: '04/21/2023', e: 'both', req: true, ph: 'MM/DD/YYYY',
-          help: mode === 'add' ? 'Leave blank to use the current pay period begin date.' : 'Changing this date moves the record to the new date.' },
-        { label: 'Tax Entity', view: '10000 – City of Long Beach', val: '10000', e: 'add', k: 'select', req: true,
-          options: [yes('10000', '10000 – City of Long Beach')] },
-        { label: 'Deduction Type', view: '999 – Direct Deposit', val: '999', e: 'add', k: 'select', req: true,
-          options: [yes('999', '999 – Direct Deposit'), yes('998', '998 – Direct Deposit'), yes('997', '997 – Direct Deposit')] }
-      ]},
-      { title: 'Bank Account', fields: [
-        { label: 'Transit Routing #', view: '122235821', val: '122235821', e: 'both', req: true, ph: '9 digits' },
-        { label: 'Deposit Account #', view: '••••••••7301', val: '004418827301', e: 'both', req: true, ph: 'Up to 17 digits' },
-        { label: 'Account Type', view: 'Checking', val: 'C', e: 'both', k: 'radio', req: true,
-          options: [yes('C', 'Checking'), yes('S', 'Savings')] }
-      ]},
-      { title: 'Deposit Amount', fields: [
-        { label: 'Frequency', view: '5 – Every Period', val: '5', e: 'both', k: 'select', req: true,
-          options: [yes('1', '1 – 1st Period of Month'), yes('2', '2 – 2nd Period of Month'), yes('4', '4 – 1st and 2nd Period of Month'), yes('5', '5 – Every Period'), yes('N', 'N – No Deduction'), yes('T', 'T – Table Driven')] },
-        { label: 'Calc 1 Code', view: 'A – All of Net', val: 'A', e: 'both', k: 'select', req: true,
-          options: [yes('A', 'A – All of Net'), yes('F', 'F – Flat Amount'), yes('P', 'P – Percent Calculation'), yes('Q', 'Q – Deduction Is Percent of Net')] },
-        { label: 'Calc 1 Amount / Percent', view: '0.00', val: '0.00', e: 'both', ph: '0.00' },
-        { label: 'Limit Code', view: 'N – No Limit to Apply', val: 'N', e: 'both', k: 'select',
-          options: [yes('N', 'N – No Limit to Apply'), yes('H', 'H – Period High Limit'), yes('L', 'L – Minimum Deduction Amount'), yes('R', 'R – Period Limits')] },
-        { label: 'Low Limit', view: '0.00', val: '0.00', e: 'both', ph: '0.00' },
-        { label: 'High Limit', view: '0.00', val: '0.00', e: 'both', ph: '0.00' }
-      ]},
-      { title: 'Dates', fields: [
-        { label: 'Begin Date', view: '05/01/2023', addView: 'Set by Payroll', e: 'none' },
-        { label: 'Date Code', view: 'T', val: 'T', e: 'both', ph: 'e.g. T', help: 'T sets End Date to 12/31/2099 on save.' },
-        { label: 'End Date', view: '12/31/2099', val: '12/31/2099', e: 'both', ph: 'MM/DD/YYYY' }
-      ]}
-    ];
+    var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
+    var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
     var n = 0;
-    var sections = raw.map(function (s) { return { title: s.title, fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
     var set = function (o) { return function () { self.setState(o); }; };
     return {
       sections: sections,
-      title: mode === 'add' ? 'Add Direct Deposit' : 'Direct Deposit',
-      subtitle: mode === 'add' ? 'New direct deposit' : '999 – Direct Deposit · Effective 04/21/2023',
-      showViewActions: mode === 'view' && admin,
+      title: mode === 'add' ? S.addTitle : S.title,
+      subtitle: mode === 'add' ? S.addSubtitle : S.subtitle,
+      showViewActions: mode === 'view' && admin && canEdit,
       saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
       showSaveActions: mode !== 'view',
-      showEditDelete: mode === 'edit',
+      showEditDelete: mode === 'edit' && S.canDelete,
       showEditingNote: mode !== 'view',
       banner: this.state.banner,
       showDialog: this.state.dialog,
@@ -272,9 +260,9 @@ class Component extends DCLogic {
       toView: set({ mode: 'view', banner: '' }), toEdit: set({ mode: 'edit', banner: '' }), toAdd: set({ mode: 'add', banner: '' }),
       toAdmin: set({ role: 'admin' }), toReader: set({ role: 'reader', mode: 'view', banner: '' }),
       cancel: set({ mode: 'view', banner: '' }),
-      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(function () { self.setState({ banner: mode === 'add' ? 'Direct deposit added.' : 'Changes saved.', mode: 'view' }); }),
+      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(function () { self.setState({ banner: mode === 'add' ? S.addedMsg : 'Changes saved.', mode: 'view' }); }),
       askDelete: set({ dialog: true }), closeDialog: set({ dialog: false }),
-      confirmDelete: set({ dialog: false, mode: 'view', banner: 'Direct deposit deleted. (In the app this returns to the Direct Deposits list.)' })
+      confirmDelete: set({ dialog: false, mode: 'view', banner: S.deletedMsg })
     };
   }
 }

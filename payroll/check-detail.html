@@ -122,65 +122,58 @@ tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;lett
     <div class="editing">Change the check header or its lines, then Save. Click Calculate afterwards to recompute taxes and net pay.</div>
   </template>
 
-  <section class="card">
-    <h2>Totals</h2>
-    <div class="totals">
-      <div class="tot"><span class="lbl">Gross</span><span class="big">{{t.gross}}</span></div>
-      <div class="tot"><span class="lbl">Taxes</span><span class="big">{{t.tax}}</span></div>
-      <div class="tot"><span class="lbl">Deductions</span><span class="big">{{t.ded}}</span></div>
-      <div class="tot"><span class="lbl">Direct Deposit</span><span class="big">{{t.dd}}</span></div>
-      <div class="tot"><span class="lbl">Paper Check Net</span><span class="big">{{t.net}}</span></div>
-    </div>
-  </section>
+  <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="2">
+    <section class="card">
+      <h2>{{s.title}}</h2>
+      <div class="grid">
+        <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="6">
+          <div class="f">
+            <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
+            <template data-sc-if value="{{f.isText}}">
+              <input class="in" id="{{f.id}}" type="text" defaultValue="{{f.cur}}" placeholder="{{f.ph}}">
+            </template>
+            <template data-sc-if value="{{f.isSelect}}">
+              <select class="in" id="{{f.id}}" defaultValue="{{f.cur}}">
+                <template data-sc-for list="{{f.options}}" as="o"><option value="{{o.v}}">{{o.l}}</option></template>
+              </select>
+            </template>
+            <template data-sc-if value="{{f.showValue}}">
+              <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </section>
+  </template>
 
   <section class="card">
-    <h2>Check Information</h2>
-    <div class="grid">
-      <template data-sc-for list="{{fields}}" as="f" hint-placeholder-count="12">
-        <div class="f">
-          <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
-          <template data-sc-if value="{{f.isText}}">
-            <input class="in" id="{{f.id}}" type="text" defaultValue="{{f.cur}}" placeholder="{{f.ph}}">
-          </template>
-          <template data-sc-if value="{{f.isSelect}}">
-            <select class="in" id="{{f.id}}" defaultValue="{{f.cur}}">
-              <template data-sc-for list="{{f.options}}" as="o"><option value="{{o.v}}">{{o.l}}</option></template>
-            </select>
-          </template>
-          <template data-sc-if value="{{f.showValue}}">
-            <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
-          </template>
-        </div>
-      </template>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Earnings, Taxes and Deductions</h2>
+    <h2>Check Detail</h2>
     <div class="tblwrap">
       <table>
         <thead>
-          <tr><th scope="col">Item</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Rate</th><th scope="col" class="num">Amount</th><template data-sc-if value="{{editing}}"><th scope="col"><span style="position: absolute; left: -9999px">Remove</span></th></template></tr>
+          <tr><th scope="col">ETV Code</th><th scope="col">ETV ID</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Base</th><th scope="col" class="num">Rate</th><th scope="col" class="num">Amount</th><th scope="col">Status</th><th scope="col">Sequence #</th><template data-sc-if value="{{editing}}"><th scope="col"><span style="position: absolute; left: -9999px">Remove</span></th></template></tr>
         </thead>
         <tbody>
-          <template data-sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
-            <tr class="group"><td colspan="{{cols}}">{{g.title}}</td></tr>
-            <template data-sc-for list="{{g.lines}}" as="l" hint-placeholder-count="2">
-              <tr>
-                <td>{{l.item}}</td>
-                <template data-sc-if value="{{editing}}">
-                  <td class="num"><input class="in cell" type="text" aria-label="Hours for {{l.item}}" defaultValue="{{l.hours}}"></td>
-                  <td class="num"><input class="in cell" type="text" aria-label="Rate for {{l.item}}" defaultValue="{{l.rate}}"></td>
-                  <td class="num"><input class="in cell" type="text" aria-label="Amount for {{l.item}}" defaultValue="{{l.amount}}"></td>
-                  <td class="num"><button type="button" class="btn small" aria-label="Remove {{l.item}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button></td>
-                </template>
-                <template data-sc-if value="{{viewing}}">
-                  <td class="num">{{l.hours}}</td>
-                  <td class="num">{{l.rate}}</td>
-                  <td class="num">{{l.amount}}</td>
-                </template>
-              </tr>
-            </template>
+          <template data-sc-for list="{{lines}}" as="l" hint-placeholder-count="6">
+            <tr>
+              <td>{{l.code}}</td>
+              <td>{{l.id}}</td>
+              <template data-sc-if value="{{editing}}">
+                <td class="num"><input class="in cell" type="text" aria-label="Hours for {{l.id}}" defaultValue="{{l.hours}}"></td>
+                <td class="num"><input class="in cell" type="text" aria-label="Base for {{l.id}}" defaultValue="{{l.base}}"></td>
+                <td class="num"><input class="in cell" type="text" aria-label="Rate for {{l.id}}" defaultValue="{{l.rate}}"></td>
+                <td class="num"><input class="in cell" type="text" aria-label="Amount for {{l.id}}" defaultValue="{{l.amount}}"></td>
+              </template>
+              <template data-sc-if value="{{viewing}}">
+                <td class="num">{{l.hours}}</td>
+                <td class="num">{{l.base}}</td>
+                <td class="num">{{l.rate}}</td>
+                <td class="num">{{l.amount}}</td>
+              </template>
+              <td>{{l.status}}</td>
+              <td>{{l.seq}}</td>
+              <template data-sc-if value="{{editing}}"><td class="num"><button type="button" class="btn small" aria-label="Remove {{l.id}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button></td></template>
+            </tr>
           </template>
         </tbody>
       </table>
@@ -191,7 +184,7 @@ tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;lett
         <select class="in" id="nl-type" style="width: 160px">
           <option value="E">E – Earnings</option><option value="T">T – Tax</option><option value="V">V – Deduction</option>
         </select>
-        <input class="in" type="text" aria-label="Item code" placeholder="Code" style="width: 120px">
+        <input class="in" type="text" aria-label="ETV ID" placeholder="ETV ID" style="width: 120px">
         <input class="in" type="text" aria-label="Amount" placeholder="Amount" style="width: 140px">
         <button type="button" class="btn small"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add line</button>
       </div>
@@ -204,7 +197,7 @@ tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;lett
       <li>Buttons follow the legacy PayOnlineCheckDetail’s own rules. <strong>Not posted:</strong> Edit, Calculate, Post; Delete is inside Edit (beside Cancel/Save). <strong>Posted:</strong> Reverse. Print in Batch appears only on a posted check with no print request and type MA/MC/NC/SC/FC/GU (so not on this regular payroll check).</li>
       <li>Calls: <code>PayCheckHistory_Get</code> (view). Actions are the Online Check endpoints: calculate, post, reverse, print-in-batch, delete. Start Check (“Create New Check” on the list) creates the not-posted check this page then edits.</li>
       <li>Every action here produces or undoes real pay, so each irreversible one (Post, Reverse, Delete) asks for confirmation. The gateway also refuses them unless payroll processing is switched on.</li>
-      <li>“Paper Check Net” is the check’s Net Pay field. On a direct-deposit employee it’s 0.00 and the pay is the 999 line, so the totals strip shows both.</li>
+      <li>Sections, field order and labels: legacy PayOnlineCheckDetail (Check Header Information, Check Detail). Net Pay is the paper-check net: on a direct-deposit employee it’s 0.00 and the pay is the V 999 line.</li>
       <li>Line codes are decoded by type (E/T/V), since the same number means different things on each, e.g. 997 is deferred comp on E but direct deposit on V.</li>
     </ul>
   </div>
@@ -270,54 +263,66 @@ class Component extends DCLogic {
   renderVals() {
     var self = this, s = this.state, posted = s.posted, admin = s.role === 'admin', edit = s.edit && !posted;
     var o = function (v, l) { return { v: v, l: l }; };
-    var hdr = posted ? [
-      ['Check Type', '— (regular payroll)'], ['Check Number', '—'], ['Internal Check #', '262790000861'],
-      ['Pay ID', 'B – Regular Bi-Weekly'], ['Tax Entity', '10000 – City of Long Beach'], ['Check Code', 'R – Regular'],
-      ['Period / Year', '21 / 2026'], ['Period End Date', '10/02/2026'], ['Check Date', '10/09/2026'],
-      ['Pay Status', 'A – Active'], ['Pay Sub Status', '—'], ['Final Check Date', '—'],
-      ['Bypass Duplicate Pay', 'U'], ['Pay All Now', '—'], ['Tax All', 'No'],
-      ['Print Request', '—'], ['Reverses Check #', '—']
-    ].map(function (r) { return { label: r[0], view: r[1] }; }) : [
-      { label: 'Check Type', view: 'MC – Manual Check', val: 'MC', e: 1, k: 'select', req: 1,
-        options: [o('AJ', 'AJ – Adjustment'), o('CC', 'CC – Cancelled Check'), o('FC', 'FC – Final Check'), o('GU', 'GU – Gross-up'), o('MA', 'MA – Online Check Calculation'), o('MC', 'MC – Manual Check'), o('NC', 'NC – Normal Check'), o('SC', 'SC – Supplemental Check')] },
-      { label: 'Check Number', view: '—', val: '', e: 1 },
-      { label: 'Internal Check #', view: '[NEW INTERNAL #]' },
-      { label: 'Pay ID', view: 'B – Regular Bi-Weekly', val: 'B', e: 1, k: 'select', options: [o('B', 'B – Regular Bi-Weekly')] },
-      { label: 'Tax Entity', view: '10000 – City of Long Beach' },
-      { label: 'Check Code', view: 'R – Regular', val: 'R', e: 1, k: 'select',
-        options: [o('A', 'A – Auto Allowance'), o('M', 'M – Management Incentive'), o('R', 'R – Regular'), o('S', 'S – Suggestion Awards'), o('W', 'W – Worker’s Compensation')] },
-      { label: 'Period', view: '22', val: '22', e: 1 },
-      { label: 'Pay Year', view: '26', val: '26', e: 1 },
-      { label: 'Period End Date', view: '10/16/2026', val: '10/16/2026', e: 1, ph: 'MM/DD/YYYY' },
-      { label: 'Check Date', view: '10/23/2026', val: '10/23/2026', e: 1, req: 1, ph: 'MM/DD/YYYY' },
-      { label: 'Final Check Date', view: '—', val: '', e: 1, ph: 'MM/DD/YYYY' },
-      { label: 'Bypass Duplicate Pay', view: 'Default', val: '', e: 1, k: 'select',
-        options: [o('', 'Default'), o('N', 'N'), o('D', 'D'), o('S', 'S'), o('B', 'B')] },
-      { label: 'Pay All Now', view: 'Default', val: '', e: 1, k: 'select', options: [o('', 'Default'), o('Y', 'Yes'), o('N', 'No')] },
-      { label: 'Tax All', view: 'No', val: 'N', e: 1, k: 'select', options: [o('Y', 'Yes'), o('N', 'No')] },
-      { label: 'Pay Status', view: 'A – Active' },
-      { label: 'Print Request', view: '—' }
+    /*legacy-layout*/
+    var o = function (v, l) { return { v: v, l: l }; };
+    var P = posted;
+    var YN = [o('Y', 'Y'), o('N', 'N')];
+    // [label, posted value, new-check value, editable on a not-posted check, kind, options, required, placeholder]
+    var top = [
+      ['Effective Date', '10/09/2026', '10/23/2026', 1, 'text', null, 1, 'MM/DD/YYYY'],
+      ['Check Number Internal', '262790000861', '[NEW INTERNAL #]'],
+      ['Check Number', '—', '—', 1]
+    ];
+    var hdr = [
+      ['Check Type', '—', 'MC – Manual Check', 1, 'select', [o('AJ', 'AJ – Adjustment'), o('CC', 'CC – Cancelled Check'), o('FC', 'FC – Final Check'), o('GU', 'GU – Gross-up'), o('MA', 'MA – Online Check Calculation'), o('MC', 'MC – Manual Check'), o('NC', 'NC – Normal Check'), o('SC', 'SC – Supplemental Check')], 1],
+      ['Status', 'A', 'P'],
+      ['Print Request', '—', '—'],
+      ['Pay ID', 'B – Regular Bi-Weekly', 'B – Regular Bi-Weekly', 1, 'select', [o('B', 'B – Regular Bi-Weekly')]],
+      ['Tax Entity', '10000 – City of Long Beach', '10000 – City of Long Beach'],
+      ['Period', '21', '22', 1],
+      ['Pay Period Year', '26', '26', 1],
+      ['Check Date', '10/09/2026', '10/23/2026', 1, 'text', null, 1, 'MM/DD/YYYY'],
+      ['Period Ending Date', '10/02/2026', '10/16/2026', 1, 'text', null, 0, 'MM/DD/YYYY'],
+      ['Check Code', 'R – Regular', 'R – Regular', 1, 'select', [o('A', 'A – Auto Allowance'), o('M', 'M – Management Incentive'), o('R', 'R – Regular'), o('S', 'S – Suggestion Awards'), o('W', 'W – Worker’s Compensation')]],
+      ['Bypass Duplicate Pay', 'U', '—', 1, 'select', [o('', 'Default'), o('N', 'N'), o('D', 'D'), o('S', 'S'), o('B', 'B')]],
+      ['Final Check Date', '—', '—', 1, 'text', null, 0, 'MM/DD/YYYY'],
+      ['Pay All Now', '—', '—', 1, 'select', [o('', 'Default'), o('Y', 'Y'), o('N', 'N')]],
+      ['Pay Status', 'A – Active', 'A – Active'],
+      ['Pay Sub Status', '—', '—'],
+      ['Reverse Check Number', '—', '—'],
+      ['Tax All', 'N', 'N', 1, 'select', YN],
+      ['Gross', '4,793.35', '958.67', 1],
+      ['Net Pay', '0.00', '—', 1],
+      ['Frequency', '—', '—', 1],
+      ['Freq 2.', '—', '—', 1],
+      ['Freq 3.', '—', '—', 1],
+      ['Freq 4.', '—', '—', 1],
+      ['Freq 5.', '—', '—', 1],
+      ['Frequency1', '—', '—', 1]
     ];
     var n = 0;
-    var fields = hdr.map(function (f) {
+    var mk = function (r) {
       n++;
-      var ed = edit && !!f.e, kind = f.k || 'text', cur = f.val != null ? f.val : '';
-      return { id: 'c' + n, label: f.label, view: f.view, cur: cur, ph: f.ph || '',
-        options: (f.options || []), isText: ed && kind === 'text', isSelect: ed && kind === 'select',
-        showValue: !ed, valCls: edit ? 'val muted' : 'val', reqMark: ed && !!f.req };
-    });
-    var L = function (item, hours, rate, amount) { return { item: item, hours: hours, rate: rate, amount: amount }; };
-    var groups = posted ? [
-      { title: 'Earnings', lines: [L('[BASE PAY CODE] – Base pay', '80.00', '59.9169', '4,793.35')] },
-      { title: 'Taxes', lines: [L('$$002 – U.S. Tax', '', '', '512.30'), L('CA – CA State', '', '', '191.24'), L('$$00M – U.S. Med', '', '', '69.50')] },
-      { title: 'Deductions & Deposits', lines: [L('011 – PERS', '', '', '380.00'), L('040 – Health Insurance', '', '', '124.48'), L('999 – Direct Deposit', '', '', '3,515.83')] }
+      var view = P ? r[1] : r[2], ed = edit && !!r[3], kind = r[4] || 'text', opts = r[5] || [];
+      var cur = view === '—' ? '' : view;
+      if (kind === 'select') { var m = opts.filter(function (x) { return view.indexOf(x.v + ' ') === 0 || view === x.v; })[0]; cur = m ? m.v : ''; }
+      return { id: 'c' + n, label: r[0], view: view, cur: cur, ph: r[7] || '', options: opts,
+        isText: ed && kind === 'text', isSelect: ed && kind === 'select', showValue: !ed,
+        valCls: edit ? 'val muted' : 'val', reqMark: ed && !!r[6] };
+    };
+    var sections = [{ title: 'Details', fields: top.map(mk) }, { title: 'Check Header Information', fields: hdr.map(mk) }];
+    var L = function (code, id, hours, base, rate, amount, status, seq) { return { code: code, id: id, hours: hours, base: base, rate: rate, amount: amount, status: status, seq: seq }; };
+    var lines = P ? [
+      L('E', '[BASE PAY CODE] – Base Pay', '80.00', '0.00', '59.9169', '4,793.35', 'A', '001'),
+      L('T', '$$002 – U.S. Tax', '0.00', '4,793.35', '0.0000', '512.30', 'A', '002'),
+      L('T', 'CA – CA State', '0.00', '4,793.35', '0.0000', '191.24', 'A', '003'),
+      L('T', '$$00M – U.S. Med', '0.00', '4,793.35', '0.0000', '69.50', 'A', '004'),
+      L('V', '011 – PERS', '0.00', '4,793.35', '0.0000', '380.00', 'A', '005'),
+      L('V', '040 – Health Insurance', '0.00', '0.00', '0.0000', '124.48', 'A', '006'),
+      L('V', '999 – Direct Deposit', '0.00', '3,515.83', '0.0000', '3,515.83', 'A', '007')
     ] : [
-      { title: 'Earnings', lines: [L('ALV – Vacation Payoff', '16.00', '59.9169', '958.67')] },
-      { title: 'Taxes', lines: [L('$$002 – U.S. Tax', '', '', '—'), L('CA – CA State', '', '', '—')] },
-      { title: 'Deductions & Deposits', lines: [] }
+      L('E', 'ALV – Vacation Payoff', '16.00', '0.00', '59.9169', '958.67', 'P', '001')
     ];
-    var t = posted ? { gross: '4,793.35', tax: '773.04', ded: '504.48', dd: '3,515.83', net: '0.00' }
-                   : { gross: '958.67', tax: '—', ded: '—', dd: '—', net: '—' };
     var dlgs = {
       reverse: { title: 'Reverse check 262790000861?', body: 'This creates a reversing check (type CR) that cancels the 10/09/2026 pay of 4,793.35 and posts it. It can’t be undone from here.', ok: 'Reverse Check', cls: 'btn danger-solid' },
       post: { title: 'Post this check?', body: 'Posting finalizes the check and updates the employee’s accumulators. After posting it can only be undone by reversing it.', ok: 'Post', cls: 'btn primary' },
@@ -334,7 +339,7 @@ class Component extends DCLogic {
       saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
       showSaveActions: edit,
       editing: edit, viewing: !edit, cols: edit ? 5 : 4,
-      fields: fields, groups: groups, t: t,
+      sections: sections, lines: lines,
       banner: s.banner,
       showDialog: !!s.dialog, dlg: dlgs[s.dialog] || dlgs.post,
       segPosted: posted ? 'on' : '', segOpen: posted ? '' : 'on',

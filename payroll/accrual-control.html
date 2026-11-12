@@ -35,7 +35,8 @@ h1{margin:0;font-size:24px;font-weight:600}
 .card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
 .card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .lbl{font-size:12px;color:#5b6575;font-weight:500}
 .req{color:#b42318;margin-left:3px}
@@ -120,8 +121,8 @@ table.acc tr.total td{font-weight:600}
 
   <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
     <section class="card">
-      <h2>{{s.title}}</h2>
-      <div class="grid">
+      <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
+      <div class="{{s.gridCls}}">
         <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
           <div class="f">
             <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
@@ -138,6 +139,9 @@ table.acc tr.total td{font-weight:600}
                 <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
               </div>
             </template>
+            <template data-sc-if value="{{f.isCheck}}">
+              <label class="radio"><input type="checkbox" id="{{f.id}}" defaultChecked="{{f.checked}}">{{f.cbText}}</label>
+            </template>
             <template data-sc-if value="{{f.showValue}}">
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
@@ -151,11 +155,9 @@ table.acc tr.total td{font-weight:600}
   <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayAccrualControlDetail buttons: <strong>Add, Update, Delete</strong>.</li>
+      <li>Sections, field order and labels: legacy PayAccrualControlDetail. Buttons: <strong>Add, Update, Delete</strong> (Delete in Edit only, confirmed).</li>
       <li>Calls: <code>PayAccrualControl_Get</code>, <code>_Put</code>, <code>_Post</code>, <code>_Delete</code>.</li>
-      <li>The City’s form edits only Effective Date, Tax Entity, Plan, Service Date and Status. Everything else is hidden on that form, so it’s read-only here (the gateway sends it back unchanged).</li>
-      <li>Effective Date, Tax Entity and Plan are the key: set on Add only.</li>
-      <li>Balances live on the Accrual Accumulator (the Accumulator button on the tab).</li>
+      <li>Effective Date, Tax Entity and Plan are the key: set on Add only. Balances are on the Accrual Accumulator (the tab’s Accumulator button).</li>
     </ul>
   </div>
 
@@ -218,7 +220,7 @@ class Component extends DCLogic {
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
     this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
-  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Accrual Plan", "subtitle": "VAC – Vacation Accrual · Effective 01/01/2026", "addTitle": "Add Accrual Plan", "addSubtitle": "New accrual plan", "addedMsg": "Accrual plan added.", "deletedMsg": "Accrual plan deleted. (In the app this returns to the Accruals tab.)", "sections": [{"title": "Plan", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "add", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Plan", "view": "VAC – Vacation Accrual", "e": "add", "k": "select", "val": "VAC", "req": true, "options": [{"v": "VAC", "l": "VAC – Vacation Accrual"}, {"v": "SCK", "l": "SCK – Sick Leave Accrual"}, {"v": "HOL", "l": "HOL – Regular Holiday"}, {"v": "PLF", "l": "PLF – Personal Holiday (Full Time)"}, {"v": "OVT", "l": "OVT – Banked Overtime"}]}, {"label": "Accrual Type", "view": "V – Vacation", "e": "none", "k": "text", "val": "V – Vacation", "addView": "From the plan"}, {"label": "Service Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY"}, {"label": "Status", "view": "A", "e": "both", "k": "text", "val": "A", "ph": "1 character"}]}, {"title": "Plan Details", "fields": [{"label": "Derived Service Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Source", "view": "H", "e": "none", "k": "text", "val": "H"}, {"label": "Bracket", "view": "03", "e": "none", "k": "text", "val": "03"}, {"label": "Anniversary Date", "view": "06/09/2026", "e": "none", "k": "text", "val": "06/09/2026"}, {"label": "Start Date", "view": "01/01/2026", "e": "none", "k": "text", "val": "01/01/2026"}, {"label": "End Date", "view": "12/31/2099", "e": "none", "k": "text", "val": "12/31/2099"}, {"label": "Period Limit", "view": "0.00", "e": "none", "k": "text", "val": "0.00"}, {"label": "Hours Limit", "view": "0.00", "e": "none", "k": "text", "val": "0.00"}, {"label": "Accrual Percent", "view": "0.00", "e": "none", "k": "text", "val": "0.00"}]}, {"title": "Suspend / Resume", "fields": [{"label": "Award Suspend Date", "view": "—", "e": "none", "k": "text", "val": ""}, {"label": "Award Resume Date", "view": "12/31/2099", "e": "none", "k": "text", "val": "12/31/2099"}, {"label": "Usage Suspend Date", "view": "—", "e": "none", "k": "text", "val": ""}, {"label": "Usage Resume Date", "view": "12/31/2099", "e": "none", "k": "text", "val": "12/31/2099"}]}]}; }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Accrual Plan", "subtitle": "VAC – Vacation Accrual · Effective 01/01/2026", "addTitle": "Add Accrual Plan", "addSubtitle": "New accrual plan", "addedMsg": "Accrual plan added.", "deletedMsg": "Accrual plan deleted. (In the app this returns to the Accruals tab.)", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "add", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Plan", "view": "VAC – Vacation Accrual", "e": "add", "k": "select", "val": "VAC", "req": true, "options": [{"v": "VAC", "l": "VAC – Vacation Accrual"}, {"v": "SCK", "l": "SCK – Sick Leave Accrual"}, {"v": "HOL", "l": "HOL – Regular Holiday"}, {"v": "PLF", "l": "PLF – Personal Holiday (Full Time)"}, {"v": "OVT", "l": "OVT – Banked Overtime"}]}, {"label": "Type", "view": "V – Vacation", "e": "none", "k": "text", "val": "V – Vacation", "addView": "From the plan"}], "cols": 3}, {"title": "Accrual Service Dates", "fields": [{"label": "Service Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY"}], "cols": 3}, {"title": "Override Codes", "fields": [{"label": "Status", "view": "A", "e": "both", "k": "text", "val": "A", "ph": "1 character"}], "cols": 3}]}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -230,6 +232,7 @@ class Component extends DCLogic {
       id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
       cur: cur, ph: f.ph || '', options: opts,
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
       reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
     };
@@ -238,7 +241,7 @@ class Component extends DCLogic {
     var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
     var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
     var n = 0;
-    var sections = S.sections.map(function (s) { return { title: s.title, fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
     var set = function (o) { return function () { self.setState(o); }; };
     return {
       sections: sections,

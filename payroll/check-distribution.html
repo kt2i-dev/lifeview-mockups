@@ -35,7 +35,8 @@ h1{margin:0;font-size:24px;font-weight:600}
 .card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
 .card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
 .f{display:flex;flex-direction:column;gap:6px;min-width:0}
 .lbl{font-size:12px;color:#5b6575;font-weight:500}
 .req{color:#b42318;margin-left:3px}
@@ -120,8 +121,8 @@ table.acc tr.total td{font-weight:600}
 
   <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
     <section class="card">
-      <h2>{{s.title}}</h2>
-      <div class="grid">
+      <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
+      <div class="{{s.gridCls}}">
         <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
           <div class="f">
             <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
@@ -138,6 +139,9 @@ table.acc tr.total td{font-weight:600}
                 <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
               </div>
             </template>
+            <template data-sc-if value="{{f.isCheck}}">
+              <label class="radio"><input type="checkbox" id="{{f.id}}" defaultChecked="{{f.checked}}">{{f.cbText}}</label>
+            </template>
             <template data-sc-if value="{{f.showValue}}">
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
@@ -151,9 +155,8 @@ table.acc tr.total td{font-weight:600}
   <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li>Legacy PayCheckDistributionDetail: <strong>Update</strong> only.</li>
-      <li>Calls: <code>PayCheckDistribution_Get</code>, <code>_Put</code>.</li>
-      <li>Edits the home Pay Status record; only Check Distribution and the effective date are sent.</li>
+      <li>Fields and labels: legacy PayCheckDistributionDetail (one block, no sections). Buttons: <strong>Update</strong> only.</li>
+      <li>Calls: <code>PayCheckDistribution_Get</code>, <code>_Put</code>. Only Check Dist and the effective date are sent.</li>
     </ul>
   </div>
 
@@ -204,7 +207,7 @@ class Component extends DCLogic {
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
     this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
-  spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Check Distribution", "subtitle": "Home tax entity · 10000 – City of Long Beach", "addTitle": "Add Check Distribution", "addSubtitle": "New check distribution", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Check Distribution", "fields": [{"label": "Check Distribution", "view": "05 – Location 05", "e": "both", "k": "select", "val": "05", "req": true, "options": [{"v": "01", "l": "01 – Location 01"}, {"v": "02", "l": "02 – Location 02"}, {"v": "03", "l": "03 – Location 03"}, {"v": "04", "l": "04 – Location 04"}, {"v": "05", "l": "05 – Location 05"}, {"v": "06", "l": "06 – Location 06"}, {"v": "07", "l": "07 – Location 07"}, {"v": "08", "l": "08 – Location 08"}, {"v": "09", "l": "09 – Location 09"}, {"v": "10", "l": "10 – Location 10"}, {"v": "11", "l": "11 – Location 11"}, {"v": "12", "l": "12 – Location 12"}]}, {"label": "Effective Date", "view": "—", "e": "edit", "k": "text", "val": "", "ph": "MM/DD/YYYY", "help": "Leave blank to use the current pay period begin date."}]}, {"title": "Pay Record", "fields": [{"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "none", "k": "text", "val": "10000 – City of Long Beach"}, {"label": "Pay ID", "view": "B – Regular Bi-Weekly", "e": "none", "k": "text", "val": "B – Regular Bi-Weekly"}, {"label": "Pay Status", "view": "A – Active", "e": "none", "k": "text", "val": "A – Active"}, {"label": "Pay Action", "view": "IC – Information Change", "e": "none", "k": "text", "val": "IC – Information Change"}, {"label": "Stop Date", "view": "—", "e": "none", "k": "text", "val": ""}]}]}; }
+  spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Check Distribution", "subtitle": "Home tax entity · 10000 – City of Long Beach", "addTitle": "Add Check Distribution", "addSubtitle": "New check distribution", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY", "help": "Leave as is to use the current pay period begin date."}, {"label": "Check Dist", "view": "05 – Location 05", "e": "both", "k": "select", "val": "05", "req": true, "options": [{"v": "01", "l": "01 – Location 01"}, {"v": "02", "l": "02 – Location 02"}, {"v": "03", "l": "03 – Location 03"}, {"v": "04", "l": "04 – Location 04"}, {"v": "05", "l": "05 – Location 05"}, {"v": "06", "l": "06 – Location 06"}, {"v": "07", "l": "07 – Location 07"}, {"v": "08", "l": "08 – Location 08"}, {"v": "09", "l": "09 – Location 09"}, {"v": "10", "l": "10 – Location 10"}, {"v": "11", "l": "11 – Location 11"}, {"v": "12", "l": "12 – Location 12"}]}, {"label": "Record Status", "view": "A – Active", "e": "none", "k": "text", "val": "A – Active"}, {"label": "Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}, {"label": "Original Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Original Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}], "cols": 3}]}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -216,6 +219,7 @@ class Component extends DCLogic {
       id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
       cur: cur, ph: f.ph || '', options: opts,
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
       reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
     };
@@ -224,7 +228,7 @@ class Component extends DCLogic {
     var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
     var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
     var n = 0;
-    var sections = S.sections.map(function (s) { return { title: s.title, fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
     var set = function (o) { return function () { self.setState(o); }; };
     return {
       sections: sections,

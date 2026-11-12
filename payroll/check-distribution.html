@@ -46,6 +46,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 .in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
 .in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
 .help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
 .radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
 .radio{display:flex;gap:6px;align-items:center;font-size:14px}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
@@ -146,6 +147,7 @@ table.acc tr.total td{font-weight:600}
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
             <template data-sc-if value="{{f.hasHelp}}"><div class="help">{{f.help}}</div></template>
+            <template data-sc-if value="{{f.hasSrc}}"><div class="src">{{f.src}}</div></template>
           </div>
         </template>
       </div>
@@ -207,7 +209,7 @@ class Component extends DCLogic {
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
     this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
-  spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Check Distribution", "subtitle": "Home tax entity · 10000 – City of Long Beach", "addTitle": "Add Check Distribution", "addSubtitle": "New check distribution", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY", "help": "Leave as is to use the current pay period begin date."}, {"label": "Check Dist", "view": "05 – Location 05", "e": "both", "k": "select", "val": "05", "req": true, "options": [{"v": "01", "l": "01 – Location 01"}, {"v": "02", "l": "02 – Location 02"}, {"v": "03", "l": "03 – Location 03"}, {"v": "04", "l": "04 – Location 04"}, {"v": "05", "l": "05 – Location 05"}, {"v": "06", "l": "06 – Location 06"}, {"v": "07", "l": "07 – Location 07"}, {"v": "08", "l": "08 – Location 08"}, {"v": "09", "l": "09 – Location 09"}, {"v": "10", "l": "10 – Location 10"}, {"v": "11", "l": "11 – Location 11"}, {"v": "12", "l": "12 – Location 12"}]}, {"label": "Record Status", "view": "A – Active", "e": "none", "k": "text", "val": "A – Active"}, {"label": "Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}, {"label": "Original Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Original Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}], "cols": 3}]}; }
+  spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Check Distribution", "subtitle": "Home tax entity · 10000 – City of Long Beach", "addTitle": "Add Check Distribution", "addSubtitle": "New check distribution", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY", "help": "Leave as is to use the current pay period begin date."}, {"label": "Check Dist", "view": "05 – LOCATION 05", "e": "both", "k": "select", "src": "Options: GET /v1/codes/CHECK_DISTRIBUTION (table 10910)", "val": "05", "req": true, "options": [{"v": "01", "l": "01 – LOCATION 01"}, {"v": "02", "l": "02 – LOCATION 02"}, {"v": "03", "l": "03 – LOCATION 03"}, {"v": "04", "l": "04 – LOCATION 04"}, {"v": "05", "l": "05 – LOCATION 05"}, {"v": "06", "l": "06 – LOCATION 06"}, {"v": "07", "l": "07 – LOCATION 07"}, {"v": "08", "l": "08 – LOCATION 08"}, {"v": "09", "l": "09 – LOCATION 09"}, {"v": "10", "l": "10 – LOCATION 10"}, {"v": "11", "l": "11 – LOCATION 11"}, {"v": "12", "l": "12 – LOCATION 12"}, {"v": "13", "l": "13 – LOCATION 13"}, {"v": "14", "l": "14 – LOCATION 14"}, {"v": "15", "l": "15 – LOCATION 15"}, {"v": "16", "l": "16 – LOCATION 16"}, {"v": "17", "l": "17 – LOCATION 17"}, {"v": "18", "l": "18 – LOCATION 18"}, {"v": "19", "l": "19 – LOCATION 19"}, {"v": "20", "l": "20 – LOCATION 20"}, {"v": "21", "l": "21 – LOCATION 21"}, {"v": "22", "l": "22 – LOCATION 22"}, {"v": "23", "l": "23 – LOCATION 23"}, {"v": "24", "l": "24 – LOCATION 24"}, {"v": "25", "l": "25 – LOCATION 25"}]}, {"label": "Record Status", "view": "A – Active", "e": "none", "k": "text", "val": "A – Active"}, {"label": "Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}, {"label": "Original Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Original Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}], "cols": 3}]}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -221,7 +223,8 @@ class Component extends DCLogic {
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
       isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
-      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
+      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help,
+      hasSrc: !!f.src, src: f.src || ''
     };
   }
   renderVals() {

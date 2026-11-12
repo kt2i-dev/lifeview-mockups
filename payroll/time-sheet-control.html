@@ -46,6 +46,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 .in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
 .in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
 .help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
 .radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
 .radio{display:flex;gap:6px;align-items:center;font-size:14px}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
@@ -146,6 +147,7 @@ table.acc tr.total td{font-weight:600}
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
             <template data-sc-if value="{{f.hasHelp}}"><div class="help">{{f.help}}</div></template>
+            <template data-sc-if value="{{f.hasSrc}}"><div class="src">{{f.src}}</div></template>
           </div>
         </template>
       </div>
@@ -221,7 +223,8 @@ class Component extends DCLogic {
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
       isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
-      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
+      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help,
+      hasSrc: !!f.src, src: f.src || ''
     };
   }
   renderVals() {

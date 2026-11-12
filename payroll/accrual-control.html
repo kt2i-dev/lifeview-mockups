@@ -46,6 +46,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 .in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
 .in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
 .help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
 .radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
 .radio{display:flex;gap:6px;align-items:center;font-size:14px}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
@@ -146,6 +147,7 @@ table.acc tr.total td{font-weight:600}
               <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
             </template>
             <template data-sc-if value="{{f.hasHelp}}"><div class="help">{{f.help}}</div></template>
+            <template data-sc-if value="{{f.hasSrc}}"><div class="src">{{f.src}}</div></template>
           </div>
         </template>
       </div>
@@ -220,7 +222,7 @@ class Component extends DCLogic {
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
     this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
   }
-  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Accrual Plan", "subtitle": "VAC – Vacation Accrual · Effective 01/01/2026", "addTitle": "Add Accrual Plan", "addSubtitle": "New accrual plan", "addedMsg": "Accrual plan added.", "deletedMsg": "Accrual plan deleted. (In the app this returns to the Accruals tab.)", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "add", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Plan", "view": "VAC – Vacation Accrual", "e": "add", "k": "select", "val": "VAC", "req": true, "options": [{"v": "VAC", "l": "VAC – Vacation Accrual"}, {"v": "SCK", "l": "SCK – Sick Leave Accrual"}, {"v": "HOL", "l": "HOL – Regular Holiday"}, {"v": "PLF", "l": "PLF – Personal Holiday (Full Time)"}, {"v": "OVT", "l": "OVT – Banked Overtime"}]}, {"label": "Type", "view": "V – Vacation", "e": "none", "k": "text", "val": "V – Vacation", "addView": "From the plan"}], "cols": 3}, {"title": "Accrual Service Dates", "fields": [{"label": "Service Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY"}], "cols": 3}, {"title": "Override Codes", "fields": [{"label": "Status", "view": "A", "e": "both", "k": "text", "val": "A", "ph": "1 character"}], "cols": 3}]}; }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Accrual Plan", "subtitle": "VAC – Vacation Accrual · Effective 01/01/2026", "addTitle": "Add Accrual Plan", "addSubtitle": "New accrual plan", "addedMsg": "Accrual plan added.", "deletedMsg": "Accrual plan deleted. (In the app this returns to the Accruals tab.)", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "add", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – CITY OF LONG BEACH", "e": "add", "k": "select", "src": "Options: GET /v1/codes/TAX_ENTITY (table 00300)", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – CITY OF LONG BEACH"}]}, {"label": "Plan", "view": "VAC – VACATION ACCRUAL", "e": "add", "k": "select", "src": "Options: GET /v1/codes/ACCRUAL_PLAN (table 00303)", "val": "VAC", "req": true, "options": [{"v": "EX1", "l": "EX1 – EXECUTIVE LEAVE-080"}, {"v": "EX2", "l": "EX2 – EXECUTIVE LEAVE-120"}, {"v": "EX3", "l": "EX3 – EXECUTIVE LEAVE-64"}, {"v": "EX4", "l": "EX4 – EXECUTIVE LEAVE-16"}, {"v": "EXL", "l": "EXL – EXECUTIVE LEAVE"}, {"v": "FUR", "l": "FUR – FURLOUGH"}, {"v": "HOL", "l": "HOL – REGULAR HOLIDAY"}, {"v": "INL", "l": "INL – IN LIEU HOLIDAY ACCRUALS"}, {"v": "INS", "l": "INS – IN LIEU HOLIDAY ACCRLS-SAFETY"}, {"v": "INT", "l": "INT – IN LIEU HOLIDAY (NON PERM)"}, {"v": "OVT", "l": "OVT – BANKED OVERTIME"}, {"v": "PLC", "l": "PLC – PERSONAL HOLIDAY (LBCPA FT)"}, {"v": "PLD", "l": "PLD – PERSONAL HOLIDAY (LBCPA PT)"}, {"v": "PLF", "l": "PLF – PERSONAL HOLIDAY (FULL TIME)"}, {"v": "PLP", "l": "PLP – PERSONAL HOLIDAY (PART TIME)"}, {"v": "SCK", "l": "SCK – SICK LEAVE ACCRUAL"}, {"v": "SPT", "l": "SPT – SICK SEAS+TEMP PART-TIME"}, {"v": "VAC", "l": "VAC – VACATION ACCRUAL"}]}, {"label": "Type", "view": "V – Vacation", "e": "none", "k": "text", "val": "V – Vacation", "addView": "From the plan"}], "cols": 3}, {"title": "Accrual Service Dates", "fields": [{"label": "Service Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY"}], "cols": 3}, {"title": "Override Codes", "fields": [{"label": "Status", "view": "A", "e": "both", "k": "text", "val": "A", "ph": "1 character"}], "cols": 3}]}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -234,7 +236,8 @@ class Component extends DCLogic {
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
       isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
-      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
+      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help,
+      hasSrc: !!f.src, src: f.src || ''
     };
   }
   renderVals() {

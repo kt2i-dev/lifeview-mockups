@@ -270,7 +270,7 @@ class Component extends DCLogic {
       isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
       showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
       reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help,
-      hasSrc: !!f.src, src: f.src || ''
+      hasSrc: edit && !!f.src, src: f.src || ''   // where a dropdown's options come from: only on an input. In View the GET already carries the description (no lookup).
     };
   }
   renderVals() {

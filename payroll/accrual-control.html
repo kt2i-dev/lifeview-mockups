@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accrual Plan</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px;align-self:center}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
+.radio{display:flex;gap:6px;align-items:center;font-size:14px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<template id="dc-template">
+<div class="page">
+  <div class="mock" aria-label="Mockup controls">
+    <span class="mock-t">Mockup controls — not part of the design</span>
+    <div class="mock-g">Mode
+      <div class="seg">
+        <button type="button" class="{{segView}}" onClick="{{toView}}">View</button>
+        <button type="button" class="{{segEdit}}" onClick="{{toEdit}}">Edit</button>
+        <button type="button" class="{{segAdd}}" onClick="{{toAdd}}">Add</button>
+      </div>
+      
+    </div>
+    <div class="mock-g">Role
+      <div class="seg">
+        <button type="button" class="{{segAdmin}}" onClick="{{toAdmin}}">Payroll Admin</button>
+        <button type="button" class="{{segReader}}" onClick="{{toReader}}">Read-only</button>
+      </div>
+    </div>
+  </div>
+
+  <a class="back" href="employee-profile.html?tab=accruals">‹ Back to Accruals</a>
+  <div class="titlebar">
+    <div>
+      <h1>{{title}}</h1>
+      <div class="sub">{{subtitle}}</div>
+    </div>
+    <div class="actions">
+      <template data-sc-if value="{{showViewActions}}" hint-placeholder-val="{{ true }}">
+        <button type="button" class="btn primary" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button>
+      </template>
+      <template data-sc-if value="{{showSaveActions}}" hint-placeholder-val="{{ false }}">
+        <template data-sc-if value="{{showEditDelete}}" hint-placeholder-val="{{ false }}">
+          <button type="button" class="btn danger" onClick="{{askDelete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
+          <span class="sep" aria-hidden="true"></span>
+        </template>
+        <button type="button" class="btn" onClick="{{cancel}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+        <button type="button" class="btn primary" onClick="{{save}}" aria-busy="{{savingAria}}"><template data-sc-if value="{{saving}}"><span class="spin" aria-hidden="true"></span>Saving…</template><template data-sc-if value="{{notSaving}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Save</template></button>
+      </template>
+    </div>
+  </div>
+
+  <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}">
+    <div class="banner" role="status">{{banner}}</div>
+  </template>
+  
+  <template data-sc-if value="{{showEditingNote}}" hint-placeholder-val="{{ false }}">
+    <div class="editing">Fields with a box can be changed. Everything else is shown for reference and can’t be edited here.</div>
+  </template>
+
+  <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
+    <section class="card">
+      <h2>{{s.title}}</h2>
+      <div class="grid">
+        <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
+          <div class="f">
+            <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
+            <template data-sc-if value="{{f.isText}}">
+              <input class="in" id="{{f.id}}" type="text" defaultValue="{{f.cur}}" placeholder="{{f.ph}}">
+            </template>
+            <template data-sc-if value="{{f.isSelect}}">
+              <select class="in" id="{{f.id}}" defaultValue="{{f.cur}}">
+                <template data-sc-for list="{{f.options}}" as="o"><option value="{{o.v}}">{{o.l}}</option></template>
+              </select>
+            </template>
+            <template data-sc-if value="{{f.isRadio}}">
+              <div class="radios" role="radiogroup" aria-label="{{f.label}}">
+                <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
+              </div>
+            </template>
+            <template data-sc-if value="{{f.showValue}}">
+              <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
+            </template>
+            <template data-sc-if value="{{f.hasHelp}}"><div class="help">{{f.help}}</div></template>
+          </div>
+        </template>
+      </div>
+    </section>
+  </template>
+
+  <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayAccrualControlDetail buttons: <strong>Add, Update, Delete</strong>.</li>
+      <li>Calls: <code>PayAccrualControl_Get</code>, <code>_Put</code>, <code>_Post</code>, <code>_Delete</code>.</li>
+      <li>The City’s form edits only Effective Date, Tax Entity, Plan, Service Date and Status. Everything else is hidden on that form, so it’s read-only here (the gateway sends it back unchanged).</li>
+      <li>Effective Date, Tax Entity and Plan are the key: set on Add only.</li>
+      <li>Balances live on the Accrual Accumulator (the Accumulator button on the tab).</li>
+    </ul>
+  </div>
+
+  <template data-sc-if value="{{showDialog}}" hint-placeholder-val="{{ false }}">
+    <div class="overlay">
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
+        <h2 id="dlg-t">Delete this accrual plan?</h2>
+        <p>This permanently deletes VAC – Vacation Accrual effective 01/01/2026. It can’t be undone.</p>
+        <div class="actions" style="justify-content: flex-end">
+          <button type="button" class="btn" onClick="{{closeDialog}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+          <button type="button" class="btn danger-solid" onClick="{{confirmDelete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var q = (props && props.query) || {}, S = this.spec();
+    var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
+    this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
+  }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": true, "title": "Accrual Plan", "subtitle": "VAC – Vacation Accrual · Effective 01/01/2026", "addTitle": "Add Accrual Plan", "addSubtitle": "New accrual plan", "addedMsg": "Accrual plan added.", "deletedMsg": "Accrual plan deleted. (In the app this returns to the Accruals tab.)", "sections": [{"title": "Plan", "fields": [{"label": "Effective Date", "view": "01/01/2026", "e": "add", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "helpAdd": "Leave blank to use the current pay period begin date."}, {"label": "Tax Entity", "view": "10000 – City of Long Beach", "e": "add", "k": "select", "val": "10000", "req": true, "options": [{"v": "10000", "l": "10000 – City of Long Beach"}]}, {"label": "Plan", "view": "VAC – Vacation Accrual", "e": "add", "k": "select", "val": "VAC", "req": true, "options": [{"v": "VAC", "l": "VAC – Vacation Accrual"}, {"v": "SCK", "l": "SCK – Sick Leave Accrual"}, {"v": "HOL", "l": "HOL – Regular Holiday"}, {"v": "PLF", "l": "PLF – Personal Holiday (Full Time)"}, {"v": "OVT", "l": "OVT – Banked Overtime"}]}, {"label": "Accrual Type", "view": "V – Vacation", "e": "none", "k": "text", "val": "V – Vacation", "addView": "From the plan"}, {"label": "Service Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY"}, {"label": "Status", "view": "A", "e": "both", "k": "text", "val": "A", "ph": "1 character"}]}, {"title": "Plan Details", "fields": [{"label": "Derived Service Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Source", "view": "H", "e": "none", "k": "text", "val": "H"}, {"label": "Bracket", "view": "03", "e": "none", "k": "text", "val": "03"}, {"label": "Anniversary Date", "view": "06/09/2026", "e": "none", "k": "text", "val": "06/09/2026"}, {"label": "Start Date", "view": "01/01/2026", "e": "none", "k": "text", "val": "01/01/2026"}, {"label": "End Date", "view": "12/31/2099", "e": "none", "k": "text", "val": "12/31/2099"}, {"label": "Period Limit", "view": "0.00", "e": "none", "k": "text", "val": "0.00"}, {"label": "Hours Limit", "view": "0.00", "e": "none", "k": "text", "val": "0.00"}, {"label": "Accrual Percent", "view": "0.00", "e": "none", "k": "text", "val": "0.00"}]}, {"title": "Suspend / Resume", "fields": [{"label": "Award Suspend Date", "view": "—", "e": "none", "k": "text", "val": ""}, {"label": "Award Resume Date", "view": "12/31/2099", "e": "none", "k": "text", "val": "12/31/2099"}, {"label": "Usage Suspend Date", "view": "—", "e": "none", "k": "text", "val": ""}, {"label": "Usage Resume Date", "view": "12/31/2099", "e": "none", "k": "text", "val": "12/31/2099"}]}]}; }
+  field(f, mode, n) {
+    var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
+    var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
+    var kind = f.k || 'text';
+    var opts = (f.options || []).map(function (o) { return { v: o.v, l: o.l, checked: o.v === cur }; });
+    if (kind === 'select' && cur === '') opts = [{ v: '', l: 'Select…', checked: true }].concat(opts);
+    var help = mode === 'add' && f.helpAdd ? f.helpAdd : (f.help || '');
+    return {
+      id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
+      cur: cur, ph: f.ph || '', options: opts,
+      isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
+      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help
+    };
+  }
+  renderVals() {
+    var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
+    var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
+    var n = 0;
+    var sections = S.sections.map(function (s) { return { title: s.title, fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var set = function (o) { return function () { self.setState(o); }; };
+    return {
+      sections: sections,
+      title: mode === 'add' ? S.addTitle : S.title,
+      subtitle: mode === 'add' ? S.addSubtitle : S.subtitle,
+      showViewActions: mode === 'view' && admin && canEdit,
+      saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
+      showSaveActions: mode !== 'view',
+      showEditDelete: mode === 'edit' && S.canDelete,
+      showEditingNote: mode !== 'view',
+      banner: this.state.banner,
+      showDialog: this.state.dialog,
+      segView: mode === 'view' ? 'on' : '', segEdit: mode === 'edit' ? 'on' : '', segAdd: mode === 'add' ? 'on' : '',
+      segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
+      toView: set({ mode: 'view', banner: '' }), toEdit: set({ mode: 'edit', banner: '' }), toAdd: set({ mode: 'add', banner: '' }),
+      toAdmin: set({ role: 'admin' }), toReader: set({ role: 'reader', mode: 'view', banner: '' }),
+      cancel: set({ mode: 'view', banner: '' }),
+      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(function () { self.setState({ banner: mode === 'add' ? S.addedMsg : 'Changes saved.', mode: 'view' }); }),
+      askDelete: set({ dialog: true }), closeDialog: set({ dialog: false }),
+      confirmDelete: set({ dialog: false, mode: 'view', banner: S.deletedMsg })
+    };
+  }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

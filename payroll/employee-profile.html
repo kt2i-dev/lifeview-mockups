@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employee Profile – Payroll</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px;align-self:center}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
+.radio{display:flex;gap:6px;align-items:center;font-size:14px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
+
+.page{max-width:1440px}
+.ptitle{margin:6px 0 16px;font-size:22px;font-weight:700}
+.shell{background:#fff;border-radius:10px;padding:24px 26px 32px}
+.emp{border:1px solid #dde2e9;border-left:4px solid #0a5bd3;border-radius:8px;padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.emp .nm{font-size:18px;font-weight:700}
+.emp .k{font-size:12px;color:#8a93a1}.emp .v{font-size:13px;font-weight:600;margin-left:4px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:16px 0 18px}
+.tile{border:1px solid #dde2e9;border-radius:6px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:600;font-size:14px;color:#2b3340;background:#fff}
+.tile .ic{color:#0a5bd3;font-size:16px}
+.tile.on{background:#e3edfb;border-color:#0a5bd3;color:#0a5bd3}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #d3d9e1;margin-bottom:22px}
+.tabs button{border:0;background:none;font:inherit;font-size:13px;color:#2b3340;padding:10px 13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{border-bottom-color:#1c2431;font-weight:600}
+.lhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.lhead h2{margin:0;font-size:16px;font-weight:700}
+.sbtn{min-height:32px;padding:0 14px;border-radius:4px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #0a5bd3;background:#0a5bd3;color:#fff;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.sbtn.out{background:#fff;color:#0a5bd3}
+.filters{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;margin-bottom:14px}
+.filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
+.filters input{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;box-sizing:border-box}
+table.list{border-collapse:collapse;width:100%;font-size:12px}
+table.list th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;padding:12px 10px}
+table.list td{padding:7px 10px;border-bottom:1px solid #e3e8ef;height:30px}
+table.list tbody tr:nth-child(even) td{background:#eaf1fb}
+.lact{display:flex;gap:12px}
+.lact .sbtn{background:#fff;color:#0a5bd3}
+.muted{color:#8a93a1}
+.ltbl{overflow-x:auto}
+.sum{border:1px solid #dde2e9;border-radius:8px;margin-bottom:14px}
+.sum .hd{padding:14px 18px;font-size:13px;border-bottom:1px solid #e3e8ef;display:flex;justify-content:space-between}
+.sum .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 24px;padding:16px 32px 20px}
+.sum .g4 .lbl{font-size:12px;color:#5b6575}.sum .g4 .val{font-size:12px;font-weight:500;margin-top:3px}
+@media (max-width:760px){.tiles,.sum .g4{grid-template-columns:minmax(0,1fr)}}
+
+.crumb{border:0;background:none;padding:0;font:inherit;font-size:13px;color:#0a5bd3;cursor:pointer;margin:0 0 10px}
+.crumb:hover{color:#0848a8;text-decoration:underline}
+.lhead .sub{margin-top:4px;font-size:13px;color:#5b6575}
+.filters select{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;background:#fff}
+.accd{border:1px solid #dde2e9;border-radius:6px}
+.accd-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:13px;border-top:1px solid #dde2e9}
+.accd-h:first-child{border-top:0}
+.chev{width:9px;height:9px;border-right:1.5px solid #2b3340;border-bottom:1.5px solid #2b3340;transform:rotate(45deg);margin-right:6px}
+.chev.up{transform:rotate(-135deg)}
+.accd-b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 24px;padding:6px 32px 20px}
+.accd-b .lbl{font-size:12px;color:#5b6575}.accd-b .val{font-size:12px;margin-top:3px}
+@media (max-width:760px){.accd-b{grid-template-columns:minmax(0,1fr)}}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<template id="dc-template">
+<div class="page">
+  <div class="mock" aria-label="Mockup controls">
+    <span class="mock-t">Mockup controls — not part of the design</span>
+    <div class="mock-g">Role
+      <div class="seg">
+        <button type="button" class="{{segAdmin}}" onClick="{{toAdmin}}">Payroll Admin</button>
+        <button type="button" class="{{segReader}}" onClick="{{toReader}}">Read-only</button>
+      </div>
+      <span>Read-only hides Add and Create New Check</span>
+    </div>
+  </div>
+  <a class="back" href="#">‹ Back</a>
+  <div class="ptitle">Employee Profile</div>
+  <div class="shell">
+    <div class="emp"><span class="nm">SAMPLE,ALEX J</span><span><span class="k">Employee #</span><span class="v">12345</span></span><span><span class="k">Status</span><span class="v">ACTIVE</span></span></div>
+    <div class="tiles">
+      <div class="tile"><span class="ic" aria-hidden="true">👤</span>HR Operations</div>
+      <div class="tile on"><span class="ic" aria-hidden="true">$</span>Payroll</div>
+      <div class="tile"><span class="ic" aria-hidden="true">✚</span>Benefits Administration</div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button type="button" class="{{cls_details}}" onClick="{{go_details}}">Details</button>
+      <button type="button" class="{{cls_paychecks}}" onClick="{{go_paychecks}}">Paychecks</button>
+      <button type="button" class="{{cls_taxes}}" onClick="{{go_taxes}}">Taxes</button>
+      <button type="button" class="{{cls_deductions}}" onClick="{{go_deductions}}">Deductions</button>
+      <button type="button" class="{{cls_additional}}" onClick="{{go_additional}}">Additional Payments</button>
+      <button type="button" class="{{cls_accruals}}" onClick="{{go_accruals}}">Accruals</button>
+      <button type="button" class="{{cls_w2s}}" onClick="{{go_w2s}}">W2s</button>
+      <button type="button" class="{{cls_dd}}" onClick="{{go_dd}}">Direct Deposits</button>
+      <button type="button" class="{{cls_calpers}}" onClick="{{go_calpers}}">CalPERS</button>
+      <button type="button" class="{{cls_status}}" onClick="{{go_status}}">Payroll Status</button>
+      <button type="button" class="{{cls_garnishments}}" onClick="{{go_garnishments}}">Garnishments</button>
+    </div>
+  <template data-sc-if value="{{tab_details}}" hint-placeholder-val="{{ false }}">
+    <div class="accd">
+      <div class="accd-h"><span>Status</span><span class="chev up" aria-hidden="true"></span></div>
+      <div class="accd-b">
+        <div><div class="lbl">Action</div><div class="val">NEW HIRE</div></div>
+        <div><div class="lbl">LOA Start</div><div class="val">N/A</div></div>
+        <div><div class="lbl">Original Hire Date</div><div class="val">06/09/2007</div></div>
+        <div><div class="lbl">Work Schedule</div><div class="val">OTHER WORK SCHEDULE</div></div>
+        <div><div class="lbl">Position Type</div><div class="val">PERMANENT/FULL TIME</div></div>
+        <div><div class="lbl">LOA End</div><div class="val">N/A</div></div>
+        <div><div class="lbl">Permanent Service Date</div><div class="val">06/09/2007</div></div>
+        <div><div class="lbl">Holiday Schedule</div><div class="val">REGULAR HOLIDAY</div></div>
+        <div><div class="lbl">Position Type Effective Date</div><div class="val">06/09/2007</div></div>
+        <div><div class="lbl">Termination</div><div class="val">N/A</div></div>
+        <div><div class="lbl">PERS Effective Date</div><div class="val">06/09/2007</div></div>
+        <div><div class="lbl">Furlough</div><div class="val">PERM FT MISC</div></div>
+        <div><div class="lbl">Effective Date of Action</div><div class="val">06/09/2007</div></div>
+        <div><div class="lbl">Adjusted Service</div><div class="val">06/09/2007</div></div>
+        <div><div class="lbl">Total Service Years, Months, Days</div><div class="val">19 05 02</div></div>
+        <div><div class="lbl">Retired</div><div class="val"></div></div>
+        <div><div class="lbl">Comments</div><div class="val"></div></div>
+        <div><div class="lbl">Last Hire Date</div><div class="val">06/09/2007</div></div>
+      </div>
+      <div class="accd-h"><span>Compensation</span><span class="chev" aria-hidden="true"></span></div>
+      <div class="accd-h"><span>Position</span><span class="chev" aria-hidden="true"></span></div>
+      <div class="accd-h"><span>Organization</span><span class="chev" aria-hidden="true"></span></div>
+      <div class="accd-h"><span>Work Location</span><span class="chev" aria-hidden="true"></span></div>
+      <div class="accd-h"><span>Demographics</span><span class="chev" aria-hidden="true"></span></div>
+      <div class="accd-h"><span>Other Information</span><span class="chev" aria-hidden="true"></span></div>
+    </div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Your existing Details tab, unchanged: the same one on HR Operations, Payroll and Benefits Administration. Shown here only so the Payroll flow is complete.</li>
+      <li>Check Distribution and Time Sheet Control moved to the Payroll Status tab (they edit the home Pay Status record).</li>
+    </ul>
+  </div>
+  </template>
+  <template data-sc-if value="{{tab_paychecks}}" hint-placeholder-val="{{ true }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Check History</h2>
+      <div class="actions">
+        <button type="button" class="sbtn" onClick="{{showG2nList}}">Gross to Net</button>
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="check-detail.html?state=new">Create New Check</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Check Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <label>Pay Period<input type="text" placeholder=""></label>
+      <label>Pay Period Year<input type="text" placeholder=""></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Check Date</th><th scope="col">Period</th><th scope="col">Year</th><th scope="col">Gross</th><th scope="col">Net Pay</th><th scope="col">Action</th></tr></thead><tbody>
+      <tr><td>10/09/2026</td><td>21</td><td>26</td><td>$4,793.35</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+      <tr><td>09/25/2026</td><td>20</td><td>26</td><td>$4,793.35</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+      <tr><td>09/11/2026</td><td>19</td><td>26</td><td>$4,708.51</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+      <tr><td>08/28/2026</td><td>18</td><td>26</td><td>$4,823.54</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+      <tr><td>08/14/2026</td><td>17</td><td>26</td><td>$4,795.81</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Unchanged from your current tab. Details opens Check Detail (its own screen: it has actions). Create New Check (Payroll Processor only) opens a new, not-yet-posted check.</li>
+      <li>Gross to Net switches this tab to the Gross to Net list, as it does today.</li>
+      <li>Calls: <code>PayCheckHistory_List</code>; Create New Check = <code>PayOnlineCheck_Start</code>.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vG2nList}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Check History</button>
+    <div class="lhead">
+      <h2>Gross To Net</h2>
+      <div class="actions">
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <label>Tax Entity<select><option>Select…</option><option>10000 – CITY OF LONG BEACH</option></select></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Tax Entity</th><th scope="col">Month</th><th scope="col">YTD Gross</th><th scope="col">YTD Net</th><th scope="col">Action</th></tr></thead><tbody>
+      <tr><td>10/09/2026</td><td>10000 – CITY OF LONG BEACH</td><td>10</td><td>$106,580.15</td><td>$78,129.41</td><td><div class="lact"><button type="button" class="sbtn" onClick="{{showG2n}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Your current Gross to Net list, unchanged. Details opens the read-only detail <strong>inside this tab</strong>.</li>
+      <li>Calls: <code>PayGrossToNet_List</code> (blank Effective Date = every record).</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vG2n}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showG2nList}}">‹ Back to Gross To Net</button>
+    <div class="lhead"><div><h2>Gross to Net<span class="tag">Read-only</span></h2>
+      <div class="sub">10000 – City of Long Beach · As of 10/09/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Year to Date Gross</span><span class="big">106,580.15</span></div>
+      <div class="f"><span class="lbl">Year to Date Net</span><span class="big">78,129.41</span></div>
+      <div class="f"><span class="lbl">Month</span><span class="val">10</span></div>
+      <div class="f"><span class="lbl">Last Pay Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Last Regular Pay Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Final Check Date</span><span class="val">—</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Gross</th><th scope="col" class="num">Net</th></tr></thead><tbody>
+        <tr class="group"><td colspan="3">Current</td></tr>
+        <tr><td>Current pay period</td><td class="num">4,793.35</td><td class="num">3,515.83</td></tr>
+        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Month to date (October)</td><td class="num">4,793.35</td><td class="num">3,515.83</td></tr>
+        <tr class="group"><td colspan="3">Calendar year 2026</td></tr>
+        <tr><td>Quarter 1</td><td class="num">34,950.40</td><td class="num">25,618.14</td></tr>
+        <tr><td>Quarter 2</td><td class="num">28,640.10</td><td class="num">20,993.19</td></tr>
+        <tr><td>Quarter 3</td><td class="num">33,402.95</td><td class="num">24,484.33</td></tr>
+        <tr><td>Quarter 4</td><td class="num">9,586.70</td><td class="num">7,033.75</td></tr>
+        <tr class="total"><td>Year to date</td><td class="num">106,580.15</td><td class="num">78,129.41</td></tr>
+        <tr class="group"><td colspan="3">Fiscal year</td></tr>
+        <tr><td>FY ending Sept 30</td><td class="num">126,402.11</td><td class="num">92,655.02</td></tr>
+        <tr><td>FY beginning Oct 1</td><td class="num">9,586.70</td><td class="num">7,033.75</td></tr>
+      </tbody></table></div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayGrossToNetDetail, select-only. Opened from the Gross To Net list’s Details, inside the Paychecks tab.</li>
+      <li>Call: <code>PayGrossToNet_Get</code> with <code>taxEntityCode</code> 10000 (the home tax entity). An employee with alternate tax entities would need a picker; none do today in the sample data.</li>
+      <li>Net is the paper-check net only: direct deposits are deductions (see Check Detail).</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_taxes}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Taxes</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="tax-control.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax ID</th><th scope="col">Effective Date</th><th scope="col">Marital Status</th><th scope="col">Exemptions</th><th scope="col">Tax Status</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>$$002 – U.S. TAX</td><td>01/01/2026</td><td>S</td><td>0</td><td>Y</td><td>Y</td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>CA – CA STATE</td><td>01/01/2026</td><td>S</td><td>1</td><td>Y</td><td>Y</td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>$$00M – U.S. MED</td><td>06/09/2007</td><td></td><td>0</td><td>Y</td><td></td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>$$001 – U.S. FICA</td><td>06/09/2007</td><td></td><td>0</td><td>N</td><td></td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayTaxControlList links each row to its detail and to the Tax Accumulator.</li>
+      <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
+      <li>Calls: <code>PayTaxControl_List</code> (paged). Accumulator = <code>PayTaxAccumulator_Get</code> with the row’s Tax ID.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Taxes</button>
+    <div class="lhead"><div><h2>Tax Accumulator<span class="tag">Read-only</span></h2>
+      <div class="sub">$$002 – U.S. Tax · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Current Period Tax</span><span class="big">412.36</span></div>
+      <div class="f"><span class="lbl">Calendar YTD Tax</span><span class="big">9,104.58</span></div>
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Taxable Base</th><th scope="col" class="num">Tax</th></tr></thead><tbody>
+        <tr class="group"><td colspan="3">Current</td></tr>
+        <tr><td>Current pay period</td><td class="num">4,793.35</td><td class="num">412.36</td></tr>
+        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Month to date (October)</td><td class="num">4,793.35</td><td class="num">412.36</td></tr>
+        <tr class="group"><td colspan="3">Calendar year 2026</td></tr>
+        <tr><td>Quarter 1</td><td class="num">34,950.40</td><td class="num">3,015.22</td></tr>
+        <tr><td>Quarter 2</td><td class="num">28,640.10</td><td class="num">2,470.31</td></tr>
+        <tr><td>Quarter 3</td><td class="num">33,402.95</td><td class="num">2,881.07</td></tr>
+        <tr><td>Quarter 4</td><td class="num">9,586.70</td><td class="num">737.98</td></tr>
+        <tr class="total"><td>Year to date</td><td class="num">106,580.15</td><td class="num">9,104.58</td></tr>
+        <tr class="group"><td colspan="3">Fiscal year</td></tr>
+        <tr><td>FY ending Sept 30</td><td class="num">126,402.11</td><td class="num">10,893.20</td></tr>
+        <tr><td>FY beginning Oct 1</td><td class="num">9,586.70</td><td class="num">737.98</td></tr>
+      </tbody></table></div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayTaxAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
+      <li>Call: <code>PayTaxAccumulator_Get</code> with the Taxes row’s <code>taxCode</code>.</li>
+      <li>Same layout as the Deduction Accumulator: one row per period, one column per measure.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_deductions}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Deductions</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="deduction-control.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>011 – PERS</td><td>07/01/2025</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>040 – HEALTH INSURANCE</td><td>01/01/2026</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>050 – IAM DUES</td><td>06/09/2007</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>999 – DIRECT DEPOSIT</td><td>04/21/2023</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayDeductionControlList: every deduction (direct deposits and bonds too, as on the legacy screen). Rows link to the detail and to the Deduction Accumulator.</li>
+      <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
+      <li>Calls: <code>PayDeductionControl_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code> with the row’s deduction code.</li>
+      <li>Bond deductions have their own legacy list (PayBondDeductionList). Not mocked: say if Payroll still uses bonds and want a sub-tab.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Deductions</button>
+    <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
+      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Prepaid</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Arrears</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Current Month</span><span class="val">10</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Base</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Bond Purchases</th><th scope="col" class="num">Arrears</th><th scope="col" class="num">Towards Limit</th></tr></thead><tbody>
+        <tr class="group"><td colspan="6">Current</td></tr>
+        <tr><td>Current pay period</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td><td class="na">—</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Month to date (October)</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Calendar year 2026</td></tr>
+        <tr><td>Quarter 1</td><td class="num">35,906.76</td><td class="num">25,760.63</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 2</td><td class="num">29,439.55</td><td class="num">21,292.15</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 3</td><td class="num">34,332.16</td><td class="num">24,827.37</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 4</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr class="total"><td>Year to date</td><td class="num">104,596.82</td><td class="num">75,446.27</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Fiscal year</td></tr>
+        <tr><td>FY ending Sept 30</td><td class="num">129,852.81</td><td class="num">93,281.57</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>FY beginning Oct 1</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+      </tbody></table></div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayDeductionAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
+      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s <code>deductionCode</code> (and its <code>taxEntityCode</code> as <code>taxEntity</code>).</li>
+      <li>“—” means the host keeps no figure for that cell. The same view opens from Deductions, Direct Deposits and Garnishments.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_additional}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Additional Payments</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="additional-payment.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Earning ID</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>AA – AUTO ALLOWANCE</td><td>01/03/2026</td><td>5</td><td>12/31/2099</td><td></td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>404 – BILINGUAL</td><td>06/09/2007</td><td>5</td><td>12/31/2099</td><td></td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>997 – DEFERRED COMP - 457</td><td>12/27/2025</td><td>5</td><td>12/31/2099</td><td>Y</td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>997 – DEFERRED COMP - 457</td><td>12/13/2025</td><td>5</td><td>12/31/2099</td><td>Y</td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Unchanged from your current tab. Details opens the payment; Accumulator opens the Earnings Accumulator for that earnings ID.</li>
+      <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
+      <li>Calls: <code>PayAdditionalPayments_List</code>. Accumulator = <code>PayEarningsAccumulator_Get</code>.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Additional Payments</button>
+    <div class="lhead"><div><h2>Earnings Accumulator<span class="tag">Read-only</span></h2>
+      <div class="sub">AA – Auto Allowance · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Year to Date Amount</span><span class="big">3,461.60</span></div>
+      <div class="f"><span class="lbl">Worker Comp</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Hours Accum Towards HI</span><span class="big">0.00</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Amount</th></tr></thead><tbody>
+        <tr class="group"><td colspan="3">Current</td></tr>
+        <tr><td>Current pay period</td><td class="num">0.00</td><td class="num">173.08</td></tr>
+        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Month to date (October)</td><td class="num">0.00</td><td class="num">173.08</td></tr>
+        <tr class="group"><td colspan="3">Calendar year 2026</td></tr>
+        <tr><td>Quarter 1</td><td class="num">0.00</td><td class="num">1,038.48</td></tr>
+        <tr><td>Quarter 2</td><td class="num">0.00</td><td class="num">1,038.48</td></tr>
+        <tr><td>Quarter 3</td><td class="num">0.00</td><td class="num">1,211.56</td></tr>
+        <tr><td>Quarter 4</td><td class="num">0.00</td><td class="num">173.08</td></tr>
+        <tr class="total"><td>Year to date</td><td class="num">0.00</td><td class="num">3,461.60</td></tr>
+        <tr class="group"><td colspan="3">Fiscal year</td></tr>
+        <tr><td>FY ending Sept 30</td><td class="num">0.00</td><td class="num">4,499.08</td></tr>
+        <tr><td>FY beginning Oct 1</td><td class="num">0.00</td><td class="num">173.08</td></tr>
+      </tbody></table></div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayEarningsAccumulatorDetail is select-only: no Add, Update or Delete.</li>
+      <li>Call: <code>PayEarningsAccumulator_Get</code> with the Additional Payments row’s <code>earningsCode</code>.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_accruals}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Accruals</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="accrual-control.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan</th><th scope="col">Accrual Type</th><th scope="col">Status</th><th scope="col">Service Date</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>VAC – VACATION ACCRUAL</td><td>V – VACATION</td><td>A</td><td>06/09/2007</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="accrual-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>SCK – SICK LEAVE ACCRUAL</td><td>S – SICK</td><td>A</td><td>06/09/2007</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="accrual-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>HOL – REGULAR HOLIDAY</td><td>H – REGULAR HOLIDAY</td><td>A</td><td>06/09/2007</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="accrual-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayAccrualControlList links each plan to its detail and to the Accrual Accumulator.</li>
+      <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
+      <li>Calls: <code>PayAccrualControl_List</code>. Accumulator = <code>PayAccrualAccumulator_Get</code> with the row’s accrual type.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Accruals</button>
+    <div class="lhead"><div><h2>Accrual Accumulator<span class="tag">Read-only</span></h2>
+      <div class="sub">V – Vacation · 10000 – City of Long Beach · As of 01/01/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Balance</span><span class="big">550.82</span></div>
+      <div class="f"><span class="lbl">Banked</span><span class="big">475.82</span></div>
+      <div class="f"><span class="lbl">Used This Year</span><span class="big">42.00</span></div>
+      <div class="f"><span class="lbl">Accrual Year</span><span class="val">2026</span></div>
+      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="f"><span class="lbl">Available Hours</span><span class="val">550.82</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Accrued</th><th scope="col" class="num">Bonus</th><th scope="col" class="num">Used</th><th scope="col" class="num">Banked</th><th scope="col" class="num">Borrowed</th></tr></thead><tbody>
+        <tr class="group"><td colspan="6">This period</td></tr>
+        <tr><td>Current</td><td class="num">5.85</td><td class="num">0.00</td><td class="num">9.00</td><td class="na">—</td><td class="num">0.00</td></tr>
+        <tr><td>Adjustments</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Online check</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Accrual year</td></tr>
+        <tr><td>Year to date</td><td class="num">117.00</td><td class="num">0.00</td><td class="num">42.00</td><td class="num">475.82</td><td class="num">0.00</td></tr>
+        <tr class="total"><td>Balance</td><td class="num">117.00</td><td class="num">0.00</td><td class="num">42.00</td><td class="num">475.82</td><td class="num">0.00</td></tr>
+      </tbody></table></div></section>
+    <section class="card"><h2>Allowed and Carryover</h2><div class="grid">
+      <div class="f"><span class="lbl">Allowed</span><span class="val">144.66</span></div>
+      <div class="f"><span class="lbl">Carryover</span><span class="val">331.16</span></div>
+      <div class="f"><span class="lbl">Balance</span><span class="val">550.82</span></div>
+    </div></section>
+    <section class="card"><h2>Award and Usage Dates</h2><div class="grid">
+      <div class="f"><span class="lbl">Last Award Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Last Usage Date</span><span class="val">09/25/2026</span></div>
+      <div class="f"><span class="lbl">Previous Last Usage Date</span><span class="val">08/14/2026</span></div>
+    </div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayAccrualAccumulatorDetail’s adjustment Insert/Update is NOT built in the gateway, so this is read-only for now.</li>
+      <li>Call: <code>PayAccrualAccumulator_Get</code> with the Accruals row’s <code>accrualTypeCode</code>.</li>
+      <li>The three “Carryover” fields came back identical live; which one to show is still open.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_w2s}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>W2s</h2>
+      <div class="actions">
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Year</th><th scope="col">Federal Wages</th><th scope="col">Federal Tax Withheld</th><th scope="col">State Tax Withheld</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>2025</td><td>$121,840.22</td><td>$14,402.10</td><td>$6,118.95</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
+      <tr><td>2024</td><td>$117,306.48</td><td>$13,881.64</td><td>$5,902.31</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
+      <tr><td>2023</td><td>$112,950.07</td><td>$13,240.18</td><td>$5,640.77</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Read-only, no detail screen: View W2 opens the PDF (<code>documentUrl</code>) in a new tab, as the legacy Details link does.</li>
+      <li>Call: <code>PayW2Forms_Get</code>; the Effective Date filter is its <code>asOf</code>.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_dd}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Direct Deposits</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="direct-deposit.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Account Type</th><th scope="col">Calc</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>999 – DIRECT DEPOSIT</td><td>04/21/2023</td><td>C – CHECKING</td><td>A – ALL OF NET</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="direct-deposit.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+      <tr><td>998 – DIRECT DEPOSIT</td><td>04/21/2023</td><td>S – SAVINGS</td><td>F – FLAT AMOUNT</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="direct-deposit.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayDirectDepositList links each row to its detail and to the Deduction Accumulator (a direct deposit is a deduction).</li>
+      <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
+      <li>Calls: <code>PayDirectDeposit_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code>.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Direct Deposits</button>
+    <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
+      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Prepaid</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Arrears</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Current Month</span><span class="val">10</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Base</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Bond Purchases</th><th scope="col" class="num">Arrears</th><th scope="col" class="num">Towards Limit</th></tr></thead><tbody>
+        <tr class="group"><td colspan="6">Current</td></tr>
+        <tr><td>Current pay period</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td><td class="na">—</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Month to date (October)</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Calendar year 2026</td></tr>
+        <tr><td>Quarter 1</td><td class="num">35,906.76</td><td class="num">25,760.63</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 2</td><td class="num">29,439.55</td><td class="num">21,292.15</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 3</td><td class="num">34,332.16</td><td class="num">24,827.37</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 4</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr class="total"><td>Year to date</td><td class="num">104,596.82</td><td class="num">75,446.27</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Fiscal year</td></tr>
+        <tr><td>FY ending Sept 30</td><td class="num">129,852.81</td><td class="num">93,281.57</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>FY beginning Oct 1</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+      </tbody></table></div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayDeductionAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
+      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s <code>deductionCode</code> (and its <code>taxEntityCode</code> as <code>taxEntity</code>).</li>
+      <li>“—” means the host keeps no figure for that cell. The same view opens from Deductions, Direct Deposits and Garnishments.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_calpers}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>CalPERS</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="calpers-ids.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">CalPERS ID</th><th scope="col">Appointment ID</th><th scope="col">Employer ID</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>07/01/2025</td><td>7700123456</td><td>0042</td><td>1500</td><td><div class="lact"><a class="sbtn" href="calpers-ids.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+      <tr><td>06/09/2007</td><td>7700123456</td><td>0017</td><td>1500</td><td><div class="lact"><a class="sbtn" href="calpers-ids.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayCalPERSIDList: history, newest first. Details opens the record; only the current (top) one can be edited.</li>
+      <li>Calls: <code>PayCalPersId_List</code>. No accumulator link on the legacy list. PERS Accumulators is its own read-only list, not mocked for now.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_status}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Payroll Status</h2>
+      <div class="actions">
+        <a class="sbtn" href="check-distribution.html">Check Distribution</a>
+        <a class="sbtn" href="time-sheet-control.html">Time Sheet Control</a>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax Entity</th><th scope="col">Effective Date</th><th scope="col">Pay Action</th><th scope="col">Pay Status</th><th scope="col">Stop Date</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>10000 – CITY OF LONG BEACH</td><td>06/09/2007</td><td>IC – INFORMATION CHANGE</td><td>A – ACTIVE</td><td></td><td><div class="lact"><a class="sbtn" href="pay-status.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayStatusList: one row per tax entity (home + any alternates). No Add here: a new record comes from Payroll New Hire Enrollment.</li>
+      <li>Proposal: Check Distribution and Time Sheet Control live here as header buttons. Each edits one field on the home Pay Status record and has no list of its own.</li>
+      <li>Calls: <code>PayStatus_List</code>. An alternate tax entity row would open Add Alternate Enrollment instead (not mocked: no alternates in the sample).</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  <template data-sc-if value="{{tab_garnishments}}" hint-placeholder-val="{{ false }}">
+   <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
+    <div class="lhead">
+      <h2>Garnishments</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="garnishment.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
+      <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
+    </div>
+    <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
+      <tr><td>036 – GARNISHMENT-VOLUNTARY</td><td>03/14/2026</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="garnishment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
+    </tbody></table></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayGarnishmentsList: deductions with Checking / Savings Ind E. Rows link to the detail and to the Deduction Accumulator.</li>
+      <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
+      <li>Calls: <code>PayGarnishment_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code>.</li>
+    </ul>
+  </div>
+   </template>
+   <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
+    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Garnishments</button>
+    <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
+      <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach · As of 10/09/2026</div></div></div>
+    <section class="card"><h2>Summary</h2><div class="grid">
+      <div class="f"><span class="lbl">Accumulated Towards Limit</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Prepaid</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Arrears</span><span class="big">0.00</span></div>
+      <div class="f"><span class="lbl">Pay ID</span><span class="val">B – Regular Bi-Weekly</span></div>
+      <div class="f"><span class="lbl">Effective Date</span><span class="val">10/09/2026</span></div>
+      <div class="f"><span class="lbl">Current Month</span><span class="val">10</span></div>
+    </div></section>
+    <section class="card"><h2>Totals by Period</h2><div class="tblwrap"><table class="acc">
+      <thead><tr><th scope="col">Period</th><th scope="col" class="num">Base</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Bond Purchases</th><th scope="col" class="num">Arrears</th><th scope="col" class="num">Towards Limit</th></tr></thead><tbody>
+        <tr class="group"><td colspan="6">Current</td></tr>
+        <tr><td>Current pay period</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Online / manual checks</td><td class="num">0.00</td><td class="num">0.00</td><td class="na">—</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr><td>Month to date (October)</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Calendar year 2026</td></tr>
+        <tr><td>Quarter 1</td><td class="num">35,906.76</td><td class="num">25,760.63</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 2</td><td class="num">29,439.55</td><td class="num">21,292.15</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 3</td><td class="num">34,332.16</td><td class="num">24,827.37</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>Quarter 4</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="num">0</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr class="total"><td>Year to date</td><td class="num">104,596.82</td><td class="num">75,446.27</td><td class="num">0</td><td class="num">0.00</td><td class="num">0.00</td></tr>
+        <tr class="group"><td colspan="6">Fiscal year</td></tr>
+        <tr><td>FY ending Sept 30</td><td class="num">129,852.81</td><td class="num">93,281.57</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+        <tr><td>FY beginning Oct 1</td><td class="num">4,918.35</td><td class="num">3,566.12</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr>
+      </tbody></table></div></section>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Legacy PayDeductionAccumulatorDetail is select-only: no Add, Update or Delete, for every role.</li>
+      <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s <code>deductionCode</code> (and its <code>taxEntityCode</code> as <code>taxEntity</code>).</li>
+      <li>“—” means the host keeps no figure for that cell. The same view opens from Deductions, Direct Deposits and Garnishments.</li>
+    </ul>
+  </div>
+   </template>
+  </template>
+  </div>
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var q = (props && props.query) || {};
+    var keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"];
+    this.state = { tab: keys.indexOf(q.tab) >= 0 ? q.tab : 'paychecks', view: 'list', role: 'admin' };
+  }
+  renderVals() {
+    var self = this, keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"], t = this.state.tab, w = this.state.view, admin = this.state.role === 'admin';
+    var go = function (o) { return function () { self.setState(o); if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0); }; };
+    var v = { admin: admin, segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
+      toAdmin: function () { self.setState({ role: 'admin' }); }, toReader: function () { self.setState({ role: 'reader' }); },
+      vList: w === 'list', vAcc: w === 'acc', vG2nList: w === 'g2nList', vG2n: w === 'g2n',
+      showList: go({ view: 'list' }), showAcc: go({ view: 'acc' }), showG2nList: go({ view: 'g2nList' }), showG2n: go({ view: 'g2n' }) };
+    keys.forEach(function (k) {
+      v['tab_' + k] = t === k; v['cls_' + k] = t === k ? 'on' : '';
+      v['go_' + k] = function () { self.setState({ tab: k, view: 'list' }); };
+    });
+    return v;
+  }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

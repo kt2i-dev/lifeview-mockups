@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check Detail</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.chip.posted{background:#e7f4ec;color:#14532d}
+.chip.open{background:#fdf0dc;color:#7a4a06}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.btn.small{min-height:32px;padding:0 12px;font-size:13px}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.totals{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:0}
+@media (max-width:760px){.totals{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tot{padding:16px 20px;border-right:1px solid #e8ecf1;display:flex;flex-direction:column;gap:4px}
+.tot:last-child{border-right:0}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in.cell{height:34px;text-align:right;max-width:120px}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+th.num{text-align:right}
+td{padding:9px 12px;border-bottom:1px solid #e8ecf1}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+.addline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 20px 20px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:480px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<template id="dc-template">
+<div class="page">
+  <div class="mock" aria-label="Mockup controls">
+    <span class="mock-t">Mockup controls — not part of the design</span>
+    <div class="mock-g">Check
+      <div class="seg">
+        <button type="button" class="{{segPosted}}" onClick="{{toPosted}}">Posted (payroll check)</button>
+        <button type="button" class="{{segOpen}}" onClick="{{toOpen}}">Not posted (online check)</button>
+      </div>
+    </div>
+    <div class="mock-g">Role
+      <div class="seg">
+        <button type="button" class="{{segAdmin}}" onClick="{{toAdmin}}">Payroll Processor</button>
+        <button type="button" class="{{segReader}}" onClick="{{toReader}}">Read-only</button>
+      </div>
+    </div>
+  </div>
+
+  <a class="back" href="employee-profile.html?tab=paychecks">‹ Back to Check History</a>
+  <div class="titlebar">
+    <div>
+      <h1>{{title}}<span class="{{chipCls}}">{{chipText}}</span></h1>
+      <div class="sub">{{subtitle}}</div>
+    </div>
+    <div class="actions">
+      <template data-sc-if value="{{showPostedActions}}" hint-placeholder-val="{{ true }}">
+        <button type="button" class="btn danger" onClick="{{askReverse}}">Reverse Check</button>
+      </template>
+      <template data-sc-if value="{{showOpenActions}}" hint-placeholder-val="{{ false }}">
+        <button type="button" class="btn" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button>
+        <span class="sep" aria-hidden="true"></span>
+        <button type="button" class="btn" onClick="{{calculate}}">Calculate</button>
+        <button type="button" class="btn primary" onClick="{{askPost}}">Post</button>
+      </template>
+      <template data-sc-if value="{{showSaveActions}}" hint-placeholder-val="{{ false }}">
+        <button type="button" class="btn danger" onClick="{{askDelete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
+        <span class="sep" aria-hidden="true"></span>
+        <button type="button" class="btn" onClick="{{cancel}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+        <button type="button" class="btn primary" onClick="{{save}}" aria-busy="{{savingAria}}"><template data-sc-if value="{{saving}}"><span class="spin" aria-hidden="true"></span>Saving…</template><template data-sc-if value="{{notSaving}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Save</template></button>
+      </template>
+    </div>
+  </div>
+
+  <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}">
+    <div class="banner" role="status">{{banner}}</div>
+  </template>
+  <template data-sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+    <div class="editing">Change the check header or its lines, then Save. Click Calculate afterwards to recompute taxes and net pay.</div>
+  </template>
+
+  <section class="card">
+    <h2>Totals</h2>
+    <div class="totals">
+      <div class="tot"><span class="lbl">Gross</span><span class="big">{{t.gross}}</span></div>
+      <div class="tot"><span class="lbl">Taxes</span><span class="big">{{t.tax}}</span></div>
+      <div class="tot"><span class="lbl">Deductions</span><span class="big">{{t.ded}}</span></div>
+      <div class="tot"><span class="lbl">Direct Deposit</span><span class="big">{{t.dd}}</span></div>
+      <div class="tot"><span class="lbl">Paper Check Net</span><span class="big">{{t.net}}</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Check Information</h2>
+    <div class="grid">
+      <template data-sc-for list="{{fields}}" as="f" hint-placeholder-count="12">
+        <div class="f">
+          <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
+          <template data-sc-if value="{{f.isText}}">
+            <input class="in" id="{{f.id}}" type="text" defaultValue="{{f.cur}}" placeholder="{{f.ph}}">
+          </template>
+          <template data-sc-if value="{{f.isSelect}}">
+            <select class="in" id="{{f.id}}" defaultValue="{{f.cur}}">
+              <template data-sc-for list="{{f.options}}" as="o"><option value="{{o.v}}">{{o.l}}</option></template>
+            </select>
+          </template>
+          <template data-sc-if value="{{f.showValue}}">
+            <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Earnings, Taxes and Deductions</h2>
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Item</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Rate</th><th scope="col" class="num">Amount</th><template data-sc-if value="{{editing}}"><th scope="col"><span style="position: absolute; left: -9999px">Remove</span></th></template></tr>
+        </thead>
+        <tbody>
+          <template data-sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+            <tr class="group"><td colspan="{{cols}}">{{g.title}}</td></tr>
+            <template data-sc-for list="{{g.lines}}" as="l" hint-placeholder-count="2">
+              <tr>
+                <td>{{l.item}}</td>
+                <template data-sc-if value="{{editing}}">
+                  <td class="num"><input class="in cell" type="text" aria-label="Hours for {{l.item}}" defaultValue="{{l.hours}}"></td>
+                  <td class="num"><input class="in cell" type="text" aria-label="Rate for {{l.item}}" defaultValue="{{l.rate}}"></td>
+                  <td class="num"><input class="in cell" type="text" aria-label="Amount for {{l.item}}" defaultValue="{{l.amount}}"></td>
+                  <td class="num"><button type="button" class="btn small" aria-label="Remove {{l.item}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button></td>
+                </template>
+                <template data-sc-if value="{{viewing}}">
+                  <td class="num">{{l.hours}}</td>
+                  <td class="num">{{l.rate}}</td>
+                  <td class="num">{{l.amount}}</td>
+                </template>
+              </tr>
+            </template>
+          </template>
+        </tbody>
+      </table>
+    </div>
+    <template data-sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+      <div class="addline">
+        <label class="lbl" for="nl-type">Add line</label>
+        <select class="in" id="nl-type" style="width: 160px">
+          <option value="E">E – Earnings</option><option value="T">T – Tax</option><option value="V">V – Deduction</option>
+        </select>
+        <input class="in" type="text" aria-label="Item code" placeholder="Code" style="width: 120px">
+        <input class="in" type="text" aria-label="Amount" placeholder="Amount" style="width: 140px">
+        <button type="button" class="btn small"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add line</button>
+      </div>
+    </template>
+  </section>
+
+  <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Buttons follow the legacy PayOnlineCheckDetail’s own rules. <strong>Not posted:</strong> Edit, Calculate, Post; Delete is inside Edit (beside Cancel/Save). <strong>Posted:</strong> Reverse. Print in Batch appears only on a posted check with no print request and type MA/MC/NC/SC/FC/GU (so not on this regular payroll check).</li>
+      <li>Calls: <code>PayCheckHistory_Get</code> (view). Actions are the Online Check endpoints: calculate, post, reverse, print-in-batch, delete. Start Check (“Create New Check” on the list) creates the not-posted check this page then edits.</li>
+      <li>Every action here produces or undoes real pay, so each irreversible one (Post, Reverse, Delete) asks for confirmation. The gateway also refuses them unless payroll processing is switched on.</li>
+      <li>“Paper Check Net” is the check’s Net Pay field. On a direct-deposit employee it’s 0.00 and the pay is the 999 line, so the totals strip shows both.</li>
+      <li>Line codes are decoded by type (E/T/V), since the same number means different things on each, e.g. 997 is deferred comp on E but direct deposit on V.</li>
+    </ul>
+  </div>
+
+  <template data-sc-if value="{{showDialog}}" hint-placeholder-val="{{ false }}">
+    <div class="overlay">
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
+        <h2 id="dlg-t">{{dlg.title}}</h2>
+        <p>{{dlg.body}}</p>
+        <div class="actions" style="justify-content: flex-end">
+          <button type="button" class="btn" onClick="{{closeDialog}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+          <button type="button" class="{{dlg.cls}}" onClick="{{confirm}}">{{dlg.ok}}</button>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var q = (props && props.query) || {};
+    this.state = { posted: q.state !== 'new', edit: false, role: 'admin', dialog: '', banner: q.state === 'new' ? 'New check started. Add earnings lines, then Calculate.' : '' };
+  }
+  renderVals() {
+    var self = this, s = this.state, posted = s.posted, admin = s.role === 'admin', edit = s.edit && !posted;
+    var o = function (v, l) { return { v: v, l: l }; };
+    var hdr = posted ? [
+      ['Check Type', '— (regular payroll)'], ['Check Number', '—'], ['Internal Check #', '262790000861'],
+      ['Pay ID', 'B – Regular Bi-Weekly'], ['Tax Entity', '10000 – City of Long Beach'], ['Check Code', 'R – Regular'],
+      ['Period / Year', '21 / 2026'], ['Period End Date', '10/02/2026'], ['Check Date', '10/09/2026'],
+      ['Pay Status', 'A – Active'], ['Pay Sub Status', '—'], ['Final Check Date', '—'],
+      ['Bypass Duplicate Pay', 'U'], ['Pay All Now', '—'], ['Tax All', 'No'],
+      ['Print Request', '—'], ['Reverses Check #', '—']
+    ].map(function (r) { return { label: r[0], view: r[1] }; }) : [
+      { label: 'Check Type', view: 'MC – Manual Check', val: 'MC', e: 1, k: 'select', req: 1,
+        options: [o('AJ', 'AJ – Adjustment'), o('CC', 'CC – Cancelled Check'), o('FC', 'FC – Final Check'), o('GU', 'GU – Gross-up'), o('MA', 'MA – Online Check Calculation'), o('MC', 'MC – Manual Check'), o('NC', 'NC – Normal Check'), o('SC', 'SC – Supplemental Check')] },
+      { label: 'Check Number', view: '—', val: '', e: 1 },
+      { label: 'Internal Check #', view: '[NEW INTERNAL #]' },
+      { label: 'Pay ID', view: 'B – Regular Bi-Weekly', val: 'B', e: 1, k: 'select', options: [o('B', 'B – Regular Bi-Weekly')] },
+      { label: 'Tax Entity', view: '10000 – City of Long Beach' },
+      { label: 'Check Code', view: 'R – Regular', val: 'R', e: 1, k: 'select',
+        options: [o('A', 'A – Auto Allowance'), o('M', 'M – Management Incentive'), o('R', 'R – Regular'), o('S', 'S – Suggestion Awards'), o('W', 'W – Worker’s Compensation')] },
+      { label: 'Period', view: '22', val: '22', e: 1 },
+      { label: 'Pay Year', view: '26', val: '26', e: 1 },
+      { label: 'Period End Date', view: '10/16/2026', val: '10/16/2026', e: 1, ph: 'MM/DD/YYYY' },
+      { label: 'Check Date', view: '10/23/2026', val: '10/23/2026', e: 1, req: 1, ph: 'MM/DD/YYYY' },
+      { label: 'Final Check Date', view: '—', val: '', e: 1, ph: 'MM/DD/YYYY' },
+      { label: 'Bypass Duplicate Pay', view: 'Default', val: '', e: 1, k: 'select',
+        options: [o('', 'Default'), o('N', 'N'), o('D', 'D'), o('S', 'S'), o('B', 'B')] },
+      { label: 'Pay All Now', view: 'Default', val: '', e: 1, k: 'select', options: [o('', 'Default'), o('Y', 'Yes'), o('N', 'No')] },
+      { label: 'Tax All', view: 'No', val: 'N', e: 1, k: 'select', options: [o('Y', 'Yes'), o('N', 'No')] },
+      { label: 'Pay Status', view: 'A – Active' },
+      { label: 'Print Request', view: '—' }
+    ];
+    var n = 0;
+    var fields = hdr.map(function (f) {
+      n++;
+      var ed = edit && !!f.e, kind = f.k || 'text', cur = f.val != null ? f.val : '';
+      return { id: 'c' + n, label: f.label, view: f.view, cur: cur, ph: f.ph || '',
+        options: (f.options || []), isText: ed && kind === 'text', isSelect: ed && kind === 'select',
+        showValue: !ed, valCls: edit ? 'val muted' : 'val', reqMark: ed && !!f.req };
+    });
+    var L = function (item, hours, rate, amount) { return { item: item, hours: hours, rate: rate, amount: amount }; };
+    var groups = posted ? [
+      { title: 'Earnings', lines: [L('[BASE PAY CODE] – Base pay', '80.00', '59.9169', '4,793.35')] },
+      { title: 'Taxes', lines: [L('$$002 – U.S. Tax', '', '', '512.30'), L('CA – CA State', '', '', '191.24'), L('$$00M – U.S. Med', '', '', '69.50')] },
+      { title: 'Deductions & Deposits', lines: [L('011 – PERS', '', '', '380.00'), L('040 – Health Insurance', '', '', '124.48'), L('999 – Direct Deposit', '', '', '3,515.83')] }
+    ] : [
+      { title: 'Earnings', lines: [L('ALV – Vacation Payoff', '16.00', '59.9169', '958.67')] },
+      { title: 'Taxes', lines: [L('$$002 – U.S. Tax', '', '', '—'), L('CA – CA State', '', '', '—')] },
+      { title: 'Deductions & Deposits', lines: [] }
+    ];
+    var t = posted ? { gross: '4,793.35', tax: '773.04', ded: '504.48', dd: '3,515.83', net: '0.00' }
+                   : { gross: '958.67', tax: '—', ded: '—', dd: '—', net: '—' };
+    var dlgs = {
+      reverse: { title: 'Reverse check 262790000861?', body: 'This creates a reversing check (type CR) that cancels the 10/09/2026 pay of 4,793.35 and posts it. It can’t be undone from here.', ok: 'Reverse Check', cls: 'btn danger-solid' },
+      post: { title: 'Post this check?', body: 'Posting finalizes the check and updates the employee’s accumulators. After posting it can only be undone by reversing it.', ok: 'Post', cls: 'btn primary' },
+      del: { title: 'Delete this check?', body: 'This deletes the not-yet-posted manual check and its lines.', ok: 'Delete', cls: 'btn danger-solid' }
+    };
+    var done = { reverse: 'Check reversed. (In the app this opens the new reversing check.)', post: 'Check posted.', del: 'Check deleted. (In the app this returns to Check History.)' };
+    var set = function (x) { return function () { self.setState(x); }; };
+    return {
+      title: posted ? 'Check 10/09/2026' : 'Manual Check',
+      subtitle: posted ? 'Period 21 / 2026 · Internal # 262790000861' : 'Started 10/20/2026 · not posted yet',
+      chipCls: posted ? 'chip posted' : 'chip open', chipText: posted ? 'Posted' : 'Not posted',
+      showPostedActions: posted && admin,
+      showOpenActions: !posted && admin && !edit,
+      saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
+      showSaveActions: edit,
+      editing: edit, viewing: !edit, cols: edit ? 5 : 4,
+      fields: fields, groups: groups, t: t,
+      banner: s.banner,
+      showDialog: !!s.dialog, dlg: dlgs[s.dialog] || dlgs.post,
+      segPosted: posted ? 'on' : '', segOpen: posted ? '' : 'on',
+      segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
+      toPosted: set({ posted: true, edit: false, banner: '' }), toOpen: set({ posted: false, edit: false, banner: '' }),
+      toAdmin: set({ role: 'admin' }), toReader: set({ role: 'reader', edit: false, banner: '' }),
+      toEdit: set({ edit: true, banner: '' }), cancel: set({ edit: false, banner: '' }),
+      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(set({ edit: false, banner: 'Changes saved. Click Calculate to recompute taxes and net pay.' })),
+      calculate: set({ banner: 'Check calculated. Taxes and net pay are updated below.' }),
+      askReverse: set({ dialog: 'reverse' }), askPost: set({ dialog: 'post' }), askDelete: set({ dialog: 'del' }),
+      closeDialog: set({ dialog: '' }),
+      confirm: function () { self.setState({ banner: done[s.dialog] || '', dialog: '', edit: s.dialog === 'del' ? false : s.edit }); }
+    };
+  }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

@@ -52,6 +52,12 @@ h1{margin:0;font-size:24px;font-weight:600}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
 .editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
 .warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+.dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
+.loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+td.empty{text-align:center;color:#5b6575;padding:18px 10px}
 .notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
 .notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
 .notes ul{margin:0;padding-left:18px}
@@ -89,6 +95,21 @@ table.acc tr.total td{font-weight:600}
         <button type="button" class="{{segReader}}" onClick="{{toReader}}">Read-only</button>
       </div>
     </div>
+    <div class="mock-g">Data
+      <div class="seg">
+        <button type="button" class="{{segLoaded}}" onClick="{{toLoaded}}">Loaded</button>
+        <button type="button" class="{{segLoading}}" onClick="{{toLoading}}">Loading</button>
+      </div>
+    </div>
+    <div class="mock-g">Next Save
+      <div class="seg">
+        <button type="button" class="{{segRok}}" onClick="{{rOk}}">Succeeds</button>
+        <button type="button" class="{{segRerr}}" onClick="{{rErr}}">Error</button>
+        <button type="button" class="{{segR409}}" onClick="{{r409}}">409 changed</button>
+        <button type="button" class="{{segR122}}" onClick="{{r122}}">TS0122</button>
+        <button type="button" class="{{segR403}}" onClick="{{r403}}">403 writes off</button>
+      </div>
+    </div>
   </div>
 
   <a class="back" href="employee-profile.html?tab=status">‹ Back to Payroll Status</a>
@@ -115,11 +136,20 @@ table.acc tr.total td{font-weight:600}
   <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}">
     <div class="banner" role="status">{{banner}}</div>
   </template>
+  <template data-sc-if value="{{showErr}}" hint-placeholder-val="{{ false }}">
+    <div class="err" role="alert">{{errDetail}}<template data-sc-if value="{{errHost}}"><span class="host">{{errHost}}</span></template></div>
+  </template>
+  <template data-sc-if value="{{showConflict}}" hint-placeholder-val="{{ false }}">
+    <div class="warn" role="alert">Someone else changed this record after you opened it, so it has been reloaded with the latest values. Make your change again.</div>
+  </template>
   
   <template data-sc-if value="{{showEditingNote}}" hint-placeholder-val="{{ false }}">
     <div class="editing">Fields with a box can be changed. Everything else is shown for reference and can’t be edited here.</div>
   </template>
 
+  <template data-sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
+    <section class="card"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></section>
+  </template>
   <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
     <section class="card">
       <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
@@ -157,10 +187,25 @@ table.acc tr.total td{font-weight:600}
   <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li>Pattern: <strong>Editable</strong> (Edit). One block for view and edit: Edit switches only the editable fields to inputs, in place; read-only fields stay plain text in the same position.</li>
+      <li>Mockup controls <strong>Data</strong> and <strong>Next Save</strong> show the states every screen needs: a loading state while the GET runs; Save busy (“Saving…”) and disabled while the write runs; an error alert with <code>detail</code> as the main line and <code>hostCode – hostMessage</code> on a smaller line when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; TS0122 = confirm, then re-send with <code>overrideExceptions=true</code>; 403 = writes are off, nothing saved.</li>
       <li>Fields and labels: legacy PayTimeSheetControlDetail (one block, no sections). Buttons: <strong>Update</strong> only.</li>
       <li>Calls: <code>PayTimeSheetControl_Get</code>, <code>_Put</code>. Only Print Time Sheets and the effective date are sent.</li>
     </ul>
   </div>
+
+  <template data-sc-if value="{{showOverride}}" hint-placeholder-val="{{ false }}">
+    <div class="overlay">
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="ovr-t">
+        <h2 id="ovr-t">Save with an exception?</h2>
+        <p>The payroll system flagged an exception on this change. You can save it anyway.<span class="host">TS0122 – PROHIBITED FIELD</span></p>
+        <div class="actions" style="justify-content: flex-end">
+          <button type="button" class="btn" onClick="{{closeOverride}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+          <button type="button" class="btn primary" onClick="{{confirmOverride}}">Save anyway</button>
+        </div>
+      </div>
+    </div>
+  </template>
 
 </div>
 </template>
@@ -207,7 +252,7 @@ class Component extends DCLogic {
     super(props);
     var q = (props && props.query) || {}, S = this.spec();
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
-    this.state = { mode: m, role: 'admin', dialog: false, banner: '' };
+    this.state = { mode: m, role: 'admin', dialog: false, banner: '', result: 'ok', err: '', conflict: false, override: false, loading: false };
   }
   spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Time Sheet Control", "subtitle": "Home tax entity · 10000 – City of Long Beach", "addTitle": "Add Time Sheet Control", "addSubtitle": "New time sheet control", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Details", "fields": [{"label": "Effective Date", "view": "06/09/2007", "e": "both", "k": "text", "val": "06/09/2007", "ph": "MM/DD/YYYY", "help": "Leave as is to use the current pay period begin date."}, {"label": "Print Time Sheets", "view": "Yes", "e": "both", "k": "radio", "val": "Y", "req": true, "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}]}, {"label": "Record Status", "view": "A – Active", "e": "none", "k": "text", "val": "A – Active"}, {"label": "Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}, {"label": "Original Create Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Original Create Time", "view": "0912", "e": "none", "k": "text", "val": "0912"}], "cols": 3}]}; }
   field(f, mode, n) {
@@ -218,7 +263,7 @@ class Component extends DCLogic {
     if (kind === 'select' && cur === '') opts = [{ v: '', l: 'Select…', checked: true }].concat(opts);
     var help = mode === 'add' && f.helpAdd ? f.helpAdd : (f.help || '');
     return {
-      id: 'f' + n, label: f.label, view: mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—'),
+      id: 'f' + n, label: f.label, view: f.blank ? '' : (mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—')),
       cur: cur, ph: f.ph || '', options: opts,
       isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
       isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
@@ -233,23 +278,44 @@ class Component extends DCLogic {
     var n = 0;
     var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
     var set = function (o) { return function () { self.setState(o); }; };
+    var clr = { banner: '', err: '', conflict: false };
+    var ERR = {
+      err: ['Effective Date must be within the current pay period, 08/08/2026 through 08/21/2026.', 'TS8033 – EFFECTIVE DATE NOT IN CURRENT PAY PERIOD'],
+      w403: ['Changes can’t be saved right now: writes are turned off on this gateway. Nothing was saved.', '']
+    };
+    var R = this.state.result, ld = this.state.loading;
+    var done = function (msg) { self.setState({ banner: msg, err: '', conflict: false, override: false, mode: 'view' }); };
+    var saveFn = function () {
+      if (R === 'err' || R === 'w403') return self.setState({ err: R, banner: '', conflict: false });
+      if (R === '409') return self.setState({ conflict: true, err: '', banner: '', mode: mode === 'add' ? 'add' : 'view' });
+      if (R === '122') return self.setState({ override: true, err: '' });
+      done(mode === 'add' ? S.addedMsg : 'Changes saved.');
+    };
+    var e = ERR[this.state.err];
     return {
-      sections: sections,
+      sections: ld ? [] : sections, loading: ld,
+      showErr: !!e, errDetail: e ? e[0] : '', errHost: e ? e[1] : '',
+      showConflict: this.state.conflict, showOverride: this.state.override,
+      closeOverride: set({ override: false }),
+      confirmOverride: function () { done((mode === 'add' ? S.addedMsg : 'Changes saved.') + ' (Exception overridden.)'); },
+      segLoaded: ld ? '' : 'on', segLoading: ld ? 'on' : '', toLoaded: set({ loading: false }), toLoading: set({ loading: true }),
+      segRok: R === 'ok' ? 'on' : '', segRerr: R === 'err' ? 'on' : '', segR409: R === '409' ? 'on' : '', segR122: R === '122' ? 'on' : '', segR403: R === 'w403' ? 'on' : '',
+      rOk: set({ result: 'ok' }), rErr: set({ result: 'err' }), r409: set({ result: '409' }), r122: set({ result: '122' }), r403: set({ result: 'w403' }),
       title: mode === 'add' ? S.addTitle : S.title,
       subtitle: mode === 'add' ? S.addSubtitle : S.subtitle,
-      showViewActions: mode === 'view' && admin && canEdit,
+      showViewActions: mode === 'view' && admin && canEdit && !ld,
       saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
-      showSaveActions: mode !== 'view',
+      showSaveActions: mode !== 'view' && !ld,
       showEditDelete: mode === 'edit' && S.canDelete,
       showEditingNote: mode !== 'view',
       banner: this.state.banner,
       showDialog: this.state.dialog,
       segView: mode === 'view' ? 'on' : '', segEdit: mode === 'edit' ? 'on' : '', segAdd: mode === 'add' ? 'on' : '',
       segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
-      toView: set({ mode: 'view', banner: '' }), toEdit: set({ mode: 'edit', banner: '' }), toAdd: set({ mode: 'add', banner: '' }),
-      toAdmin: set({ role: 'admin' }), toReader: set({ role: 'reader', mode: 'view', banner: '' }),
-      cancel: set({ mode: 'view', banner: '' }),
-      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(function () { self.setState({ banner: mode === 'add' ? S.addedMsg : 'Changes saved.', mode: 'view' }); }),
+      toView: set(Object.assign({ mode: 'view' }, clr)), toEdit: set(Object.assign({ mode: 'edit' }, clr)), toAdd: set(Object.assign({ mode: 'add' }, clr)),
+      toAdmin: set({ role: 'admin' }), toReader: set(Object.assign({ role: 'reader', mode: 'view' }, clr)),
+      cancel: set(Object.assign({ mode: 'view' }, clr)),
+      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(saveFn),
       askDelete: set({ dialog: true }), closeDialog: set({ dialog: false }),
       confirmDelete: set({ dialog: false, mode: 'view', banner: S.deletedMsg })
     };

@@ -52,6 +52,12 @@ h1{margin:0;font-size:24px;font-weight:600}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
 .editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
 .warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+.dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
+.loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+td.empty{text-align:center;color:#5b6575;padding:18px 10px}
 .notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
 .notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
 .notes ul{margin:0;padding-left:18px}
@@ -133,6 +139,13 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       </div>
       <span>Read-only hides Add and Create New Check</span>
     </div>
+    <div class="mock-g">List
+      <div class="seg">
+        <button type="button" class="{{segRows}}" onClick="{{toRows}}">Rows</button>
+        <button type="button" class="{{segEmpty}}" onClick="{{toEmpty}}">Empty</button>
+        <button type="button" class="{{segLoading}}" onClick="{{toLoading}}">Loading</button>
+      </div>
+    </div>
   </div>
   <a class="back" href="#">‹ Back</a>
   <div class="ptitle">Employee Profile</div>
@@ -161,15 +174,15 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <div class="accd-h"><span>Status</span><span class="chev up" aria-hidden="true"></span></div>
       <div class="accd-b">
         <div><div class="lbl">Action</div><div class="val">NEW HIRE</div></div>
-        <div><div class="lbl">LOA Start</div><div class="val">N/A</div></div>
+        <div><div class="lbl">LOA Start</div><div class="val"></div></div>
         <div><div class="lbl">Original Hire Date</div><div class="val">06/09/2007</div></div>
         <div><div class="lbl">Work Schedule</div><div class="val">OTHER WORK SCHEDULE</div></div>
         <div><div class="lbl">Position Type</div><div class="val">PERMANENT/FULL TIME</div></div>
-        <div><div class="lbl">LOA End</div><div class="val">N/A</div></div>
+        <div><div class="lbl">LOA End</div><div class="val"></div></div>
         <div><div class="lbl">Permanent Service Date</div><div class="val">06/09/2007</div></div>
         <div><div class="lbl">Holiday Schedule</div><div class="val">REGULAR HOLIDAY</div></div>
         <div><div class="lbl">Position Type Effective Date</div><div class="val">06/09/2007</div></div>
-        <div><div class="lbl">Termination</div><div class="val">N/A</div></div>
+        <div><div class="lbl">Termination</div><div class="val"></div></div>
         <div><div class="lbl">PERS Effective Date</div><div class="val">06/09/2007</div></div>
         <div><div class="lbl">Furlough</div><div class="val">PERM FT MISC</div></div>
         <div><div class="lbl">Effective Date of Action</div><div class="val">06/09/2007</div></div>
@@ -209,6 +222,9 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Pay Period Year<input type="text" placeholder=""></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Check Date</th><th scope="col">Period</th><th scope="col">Year</th><th scope="col">Gross</th><th scope="col">Net Pay</th><th scope="col">Action</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Check Date</th><th scope="col">Period</th><th scope="col">Year</th><th scope="col">Gross</th><th scope="col">Net Pay</th><th scope="col">Action</th></tr></thead><tbody>
       <tr><td>10/09/2026</td><td>21</td><td>26</td><td>$4,793.35</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
       <tr><td>09/25/2026</td><td>20</td><td>26</td><td>$4,793.35</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
@@ -216,6 +232,8 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <tr><td>08/28/2026</td><td>18</td><td>26</td><td>$4,823.54</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
       <tr><td>08/14/2026</td><td>17</td><td>26</td><td>$4,795.81</td><td>$0.00</td><td><div class="lact"><a class="sbtn" href="check-detail.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -223,6 +241,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -246,9 +265,14 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Tax Entity<select><option>Select…</option><option>10000 – CITY OF LONG BEACH</option></select></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Tax Entity</th><th scope="col">Month</th><th scope="col">YTD Gross</th><th scope="col">YTD Net</th><th scope="col">Action</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Tax Entity</th><th scope="col">Month</th><th scope="col">YTD Gross</th><th scope="col">YTD Net</th><th scope="col">Action</th></tr></thead><tbody>
       <tr><td>10/09/2026</td><td>10000 – CITY OF LONG BEACH</td><td>10</td><td>$106,580.15</td><td>$78,129.41</td><td><div class="lact"><button type="button" class="sbtn" onClick="{{showG2n}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -256,6 +280,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -302,7 +327,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
     </div></section>
     <section class="card"><div class="grid c2">
       <div class="f"><span class="lbl">Last Pay Date</span><span class="val">10/09/2026</span></div>
-      <div class="f"><span class="lbl">Final Check Date</span><span class="val">—</span></div>
+      <div class="f"><span class="lbl">Final Check Date</span><span class="val"></span></div>
       <div class="f"><span class="lbl">Last Regular Pay</span><span class="val">10/09/2026</span></div>
       <div class="f"><span class="lbl">Previous Regular Pay</span><span class="val">09/25/2026</span></div>
     </div></section>
@@ -329,12 +354,17 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax ID</th><th scope="col">Effective Date</th><th scope="col">Marital Status</th><th scope="col">Exemptions</th><th scope="col">Tax Status</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="7">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax ID</th><th scope="col">Effective Date</th><th scope="col">Marital Status</th><th scope="col">Exemptions</th><th scope="col">Tax Status</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>$$002 – U.S. TAX</td><td>01/01/2026</td><td>S</td><td>0</td><td>Y</td><td>Y</td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>CA – CA STATE</td><td>01/01/2026</td><td>S</td><td>1</td><td>Y</td><td>Y</td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>$$00M – U.S. MED</td><td>06/09/2007</td><td></td><td>0</td><td>Y</td><td></td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>$$001 – U.S. FICA</td><td>06/09/2007</td><td></td><td>0</td><td>N</td><td></td><td><div class="lact"><a class="sbtn" href="tax-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -342,6 +372,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -404,12 +435,17 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>011 – PERS</td><td>07/01/2025</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>040 – HEALTH INSURANCE</td><td>01/01/2026</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>050 – IAM DUES</td><td>06/09/2007</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>999 – DIRECT DEPOSIT</td><td>04/21/2023</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="deduction-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -417,6 +453,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -513,12 +550,17 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Earning ID</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Earning ID</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>AA – AUTO ALLOWANCE</td><td>01/03/2026</td><td>5</td><td>12/31/2099</td><td></td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>404 – BILINGUAL</td><td>06/09/2007</td><td>5</td><td>12/31/2099</td><td></td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>997 – DEFERRED COMP - 457</td><td>12/27/2025</td><td>5</td><td>12/31/2099</td><td>Y</td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>997 – DEFERRED COMP - 457</td><td>12/13/2025</td><td>5</td><td>12/31/2099</td><td>Y</td><td><div class="lact"><a class="sbtn" href="additional-payment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -526,6 +568,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -600,11 +643,16 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan</th><th scope="col">Accrual Type</th><th scope="col">Status</th><th scope="col">Service Date</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan</th><th scope="col">Accrual Type</th><th scope="col">Status</th><th scope="col">Service Date</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>VAC – VACATION ACCRUAL</td><td>V – VACATION</td><td>A</td><td>06/09/2007</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="accrual-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>SCK – SICK LEAVE ACCRUAL</td><td>S – SICK</td><td>A</td><td>06/09/2007</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="accrual-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>HOL – REGULAR HOLIDAY</td><td>H – REGULAR HOLIDAY</td><td>A</td><td>06/09/2007</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="accrual-control.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -612,6 +660,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -664,9 +713,9 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <div class="f"><span class="lbl">Last Award Date</span><span class="val">10/09/2026</span></div>
       <div class="f"><span class="lbl">Last Usage Date</span><span class="val">09/25/2026</span></div>
       <div class="f"><span class="lbl">Prev Last Usage Date</span><span class="val">08/14/2026</span></div>
-      <div class="f"><span class="lbl">Last Award Date Adjustment</span><span class="val">—</span></div>
-      <div class="f"><span class="lbl">Last Usage Date Adjustment</span><span class="val">—</span></div>
-      <div class="f"><span class="lbl">Prev Last Usage Date Adjustment</span><span class="val">—</span></div>
+      <div class="f"><span class="lbl">Last Award Date Adjustment</span><span class="val"></span></div>
+      <div class="f"><span class="lbl">Last Usage Date Adjustment</span><span class="val"></span></div>
+      <div class="f"><span class="lbl">Prev Last Usage Date Adjustment</span><span class="val"></span></div>
     </div></section>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
@@ -689,11 +738,15 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Year</th><th scope="col">Federal Wages</th><th scope="col">Federal Tax Withheld</th><th scope="col">State Tax Withheld</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Year</th><th scope="col">Federal Wages</th><th scope="col">Federal Tax Withheld</th><th scope="col">State Tax Withheld</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>2025</td><td>$121,840.22</td><td>$14,402.10</td><td>$6,118.95</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
       <tr><td>2024</td><td>$117,306.48</td><td>$13,881.64</td><td>$5,902.31</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
       <tr><td>2023</td><td>$112,950.07</td><td>$13,240.18</td><td>$5,640.77</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
     </tbody></table></div>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -716,10 +769,15 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Account Type</th><th scope="col">Calc</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Account Type</th><th scope="col">Calc</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>999 – DIRECT DEPOSIT</td><td>04/21/2023</td><td>C – CHECKING</td><td>A – ALL OF NET</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="direct-deposit.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
       <tr><td>998 – DIRECT DEPOSIT</td><td>04/21/2023</td><td>S – SAVINGS</td><td>F – FLAT AMOUNT</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="direct-deposit.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -727,6 +785,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -823,10 +882,15 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">CalPERS ID</th><th scope="col">Appointment ID</th><th scope="col">Employer ID</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">CalPERS ID</th><th scope="col">Appointment ID</th><th scope="col">Employer ID</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>07/01/2025</td><td>7700123456</td><td>0042</td><td>1500</td><td><div class="lact"><a class="sbtn" href="calpers-ids.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
       <tr><td>06/09/2007</td><td>7700123456</td><td>0017</td><td>1500</td><td><div class="lact"><a class="sbtn" href="calpers-ids.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -834,6 +898,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -847,12 +912,17 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
    <template data-sc-if value="{{vPersList}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{showList}}">‹ Back to CalPERS</button>
     <div class="lhead"><div><h2>PERS Accumulators<span class="tag">Read-only</span></h2></div></div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">PRC Amount</th><th scope="col">PRE Amount</th><th scope="col">PST Amount</th><th scope="col">PNC Amount</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">PRC Amount</th><th scope="col">PRE Amount</th><th scope="col">PST Amount</th><th scope="col">PNC Amount</th></tr></thead><tbody>
       <tr><td>10/09/2026</td><td>$3,866.42</td><td>$4,014.88</td><td>$4,793.35</td><td>$0.00</td></tr>
       <tr><td>09/25/2026</td><td>$3,866.42</td><td>$4,014.88</td><td>$4,793.35</td><td>$0.00</td></tr>
       <tr><td>09/11/2026</td><td>$3,797.98</td><td>$3,943.82</td><td>$4,708.51</td><td>$0.00</td></tr>
       <tr><td>08/28/2026</td><td>$3,890.77</td><td>$4,040.18</td><td>$4,823.54</td><td>$0.00</td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -860,6 +930,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -885,9 +956,14 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax Entity</th><th scope="col">Effective Date</th><th scope="col">Pay Action</th><th scope="col">Pay Status</th><th scope="col">Stop Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="6">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax Entity</th><th scope="col">Effective Date</th><th scope="col">Pay Action</th><th scope="col">Pay Status</th><th scope="col">Stop Date</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>10000 – CITY OF LONG BEACH</td><td>06/09/2007</td><td>IC – INFORMATION CHANGE</td><td>A – ACTIVE</td><td></td><td><div class="lact"><a class="sbtn" href="pay-status.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -895,6 +971,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -918,9 +995,14 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Effective Date<input type="text" placeholder="mm/dd/yyyy"></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
+    <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody><tr><td class="empty" colspan="5">No items to show</td></tr></tbody></table></div></template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
       <tr><td>036 – GARNISHMENT-VOLUNTARY</td><td>03/14/2026</td><td>5</td><td>12/31/2099</td><td><div class="lact"><a class="sbtn" href="garnishment.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>Details</a><button type="button" class="sbtn" onClick="{{showAcc}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Accumulator</button></div></td></tr>
     </tbody></table></div>
+    </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <nav class="pager" aria-label="Pages">
       <template data-sc-if value="{{pgFirst}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
@@ -928,6 +1010,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
       <template data-sc-if value="{{pgLast}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1057,7 +1140,7 @@ class Component extends DCLogic {
     super(props);
     var q = (props && props.query) || {};
     var keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"];
-    this.state = { tab: keys.indexOf(q.tab) >= 0 ? q.tab : 'paychecks', view: 'list', role: 'admin', page: 1 };
+    this.state = { tab: keys.indexOf(q.tab) >= 0 ? q.tab : 'paychecks', view: 'list', role: 'admin', page: 1, ls: 'rows' };
   }
   renderVals() {
     var self = this, keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"], t = this.state.tab, w = this.state.view, admin = this.state.role === 'admin';
@@ -1066,6 +1149,9 @@ class Component extends DCLogic {
     var PAGES = { paychecks: 3 }, list = w === 'g2nList' ? 'g2n' : t, pages = PAGES[list] || 1, p = this.state.page || 1;
     var v = { admin: admin, segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
       toAdmin: function () { self.setState({ role: 'admin' }); }, toReader: function () { self.setState({ role: 'reader' }); },
+      lsRows: this.state.ls === 'rows', lsEmpty: this.state.ls === 'empty', lsLoading: this.state.ls === 'loading',
+      segRows: this.state.ls === 'rows' ? 'on' : '', segEmpty: this.state.ls === 'empty' ? 'on' : '', segLoading: this.state.ls === 'loading' ? 'on' : '',
+      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); },
       vList: w === 'list', vAcc: w === 'acc', vG2nList: w === 'g2nList', vG2n: w === 'g2n', vPersList: w === 'persList',
       showList: go({ view: 'list' }), showAcc: go({ view: 'acc' }), showG2nList: go({ view: 'g2nList' }), showG2n: go({ view: 'g2n' }), showPersList: go({ view: 'persList' }),
       pgFirst: p <= 1, pgHasPrev: p > 1, pgHasNext: p < pages, pgLast: p >= pages,

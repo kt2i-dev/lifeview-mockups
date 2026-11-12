@@ -303,7 +303,7 @@ class Component extends DCLogic {
     var n = 0;
     var mk = function (r) {
       n++;
-      var view = P ? r[1] : r[2], ed = edit && !!r[3], kind = r[4] || 'text', opts = r[5] || [];
+      var view = P ? r[1] : r[2]; if (view === '—' && r[7] === 'MM/DD/YYYY') view = ''; var ed = edit && !!r[3], kind = r[4] || 'text', opts = r[5] || [];
       var cur = view === '—' ? '' : view;
       if (kind === 'select') { var m = opts.filter(function (x) { return view.indexOf(x.v + ' ') === 0 || view === x.v; })[0]; cur = m ? m.v : ''; }
       return { id: 'c' + n, label: r[0], view: view, cur: cur, ph: r[7] || '', options: opts,
@@ -326,7 +326,7 @@ class Component extends DCLogic {
     var dlgs = {
       reverse: { title: 'Reverse check 262790000861?', body: 'This creates a reversing check (type CR) that cancels the 10/09/2026 pay of 4,793.35 and posts it. It can’t be undone from here.', ok: 'Reverse Check', cls: 'btn danger-solid' },
       post: { title: 'Post this check?', body: 'Posting finalizes the check and updates the employee’s accumulators. After posting it can only be undone by reversing it.', ok: 'Post', cls: 'btn primary' },
-      del: { title: 'Delete this check?', body: 'This deletes the not-yet-posted manual check and its lines.', ok: 'Delete', cls: 'btn danger-solid' }
+      del: { title: 'Delete manual check dated 10/23/2026?', body: 'This deletes the not-yet-posted check and its lines. It can’t be undone.', ok: 'Delete', cls: 'btn danger-solid' }
     };
     var done = { reverse: 'Check reversed. (In the app this opens the new reversing check.)', post: 'Check posted.', del: 'Check deleted. (In the app this returns to Check History.)' };
     var set = function (x) { return function () { self.setState(x); }; };

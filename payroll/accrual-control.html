@@ -68,6 +68,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 td.empty{text-align:center;color:#5b6575;padding:18px 10px}
 .nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
 .nores-i{width:72px;height:72px;color:#9aa4b2}
+.nores-i.warn-i{color:#c77700}
 .notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
 .notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
 .notes ul{margin:0;padding-left:18px}
@@ -125,12 +126,12 @@ table.acc tr.total td{font-weight:600}
 
   <div class="titlebar sticky">
     <div>
+      <a class="back" href="employee-profile.html?tab=accruals" title="Back to Accruals">← Back</a>
       <h1>{{title}}</h1>
       <div class="sub">{{subtitle}}</div>
     </div>
     <div class="actions">
       <template data-sc-if value="{{showViewActions}}" hint-placeholder-val="{{ true }}">
-        <a class="btn" href="employee-profile.html?tab=accruals" title="Back to Accruals">Back</a>
         <template data-sc-if value="{{showEditBtn}}"><button type="button" class="btn primary" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button></template>
       </template>
       <template data-sc-if value="{{showSaveActions}}" hint-placeholder-val="{{ false }}">

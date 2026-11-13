@@ -68,6 +68,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 td.empty{text-align:center;color:#5b6575;padding:18px 10px}
 .nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
 .nores-i{width:72px;height:72px;color:#9aa4b2}
+.nores-i.warn-i{color:#c77700}
 .notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
 .notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
 .notes ul{margin:0;padding-left:18px}
@@ -197,11 +198,12 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <div class="seg">
         <button type="button" class="{{segRows}}" onClick="{{toRows}}">Rows</button>
         <button type="button" class="{{segEmpty}}" onClick="{{toEmpty}}">Empty</button>
+        <button type="button" class="{{segError}}" onClick="{{toError}}">Error</button>
         <button type="button" class="{{segLoading}}" onClick="{{toLoading}}">Loading</button>
       </div>
     </div>
   </div>
-  <a class="back" href="#">‹ Back</a>
+  <a class="back" href="#">← Back</a>
   <div class="ptitle">Employee Profile</div>
   <div class="shell">
     <div class="emp"><span class="nm">SAMPLE,ALEX J</span><span><span class="k">Employee #</span><span class="v">12345</span></span><span><span class="k">Status</span><span class="v">ACTIVE</span></span></div>
@@ -256,9 +258,10 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{status_hist}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p hist">
-    <button type="button" class="crumb" onClick="{{status_toDet}}">‹ Back to Status details</button>
+    <button type="button" class="crumb" onClick="{{status_toDet}}">← Back to Status details</button>
     <div class="lhead"><h2>Status History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Status Date</th><th scope="col">Action</th><th scope="col">Position Type</th><th scope="col">Work Schedule</th><th scope="col">Holiday Schedule</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -278,7 +281,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{status_row}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p">
-    <button type="button" class="crumb" onClick="{{status_toHist}}">‹ Back to Status History</button>
+    <button type="button" class="crumb" onClick="{{status_toHist}}">← Back to Status History</button>
     <div class="lhead"><div><h2>Status · 07/01/2016<span class="tag">Read-only</span></h2></div></div>
 <div class="rec">
 <section class="card"><h2>Employee Status</h2><div class="grid c3"><div class="f"><span class="lbl">Status</span><span class="val">A – ACTIVE</span></div><div class="f"><span class="lbl">Action</span><span class="val">HS – HOLIDAY SCHEDULE CHANGE</span></div><div class="f"><span class="lbl">Effective Date</span><span class="val">07/01/2016</span></div><div class="f"><span class="lbl">Comments</span><span class="val"></span></div><div class="f"><span class="lbl">Comment Override</span><span class="val"></span></div><div class="f"><span class="lbl">Position Type</span><span class="val">PF – PERMANENT/FULL TIME</span></div><div class="f"><span class="lbl">Work Schedule</span><span class="val">O – OTHER WORK SCHEDULE</span></div><div class="f"><span class="lbl">Holiday Schedule</span><span class="val">R – REGULAR HOLIDAY</span></div><div class="f"><span class="lbl">Furlough</span><span class="val">YFT – PERM FT MISC</span></div><div class="f"><span class="lbl">Retired</span><span class="val"></span></div></div></section>
@@ -296,9 +299,10 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{comp_hist}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p hist">
-    <button type="button" class="crumb" onClick="{{comp_toDet}}">‹ Back to Compensation details</button>
+    <button type="button" class="crumb" onClick="{{comp_toDet}}">← Back to Compensation details</button>
     <div class="lhead"><h2>Compensation History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Action</th><th scope="col">Base Rate</th><th scope="col">Adj Rate</th><th scope="col">Amt. Of Change</th><th scope="col">% Change</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -319,7 +323,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{comp_row}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p">
-    <button type="button" class="crumb" onClick="{{comp_toHist}}">‹ Back to Compensation History</button>
+    <button type="button" class="crumb" onClick="{{comp_toHist}}">← Back to Compensation History</button>
     <div class="lhead"><div><h2>Compensation · 07/05/2025<span class="tag">Read-only</span></h2></div></div>
 <div class="rec">
 <section class="card"><h2>Employee Compensation</h2><div class="grid c3"><div class="f"><span class="lbl">Action</span><span class="val">GI – GENERAL SALARY INCREASE</span></div><div class="f"><span class="lbl">Effective Date</span><span class="val">07/05/2025</span></div><div class="f"><span class="lbl">Scheduled Hours</span><span class="val">80.00</span></div><div class="f"><span class="lbl">Base Rate</span><span class="val">61.4377</span></div><div class="f"><span class="lbl">Adjusted Rate</span><span class="val">0.0000</span></div><div class="f"><span class="lbl">Y-Rated</span><span class="val"></span></div><div class="f"><span class="lbl">Next Step Increase Date</span><span class="val"></span></div><div class="f"><span class="lbl">Amt. Of Change</span><span class="val">1.7811</span></div><div class="f"><span class="lbl">% Change</span><span class="val">2.98</span></div></div></section>
@@ -337,9 +341,10 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{pos_hist}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p hist">
-    <button type="button" class="crumb" onClick="{{pos_toDet}}">‹ Back to Position details</button>
+    <button type="button" class="crumb" onClick="{{pos_toDet}}">← Back to Position details</button>
     <div class="lhead"><h2>Position History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Eff Date</th><th scope="col">Action</th><th scope="col">Emp Status</th><th scope="col">Occup Code</th><th scope="col">Range</th><th scope="col">Step</th><th scope="col">D/B/D</th><th scope="col">Svc Type</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -359,7 +364,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{pos_row}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p">
-    <button type="button" class="crumb" onClick="{{pos_toHist}}">‹ Back to Position History</button>
+    <button type="button" class="crumb" onClick="{{pos_toHist}}">← Back to Position History</button>
     <div class="lhead"><div><h2>Position · 07/05/2025<span class="tag">Read-only</span></h2></div></div>
 <div class="rec">
 <section class="card"><h2>Employee Position</h2><div class="grid c3"><div class="f"><span class="lbl">Action</span><span class="val">GI – GENERAL SALARY INCREASE</span></div><div class="f"><span class="lbl">Position Effective Date</span><span class="val">07/05/2025</span></div><div class="f"><span class="lbl">Occupation</span><span class="val">BB8NN – BUSINESS INFO SYSTEMS OFFICER</span></div><div class="f"><span class="lbl">Occup Eff Date</span><span class="val">07/06/2024</span></div><div class="f"><span class="lbl">Range</span><span class="val">012</span></div><div class="f"><span class="lbl">Step</span><span class="val">05</span></div><div class="f"><span class="lbl">Employee Status</span><span class="val">1 – PERMANENT</span></div><div class="f"><span class="lbl">Service Type</span><span class="val">U – UNCLASSIFIED</span></div><div class="f"><span class="lbl">Position No</span><span class="val">00014520</span></div><div class="f"><span class="lbl">Benefit Grp</span><span class="val">MGMT – MANAGEMENT</span></div><div class="f"><span class="lbl">MPCN</span><span class="val">17010001</span></div><div class="f"><span class="lbl">Supervisor</span><span class="val">Y</span></div><div class="f"><span class="lbl">Unit</span><span class="val"></span></div><div class="f"><span class="lbl">FLSA Cat</span><span class="val">E – EXEMPT</span></div><div class="f"><span class="lbl">EEO Cat</span><span class="val">02 – PROFESSIONALS</span></div><div class="f"><span class="lbl">Probation Hours</span><span class="val">0</span></div><div class="f"><span class="lbl">PERS Cov Group</span><span class="val">70101 – REGL MISC MOD FORMULA 2ND TIER</span></div><div class="f"><span class="lbl">PERS Contr Level</span><span class="val">MG5 – MANAGEMENT LEVEL 5</span></div><div class="f"><span class="lbl">Requisition No</span><span class="val"></span></div></div></section>
@@ -390,9 +395,10 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{demo_hist}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p hist">
-    <button type="button" class="crumb" onClick="{{demo_toDet}}">‹ Back to Demographics details</button>
+    <button type="button" class="crumb" onClick="{{demo_toDet}}">← Back to Demographics details</button>
     <div class="lhead"><h2>Demographics History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Name</th><th scope="col">Marital Status</th><th scope="col">Racial/Ethnic ID</th><th scope="col">Gender</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -411,7 +417,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{demo_row}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p">
-    <button type="button" class="crumb" onClick="{{demo_toHist}}">‹ Back to Demographics History</button>
+    <button type="button" class="crumb" onClick="{{demo_toHist}}">← Back to Demographics History</button>
     <div class="lhead"><div><h2>Demographics · 09/09/2012<span class="tag">Read-only</span></h2></div></div>
 <div class="rec">
 <section class="card"><h2>Name Information</h2><div class="grid c3"><div class="f"><span class="lbl">Name</span><span class="val">SAMPLE,ALEX J</span></div><div class="f"><span class="lbl">First Name</span><span class="val">ALEX</span></div><div class="f"><span class="lbl">Middle Name</span><span class="val">J</span></div><div class="f"><span class="lbl">Last Name</span><span class="val">SAMPLE</span></div><div class="f"><span class="lbl">Suffix</span><span class="val"></span></div></div></section>
@@ -430,9 +436,10 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{other_hist}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p hist">
-    <button type="button" class="crumb" onClick="{{other_toDet}}">‹ Back to Other Information details</button>
+    <button type="button" class="crumb" onClick="{{other_toDet}}">← Back to Other Information details</button>
     <div class="lhead"><h2>Other Information History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Shift</th><th scope="col">Record Status</th><th scope="col">Sequence #</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -451,7 +458,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       </template>
       <template data-sc-if value="{{other_row}}" hint-placeholder-val="{{ false }}">
       <div class="accd-p">
-    <button type="button" class="crumb" onClick="{{other_toHist}}">‹ Back to Other Information History</button>
+    <button type="button" class="crumb" onClick="{{other_toHist}}">← Back to Other Information History</button>
     <div class="lhead"><div><h2>Other Information · 06/09/2008<span class="tag">Read-only</span></h2></div></div>
 <div class="rec">
 <section class="card"><h2>Other Information</h2><div class="grid c3"><div class="f"><span class="lbl">Shift</span><span class="val">1 – DAY</span></div><div class="f"><span class="lbl">Telephone Directory</span><span class="val">Y – YES, PRINT</span></div><div class="f"><span class="lbl">Family Leave</span><span class="val"></span></div><div class="f"><span class="lbl">CFRA Eligible Date</span><span class="val">06/09/2008</span></div></div></section>
@@ -463,7 +470,8 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
-      <li><strong>New here: History.</strong> Status, Compensation, Position, Demographics and Other Information get a <strong>History</strong> button. It swaps that section’s details for its history list <strong>in the section</strong> (the other sections stay as they are); “‹ Back to … details” swaps them back. Details on a row swaps in that record, read-only, with a breadcrumb back to the list. Same pattern as Gross to Net on Payroll.</li>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
+      <li><strong>New here: History.</strong> Status, Compensation, Position, Demographics and Other Information get a <strong>History</strong> button. It swaps that section’s details for its history list <strong>in the section</strong> (the other sections stay as they are); “← Back to … details” swaps them back. Details on a row swaps in that record, read-only, with a breadcrumb back to the list. Same pattern as Gross to Net on Payroll.</li>
       <li>Everything else is your existing Details tab, unchanged: Status / Compensation / Position changes still go through an HR1 Change Request; Work Location, Demographics and Other Information keep their Edit button. The fields shown in Compensation and Position are sample placeholders: keep yours.</li>
       <li>History is read-only. LifeView’s history detail screens can also add or reverse a row; that’s left out on purpose (corrections go through the current record or an HR1 Change Request).</li>
       <li>Columns: the legacy LifeView history lists exactly (HRStatusHistoryList, HRCompensationHistoryList, HRPositionHistoryList, HRPersonalDataHistoryList, HRUserFieldsHistoryList). The record view uses the legacy history detail screen’s sections and labels.</li>
@@ -483,11 +491,12 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <template data-sc-if value="{{a_showMail}}"><div class="acard"><span class="pill mail">Mailing</span><template data-sc-if value="{{admin}}"><button type="button" class="ico" aria-label="Edit Mailing address"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg></button></template><div class="g"><div><div class="lbl">Street Address Line 1</div><div class="val">PO BOX 1234</div></div><div><div class="lbl">City</div><div class="val">BELLFLOWER</div></div><div><div class="lbl">State</div><div class="val">CA</div></div><div><div class="lbl">Zip</div><div class="val">90707</div></div><div><div class="lbl"></div><div class="val"></div></div></div></div></template>
    </template>
    <template data-sc-if value="{{addr_hist}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{addr_toCards}}">‹ Back to addresses</button>
+    <button type="button" class="crumb" onClick="{{addr_toCards}}">← Back to addresses</button>
     <div class="lhead"><h2>Address History</h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <div class="abar"><div class="segs" role="group" aria-label="History of"><button type="button" class="{{h_home}}" onClick="{{h_toHome}}">Home</button><button type="button" class="{{h_mail}}" onClick="{{h_toMail}}">Mailing</button></div></div>
     <template data-sc-if value="{{h_isHome}}">
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Street Address</th><th scope="col">City</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -499,6 +508,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
     <template data-sc-if value="{{h_isMail}}">
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Address Type</th><th scope="col">Name</th><th scope="col">Street Address</th><th scope="col">City</th><th scope="col">Record Status</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -516,7 +526,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
    </template>
    <template data-sc-if value="{{addr_row}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{addr_toHist}}">‹ Back to Address History</button>
+    <button type="button" class="crumb" onClick="{{addr_toHist}}">← Back to Address History</button>
     <template data-sc-if value="{{h_isHome}}"><div class="lhead"><div><h2>Home Address · 10/23/2010<span class="tag">Read-only</span></h2></div></div><div class="rec">
 <section class="card"><h2>Address Details</h2><div class="grid c3"><div class="f"><span class="lbl">Street Address</span><span class="val">1200 SAMPLE AVE</span></div><div class="f"><span class="lbl">Apt./PO Box/Other</span><span class="val"></span></div><div class="f"><span class="lbl">City</span><span class="val">BELLFLOWER</span></div><div class="f"><span class="lbl">State</span><span class="val">CA</span></div><div class="f"><span class="lbl">ZIP Code</span><span class="val">90706</span></div><div class="f"><span class="lbl">Home Phone</span><span class="val">562-555-0100</span></div><div class="f"><span class="lbl">Cell Phone</span><span class="val">562-555-0101</span></div><div class="f"><span class="lbl">Personal Email Address</span><span class="val">ALEX.SAMPLE@EXAMPLE.COM</span></div><div class="f"><span class="lbl">Work Email Address</span><span class="val"></span></div><div class="f"><span class="lbl">Work Cell Phone</span><span class="val"></span></div></div></section>
 <section class="card"><h2>Address Record Details</h2><div class="grid c3"><div class="f"><span class="lbl">Record Status</span><span class="val">A – ACTIVE</span></div><div class="f"><span class="lbl">Sequence #</span><span class="val">0004</span></div><div class="f"><span class="lbl">Create Date</span><span class="val">10/22/2010</span></div><div class="f"><span class="lbl">Create Time</span><span class="val">11402215</span></div><div class="f"><span class="lbl">Original Create Date</span><span class="val">06/14/2007</span></div><div class="f"><span class="lbl">Original Create Time</span><span class="val">12384004</span></div></div></section>
@@ -529,6 +539,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Your existing Addresses tab, unchanged, plus a <strong>History</strong> button next to Add. History swaps the cards for the history list <strong>in this tab</strong> (breadcrumb back); Details on a row swaps in that record, read-only. Same pattern as Gross to Net on Payroll.</li>
       <li>History has <strong>Home</strong> and <strong>Mailing</strong> only. It opens on the type you had selected (Home when it was Any Type): LifeView has no combined history, and the two lists have different columns.</li>
       <li>Home: legacy HRHomeAddressHistoryList, its columns exactly (view HRB27, Address Type 001). Record: HRHomeAddressHistoryDetail.</li>
@@ -561,6 +572,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Check Date</th><th scope="col">Period</th><th scope="col">Year</th><th scope="col">Gross</th><th scope="col">Net Pay</th><th scope="col">Action</th></tr></thead><tbody>
@@ -581,6 +593,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Unchanged from your current tab. Details opens Check Detail (its own screen: it has actions). Create New Check (Payroll Processor only) opens a new, not-yet-posted check.</li>
       <li>Gross to Net switches this tab to the Gross to Net list, as it does today.</li>
       <li>Calls: <code>PayCheckHistory_List</code>; Create New Check = <code>PayOnlineCheck_Start</code>.</li>
@@ -590,7 +603,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vG2nList}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Check History</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Check History</button>
     <div class="lhead">
       <h2>Gross To Net</h2>
       <div class="actions">
@@ -602,6 +615,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">Tax Entity</th><th scope="col">Month</th><th scope="col">YTD Gross</th><th scope="col">YTD Net</th><th scope="col">Action</th></tr></thead><tbody>
@@ -618,6 +632,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Your current Gross to Net list, unchanged. Details opens the read-only detail <strong>inside this tab</strong>.</li>
       <li>Calls: <code>PayGrossToNet_List</code> (blank Effective Date = every record).</li>
       <li>Paged: <code>PayGrossToNet_List</code> takes <code>pageSize</code> (default 50, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
@@ -625,7 +640,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vG2n}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showG2nList}}">‹ Back to Gross To Net</button>
+    <button type="button" class="crumb" onClick="{{showG2nList}}">← Back to Gross To Net</button>
     <div class="lhead"><div><h2>Gross to Net<span class="tag">Read-only</span></h2>
       <div class="sub">10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -668,6 +683,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayGrossToNetDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayGrossToNet_Get</code> with the Gross To Net row’s tax entity.</li>
       <li>LifeView separates these with untitled bands, so there are no headings here either.</li>
@@ -689,6 +705,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax ID</th><th scope="col">Effective Date</th><th scope="col">Marital Status</th><th scope="col">Exemptions</th><th scope="col">Tax Status</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -708,6 +725,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayTaxControlList links each row to its detail and to the Tax Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayTaxControl_List</code>. Accumulator = <code>PayTaxAccumulator_Get</code> with the row’s Tax ID.</li>
@@ -716,7 +734,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Taxes</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Taxes</button>
     <div class="lhead"><div><h2>Tax Accumulator<span class="tag">Read-only</span></h2>
       <div class="sub">$$002 – U.S. Tax · 10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -748,6 +766,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayTaxAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayTaxAccumulator_Get</code> with the Taxes row’s Tax ID.</li>
       <li>LifeView shows these in one untitled band (no section headings), so they have none here either.</li>
@@ -768,6 +787,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -787,6 +807,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayDeductionControlList: every deduction (direct deposits and bonds too, as on the legacy screen). Rows link to the detail and to the Deduction Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayDeductionControl_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code> with the row’s deduction code.</li>
@@ -796,7 +817,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Deductions</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Deductions</button>
     <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
       <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -861,6 +882,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayDeductionAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s deduction code (and its tax entity).</li>
       <li>The same view opens from Deductions, Direct Deposits and Garnishments.</li>
@@ -881,6 +903,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Earning ID</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">ESS</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -900,6 +923,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Unchanged from your current tab. Details opens the payment; Accumulator opens the Earnings Accumulator for that earnings ID.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayAdditionalPayments_List</code>. Accumulator = <code>PayEarningsAccumulator_Get</code>.</li>
@@ -908,7 +932,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Additional Payments</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Additional Payments</button>
     <div class="lhead"><div><h2>Earnings Accumulator<span class="tag">Read-only</span></h2>
       <div class="sub">AA – Auto Allowance · 10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -953,6 +977,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayEarningsAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayEarningsAccumulator_Get</code> with the Additional Payments row’s earnings ID.</li>
     </ul>
@@ -972,6 +997,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan</th><th scope="col">Accrual Type</th><th scope="col">Status</th><th scope="col">Service Date</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -990,6 +1016,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayAccrualControlList links each plan to its detail and to the Accrual Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayAccrualControl_List</code>. Accumulator = <code>PayAccrualAccumulator_Get</code> with the row’s accrual type.</li>
@@ -998,7 +1025,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Accruals</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Accruals</button>
     <div class="lhead"><div><h2>Accrual Accumulator<span class="tag">Read-only</span></h2>
       <div class="sub">V – Vacation · 10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -1046,6 +1073,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayAccrualAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayAccrualAccumulator_Get</code> with the Accruals row’s accrual type.</li>
       <li>The legacy screen’s adjustment Insert/Update isn’t built in the gateway, so this stays read-only for now.</li>
@@ -1065,6 +1093,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Year</th><th scope="col">Federal Wages</th><th scope="col">Federal Tax Withheld</th><th scope="col">State Tax Withheld</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1076,6 +1105,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Read-only, no detail screen: View W2 opens the PDF (<code>documentUrl</code>) in a new tab, as the legacy Details link does.</li>
       <li>Call: <code>PayW2Forms_Get</code>; the Effective Date filter is its <code>asOf</code>.</li>
       <li>Not paged (no pager): one row per tax year, and the call returns them all in one array.</li>
@@ -1096,6 +1126,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Account Type</th><th scope="col">Calc</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1113,6 +1144,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayDirectDepositList links each row to its detail and to the Deduction Accumulator (a direct deposit is a deduction).</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayDirectDeposit_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code>.</li>
@@ -1121,7 +1153,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Direct Deposits</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Direct Deposits</button>
     <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
       <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -1186,6 +1218,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayDeductionAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s deduction code (and its tax entity).</li>
       <li>The same view opens from Deductions, Direct Deposits and Garnishments.</li>
@@ -1207,6 +1240,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">CalPERS ID</th><th scope="col">Appointment ID</th><th scope="col">Employer ID</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1224,6 +1258,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayCalPERSIDList: history, newest first. Details opens the record; only the current (top) one can be edited.</li>
       <li>Accumulators switches this tab to the PERS Accumulators list (breadcrumb back), the way Gross to Net works on Paychecks. Shown to every role: it’s read-only.</li>
       <li>Calls: <code>PayCalPersId_List</code>.</li>
@@ -1232,9 +1267,10 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vPersList}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to CalPERS</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to CalPERS</button>
     <div class="lhead"><div><h2>PERS Accumulators<span class="tag">Read-only</span></h2></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Effective Date</th><th scope="col">PRC Amount</th><th scope="col">PRE Amount</th><th scope="col">PST Amount</th><th scope="col">PNC Amount</th></tr></thead><tbody>
@@ -1254,6 +1290,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Columns and labels: legacy PayPERSAccumulatorsList. One row per effective date, newest first. Read-only for every role: the legacy screen is select-only and has no detail screen, so rows have no Actions column.</li>
       <li>No Effective Date filter: the legacy form shows the box but its select never binds it, so it always lists every record. The gateway’s call has no <code>asOf</code> either.</li>
       <li>Calls: <code>PayPERSAccumulators_List</code>.</li>
@@ -1277,6 +1314,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Tax Entity</th><th scope="col">Effective Date</th><th scope="col">Pay Action</th><th scope="col">Pay Status</th><th scope="col">Stop Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1293,6 +1331,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayStatusList: one row per tax entity (home + any alternates). No Add here: a new record comes from Payroll New Hire Enrollment.</li>
       <li>Proposal: Check Distribution and Time Sheet Control live here as header buttons. Each edits one field on the home Pay Status record and has no list of its own.</li>
       <li>Calls: <code>PayStatus_List</code>. An alternate tax entity row would open Add Alternate Enrollment instead (not mocked: no alternates in the sample).</li>
@@ -1314,6 +1353,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Deduction Type</th><th scope="col">Effective Date</th><th scope="col">Frequency</th><th scope="col">End Date</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1330,6 +1370,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayGarnishmentsList: deductions with Checking / Savings Ind E. Rows link to the detail and to the Deduction Accumulator.</li>
       <li>Accumulator opens <strong>inside this tab</strong> (breadcrumb back to the list), not as its own screen: read-only views with no Add or Edit don’t need one.</li>
       <li>Calls: <code>PayGarnishments_List</code>. Accumulator = <code>PayDeductionAccumulator_Get</code>.</li>
@@ -1338,7 +1379,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{vAcc}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Garnishments</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Garnishments</button>
     <div class="lhead"><div><h2>Deduction Accumulator<span class="tag">Read-only</span></h2>
       <div class="sub">999 – Direct Deposit · 10000 – City of Long Beach</div></div></div>
     <section class="card"><h2>Details</h2><div class="grid c3">
@@ -1403,6 +1444,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Sections, field order and labels: legacy PayDeductionAccumulatorDetail (select-only: no Add, Update or Delete, for every role).</li>
       <li>Call: <code>PayDeductionAccumulator_Get</code> with the row’s deduction code (and its tax entity).</li>
       <li>The same view opens from Deductions, Direct Deposits and Garnishments.</li>
@@ -1420,6 +1462,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Benefit ID</th><th scope="col">Benefit Plan</th><th scope="col">Status</th><th scope="col">Plan Effective Date</th><th scope="col">Coverage</th><th scope="col">Fee</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1441,6 +1484,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Current benefits = legacy BenEnrollmentInquiryList (view ALT65): its columns exactly, plus the screen’s Costs / Employer / Employee totals (credits count as employer). <strong>As of</strong> = the screen’s “as of a different date” (default today).</li>
       <li>Details opens <strong>Benefit Enrollment</strong> (view / edit / terminate one benefit). Not enrolled in something yet? That’s the Enrollment tab.</li>
       <li><strong>History</strong> and <strong>Beneficiaries</strong> swap this list for theirs <strong>in this tab</strong> (breadcrumb back), the way Gross to Net works on Payroll.</li>
@@ -1450,13 +1494,14 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{v_hist}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Benefits</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Benefits</button>
     <div class="lhead"><h2>Benefits History<span class="tag">Read-only</span></h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <div class="filters">
       <label>Benefit ID<select><option>Select…</option><option>0040 – HEALTH INSURANCE</option><option>0041 – BASIC LIFE INSURANCE</option><option>0042 – DENTAL INSURANCE</option><option>0049 – VISION</option><option>9999 – FLEX CREDITS</option></select></label>
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Benefit ID</th><th scope="col">Record Status</th><th scope="col">Effective Date</th><th scope="col">Benefit Plan</th><th scope="col">Coverage</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1477,6 +1522,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenEmployeeBenefitsHistoryList (view BPA55): its columns exactly. Benefit ID filters to one benefit (blank = all). Details opens that record on Benefit Enrollment, read-only.</li>
       <li>Display Reversed: unchecked by default; checked = <code>includeReversed=true</code>.</li>
       <li>Calls: <code>BenEmployeeBenefitsHistory_List</code> (built, PR #226) with <code>benefitId</code>. Paged: <code>BenEmployeeBenefitsHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
@@ -1485,7 +1531,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{v_bens}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Benefits</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Benefits</button>
     <div class="lhead"><h2>Beneficiaries</h2><div class="actions"><template data-sc-if value="{{admin}}"><a class="sbtn" href="beneficiary.html?mode=add"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</a></template></div></div>
     <div class="filters">
       <label>Benefit ID<select><option>Select…</option><option>0041 – BASIC LIFE INSURANCE</option><option>0043 – MANAGEMENT LIFE INSURANCE</option><option>0046 – VOLUNTARY TERM LIFE INSURANCE</option></select></label>
@@ -1493,6 +1539,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Allocation Date</th><th scope="col">Benefit ID</th><th scope="col">Plan ID</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1510,6 +1557,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenBeneficiaryHistoryList (view BPA67): its columns exactly, every allocation by date. Details opens the allocation (who gets what share); Add opens it empty.</li>
       <li>LifeView’s other list, BenBeneficiaryList, is unfinished in the vendor’s own help (“being developed”) and isn’t built; this one covers it.</li>
       <li>Calls: <code>BenBeneficiaryHistory_List</code> (built, PR #226) with <code>benefitId</code> / <code>asOf</code>. Paged: <code>BenBeneficiaryHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
@@ -1526,6 +1574,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Plan Effective Date</th><th scope="col">Status</th><th scope="col">Relationship</th><th scope="col">Designee Action</th><th scope="col">Designee Special Category</th><th scope="col">Birth Date</th><th scope="col">SSN</th><th scope="col">Gender</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1544,6 +1593,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenDependentsInformationList (view BPA66C): its columns exactly. SSN masked to the last 4 (gateway PII rule). Dependents and beneficiaries are both here (LifeView’s “designees”).</li>
       <li>Details opens the <strong>Dependent</strong> screen (view / edit / reverse); Add opens it empty. <strong>Benefits</strong> swaps in that dependent’s benefits <strong>in this tab</strong>; <strong>History</strong> swaps in every dependent record by date. Enrolling a dependent in a benefit is on the Enrollment tab.</li>
       <li>Designee Action / Special Category show their codes: their tables (00140 / 00142) aren’t exported from TEST yet.</li>
@@ -1553,7 +1603,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{v_depHist}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Dependents</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Dependents</button>
     <div class="lhead"><h2>Dependents History<span class="tag">Read-only</span></h2><div class="actions"><label class="chk"><input type="checkbox">Display Reversed</label></div></div>
     <div class="filters">
       <label>Dependent<select><option>Select…</option><option>01 – SAMPLE,JORDAN K</option><option>02 – SAMPLE,RILEY M</option><option>03 – SAMPLE,QUINN A</option></select></label>
@@ -1561,6 +1611,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Effective Date</th><th scope="col">Status Indicator</th><th scope="col">Relationship</th><th scope="col">Designee Action</th></tr></thead><tbody>
@@ -1580,6 +1631,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenDependentsInformationHistoryList (view BPA68): its columns exactly. Dependent filters to one designee (blank = all), As of = records effective on or before.</li>
       <li>No Actions column: every field the legacy history detail shows is already in the row (plus SSN / gender / birth date, which the current Dependent screen has).</li>
       <li>Calls: <code>BenDependentsHistory_List</code> (built, PR #226) with <code>dependentId</code> / <code>asOf</code> / <code>includeReversed</code>. Paged: <code>BenDependentsHistory_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
@@ -1587,10 +1639,11 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
   </div>
    </template>
    <template data-sc-if value="{{v_depBen}}" hint-placeholder-val="{{ false }}">
-    <button type="button" class="crumb" onClick="{{showList}}">‹ Back to Dependents</button>
+    <button type="button" class="crumb" onClick="{{showList}}">← Back to Dependents</button>
     <div class="lhead"><h2>Benefits · 01 – SAMPLE,JORDAN K<span class="tag">Read-only</span></h2><div class="actions"></div></div>
     <div class="sum"><div class="g4"><div><div class="lbl">Relationship</div><div class="val">SP – SPOUSE</div></div><div><div class="lbl">Status</div><div class="val">A – ACTIVE</div></div><div><div class="lbl">Birth Date</div><div class="val">07/30/1982</div></div><div><div class="lbl">Gender</div><div class="val">F – FEMALE</div></div></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Plan ID</th><th scope="col">Record Status</th><th scope="col">Coverage Effective Date</th><th scope="col">Termination Date</th><th scope="col">Action</th></tr></thead><tbody>
@@ -1610,6 +1663,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenDependentsBenefitsHistoryList: the dependent’s summary, then every benefit record (view BPA19), its columns exactly. Action shows its code (table 00566 isn’t exported from TEST yet).</li>
       <li>Calls: <code>BenDependentBenefitsHistory_Get</code> (built, PR #226) with the row’s <code>dependentId</code>; optional <code>benefitId</code>. 404 = no such dependent.</li>
     </ul>
@@ -1621,6 +1675,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Placeholder, decided 2026-11-12: the tab’s contents are still open. Candidates from LifeView: benefit premium accounting (BenAccountingList / Detail / HistoryList), savings-plan transactions (BenSavingsTransactions*), and payments / earnings and hours (BenPaymentsUpdateList, BenEarningsAndHoursUpdateList, BenServiceOverridesUpdateList). None is built in the gateway.</li>
     </ul>
   </div>
@@ -1631,6 +1686,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <template data-sc-if value="{{e_isEmp}}">
     <div class="lhead"><h2>Employee Enrollment<span class="nb">Endpoint not built yet</span></h2><div class="actions"></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Enroll</th><th scope="col">Record Status</th><th scope="col">Benefit ID</th><th scope="col">Benefit Plan</th><th scope="col">Amount of Coverage</th><th scope="col">Disability</th><th scope="col">Actions</th></tr></thead><tbody>
@@ -1644,6 +1700,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenEmployeeEnrollmentUpdateList (view BPA65): the employee’s current and <em>prompted</em> benefits (what they’re eligible for), its columns exactly. Rows not yet Active have their Plan and Amount of Coverage editable in the row; check <strong>Enroll</strong> and <strong>Enroll Selected</strong> enrolls them all at the Effective Date.</li>
       <li>Details: an Active row opens <strong>Benefit Enrollment</strong> (the legacy routes it to the Change Detail); any other row opens <strong>Enroll in Benefit</strong> for the full form.</li>
       <li>A terminated benefit is re-enrolled the same way (the legacy ReEnroll update). Override exceptions = <code>overrideExceptions=true</code> after a TS0122, as everywhere else.</li>
@@ -1658,6 +1715,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" class="sbtn">Search</button><button type="button" class="sbtn out">Reset</button>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Update</th><th scope="col">Benefit ID</th><th scope="col">Enrolled?</th><th scope="col">Dependent Action</th><th scope="col">Effective Date</th><th scope="col">Termination Date</th></tr></thead><tbody>
@@ -1670,6 +1728,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenDependentStatusUpdateList (view BPA66H / BPA66D): one dependent’s benefits, its columns exactly. Check <strong>Update</strong>, pick the Dependent Action (enroll / terminate) and its date, Save. A dependent already enrolled (Enrolled? Y) can only be terminated.</li>
       <li>The dependent must exist first (Dependents tab → Add). LifeView’s Dependent Enrollment form adds a dependent and enrolls them in one step; here those are the two screens, so it isn’t mocked separately.</li>
       <li>Dependent Action codes: table 00566 (not exported from TEST yet); the sample shows EN / TM.</li>
@@ -1680,6 +1739,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <template data-sc-if value="{{e_isMod}}">
     <div class="lhead"><h2>Benefits Modeling<span class="nb">Endpoint not built yet</span></h2><div class="actions"></div></div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
+    <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
     <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></template>
     <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
     <div class="ltbl"><table class="list"><thead><tr><th scope="col">Model?</th><th scope="col">Benefit ID</th><th scope="col">Plan ID</th><th scope="col">Coverage</th><th scope="col">Costs</th></tr></thead><tbody>
@@ -1694,6 +1754,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy BenModelingUpdateList: what-if costs for plan and coverage choices, its columns exactly. Nothing is saved: <strong>Calculate</strong> prices the checked rows (the legacy “model insert”, a calculation on view BPA65M) and fills Costs. Shown to every role.</li>
       <li>Lists what the employee is enrolled in and eligible for (new hires: the auto-enrolled benefits too). To act on a scenario, use Employee / Dependents.</li>
       <li>Proposed calls: <code>BenModeling_Get</code> / <code>BenModeling_Calculate</code>. <strong>Not built yet.</strong></li>
@@ -1763,9 +1824,9 @@ class HrArea extends AreaLogic {
     var top = function () { if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0); };
     var v = { admin: admin, segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
       toAdmin: function () { self.setState({ role: 'admin' }); }, toReader: function () { self.setState({ role: 'reader' }); },
-      lsRows: S.ls === 'rows', lsEmpty: S.ls === 'empty', lsLoading: S.ls === 'loading',
-      segRows: S.ls === 'rows' ? 'on' : '', segEmpty: S.ls === 'empty' ? 'on' : '', segLoading: S.ls === 'loading' ? 'on' : '',
-      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); },
+      lsRows: S.ls === 'rows', lsEmpty: S.ls === 'empty', lsLoading: S.ls === 'loading', lsError: S.ls === 'error',
+      segRows: S.ls === 'rows' ? 'on' : '', segEmpty: S.ls === 'empty' ? 'on' : '', segLoading: S.ls === 'loading' ? 'on' : '', segError: S.ls === 'error' ? 'on' : '',
+      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); }, toError: function () { self.setState({ ls: 'error' }); },
       // every history list in the sample fits on one page
       pgFirst: true, pgHasPrev: false, pgHasNext: false, pgLast: true, pgLabel: 'Page 1 of 1', pgPrev: function () {}, pgNext: function () {} };
     keys.forEach(function (k) {
@@ -1809,9 +1870,9 @@ class PayrollArea extends AreaLogic {
     var PAGES = { paychecks: 3 }, list = w === 'g2nList' ? 'g2n' : t, pages = PAGES[list] || 1, p = this.state.page || 1;
     var v = { admin: admin, segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
       toAdmin: function () { self.setState({ role: 'admin' }); }, toReader: function () { self.setState({ role: 'reader' }); },
-      lsRows: this.state.ls === 'rows', lsEmpty: this.state.ls === 'empty', lsLoading: this.state.ls === 'loading',
-      segRows: this.state.ls === 'rows' ? 'on' : '', segEmpty: this.state.ls === 'empty' ? 'on' : '', segLoading: this.state.ls === 'loading' ? 'on' : '',
-      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); },
+      lsRows: this.state.ls === 'rows', lsEmpty: this.state.ls === 'empty', lsLoading: this.state.ls === 'loading', lsError: this.state.ls === 'error',
+      segRows: this.state.ls === 'rows' ? 'on' : '', segEmpty: this.state.ls === 'empty' ? 'on' : '', segLoading: this.state.ls === 'loading' ? 'on' : '', segError: this.state.ls === 'error' ? 'on' : '',
+      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); }, toError: function () { self.setState({ ls: 'error' }); },
       vList: w === 'list', vAcc: w === 'acc', vG2nList: w === 'g2nList', vG2n: w === 'g2n', vPersList: w === 'persList',
       showList: go({ view: 'list' }), showAcc: go({ view: 'acc' }), showG2nList: go({ view: 'g2nList' }), showG2n: go({ view: 'g2n' }), showPersList: go({ view: 'persList' }),
       pgFirst: p <= 1, pgHasPrev: p > 1, pgHasNext: p < pages, pgLast: p >= pages,
@@ -1837,9 +1898,9 @@ class BenefitsArea extends AreaLogic {
     var go = function (o) { return function () { self.setState(Object.assign({ banner: '' }, o)); if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0); }; };
     var v = { admin: admin, segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
       toAdmin: function () { self.setState({ role: 'admin' }); }, toReader: function () { self.setState({ role: 'reader' }); },
-      lsRows: S.ls === 'rows', lsEmpty: S.ls === 'empty', lsLoading: S.ls === 'loading',
-      segRows: S.ls === 'rows' ? 'on' : '', segEmpty: S.ls === 'empty' ? 'on' : '', segLoading: S.ls === 'loading' ? 'on' : '',
-      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); },
+      lsRows: S.ls === 'rows', lsEmpty: S.ls === 'empty', lsLoading: S.ls === 'loading', lsError: S.ls === 'error',
+      segRows: S.ls === 'rows' ? 'on' : '', segEmpty: S.ls === 'empty' ? 'on' : '', segLoading: S.ls === 'loading' ? 'on' : '', segError: S.ls === 'error' ? 'on' : '',
+      toRows: function () { self.setState({ ls: 'rows' }); }, toEmpty: function () { self.setState({ ls: 'empty' }); }, toLoading: function () { self.setState({ ls: 'loading' }); }, toError: function () { self.setState({ ls: 'error' }); },
       v_list: w === 'list', v_hist: w === 'hist', v_bens: w === 'bens', v_depHist: w === 'depHist', v_depBen: w === 'depBen',
       showList: go({ view: 'list' }), showHist: go({ view: 'hist' }), showBens: go({ view: 'bens' }), showDepHist: go({ view: 'depHist' }), showDepBen: go({ view: 'depBen' }),
       e_emp: S.en === 'emp' ? 'on' : '', e_dep: S.en === 'dep' ? 'on' : '', e_mod: S.en === 'mod' ? 'on' : '',

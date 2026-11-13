@@ -55,6 +55,14 @@ h1{margin:0;font-size:24px;font-weight:600}
 .err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
 .err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
 .dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.titlebar.sticky{position:sticky;top:0;z-index:5;background:#f3f5f8;padding:12px 0;margin-top:0;border-bottom:1px solid #dde2e9}
+.exc{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#3a4350;margin-right:4px}
+.exc .opts{display:inline-flex;border:1px solid #b9c1cc;border-radius:6px;overflow:hidden}
+.exc .opts button{border:0;border-right:1px solid #b9c1cc;background:#fff;font:inherit;font-size:12px;padding:0 10px;min-height:32px;cursor:pointer;color:#2b3340}
+.exc .opts button:last-child{border-right:0}
+.exc .opts button.on{background:#0a5bd3;color:#fff}
+.btn:not(.primary) .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+.err .err-btn{margin-top:10px;min-height:32px;padding:0 12px;font-size:13px;border-color:#7a1a12;color:#7a1a12;background:#fff}
 .loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
 .loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
 td.empty{text-align:center;color:#5b6575;padding:18px 10px}
@@ -115,23 +123,25 @@ table.acc tr.total td{font-weight:600}
     </div>
   </div>
 
-  <a class="back" href="employee-profile.html?area=benefits&tab=benefits">‹ Back to Benefits</a>
-  <div class="titlebar">
+  <div class="titlebar sticky">
     <div>
       <h1>{{title}}</h1>
       <div class="sub">{{subtitle}}</div>
     </div>
     <div class="actions">
       <template data-sc-if value="{{showViewActions}}" hint-placeholder-val="{{ true }}">
-        <button type="button" class="btn primary" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button>
+        <a class="btn" href="employee-profile.html?area=benefits&tab=benefits" title="Back to Benefits">Back</a>
+        <template data-sc-if value="{{showEditBtn}}"><button type="button" class="btn primary" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button></template>
       </template>
       <template data-sc-if value="{{showSaveActions}}" hint-placeholder-val="{{ false }}">
+        <span class="exc" role="group" aria-label="Exceptions"><span class="opts"><button type="button" class="{{excReturn}}" onClick="{{setReturn}}">Return Exceptions</button><button type="button" class="{{excOverride}}" onClick="{{setOverride}}">Override Exceptions</button></span></span>
         <template data-sc-if value="{{showEditDelete}}" hint-placeholder-val="{{ false }}">
           <button type="button" class="btn danger" onClick="{{askDelete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
           <span class="sep" aria-hidden="true"></span>
         </template>
         <button type="button" class="btn" onClick="{{cancel}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
-        <button type="button" class="btn primary" onClick="{{save}}" aria-busy="{{savingAria}}"><template data-sc-if value="{{saving}}"><span class="spin" aria-hidden="true"></span>Saving…</template><template data-sc-if value="{{notSaving}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Save</template></button>
+        <template data-sc-if value="{{showAddBtn}}"><button type="button" class="{{addCls}}" onClick="{{doAdd}}" aria-busy="{{busyAdd}}"><template data-sc-if value="{{savingAdd}}"><span class="spin" aria-hidden="true"></span>Adding…</template><template data-sc-if value="{{idleAdd}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</template></button></template>
+        <template data-sc-if value="{{showUpdateBtn}}"><button type="button" class="btn primary" onClick="{{doUpdate}}" aria-busy="{{busyUpd}}"><template data-sc-if value="{{savingUpd}}"><span class="spin" aria-hidden="true"></span>Updating…</template><template data-sc-if value="{{idleUpd}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Update</template></button></template>
       </template>
     </div>
   </div>
@@ -140,7 +150,7 @@ table.acc tr.total td{font-weight:600}
     <div class="banner" role="status">{{banner}}</div>
   </template>
   <template data-sc-if value="{{showErr}}" hint-placeholder-val="{{ false }}">
-    <div class="err" role="alert">{{errDetail}}<template data-sc-if value="{{errHost}}"><span class="host">{{errHost}}</span></template></div>
+    <div class="err" role="alert">{{errDetail}}<template data-sc-if value="{{errHost}}"><span class="host">{{errHost}}</span></template><template data-sc-if value="{{errOverride}}"><button type="button" class="btn small err-btn" onClick="{{saveOverride}}">{{overrideLabel}}</button></template></div>
   </template>
   <template data-sc-if value="{{showConflict}}" hint-placeholder-val="{{ false }}">
     <div class="warn" role="alert">Someone else changed this record after you opened it, so it has been reloaded with the latest values. Make your change again.</div>
@@ -188,7 +198,8 @@ table.acc tr.total td{font-weight:600}
     <h3>Notes for the OutSystems build</h3>
     <ul>
       <li>Pattern: <strong>Editable</strong> (Edit). One block for view and edit: Edit switches only the editable fields to inputs, in place; read-only fields stay plain text in the same position.</li>
-      <li>Mockup controls <strong>Data</strong> and <strong>Next Save</strong> show the states every screen needs: a loading state while the GET runs; Save busy (“Saving…”) and disabled while the write runs; an error alert with <code>detail</code> as the main line and <code>hostCode – hostMessage</code> on a smaller line when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; TS0122 = confirm, then re-send with <code>overrideExceptions=true</code>; 403 = writes are off, nothing saved.</li>
+      <li>Mockup controls <strong>Data</strong> and <strong>Next Save</strong> show the states every screen needs: a loading state while the GET runs; Save busy (“Saving…”) and disabled while the write runs; an error alert with <code>detail</code> as the main line and <code>hostCode – hostMessage</code> on a smaller line when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; 403 = writes are off, nothing saved. TS0122 (with Return Exceptions) = the alert offers “Update/Add with Override Exceptions”, one click, which re-sends with <code>overrideExceptions=true</code>.</li>
+      <li><strong>Return Exceptions | Override Exceptions</strong> (LifeView’s Submit Options): shown while editing, Return by default and reset to Return every time the form opens and after each save. Override sends <code>?overrideExceptions=true</code> on the write.</li>
       <li>Opened by Details on the Benefits list (current benefits) and on Benefits History (that record, read-only: no Edit there).</li>
       <li>Legacy BenEmployeeChangeDetail: sections, order and labels as the JSP. Editable = the fields on its Update; the participant block comes from HR (HRB12P / HRB10) and stays read-only.</li>
       <li>Terminating a benefit = Edit, Benefit Status T + Term Reason + Termination Date, Save (legacy “Terminating an employee’s enrollment”). There’s no Delete: the legacy screen’s Reverse isn’t on its contract here.</li>
@@ -196,19 +207,6 @@ table.acc tr.total td{font-weight:600}
       <li>Proposed calls: <code>BenBenefit_Get</code> / <code>BenBenefit_Put</code> (Benefit ID + Effective Date). <strong>Not built yet.</strong></li>
     </ul>
   </div>
-
-  <template data-sc-if value="{{showOverride}}" hint-placeholder-val="{{ false }}">
-    <div class="overlay">
-      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="ovr-t">
-        <h2 id="ovr-t">Save with an exception?</h2>
-        <p>The benefits system flagged an exception on this change. You can save it anyway.<span class="host">TS0122 – PROHIBITED FIELD</span></p>
-        <div class="actions" style="justify-content: flex-end">
-          <button type="button" class="btn" onClick="{{closeOverride}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
-          <button type="button" class="btn primary" onClick="{{confirmOverride}}">Save anyway</button>
-        </div>
-      </div>
-    </div>
-  </template>
 
 </div>
 </template>
@@ -255,9 +253,9 @@ class Component extends DCLogic {
     super(props);
     var q = (props && props.query) || {}, S = this.spec();
     var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
-    this.state = { mode: m, role: 'admin', dialog: false, banner: '', result: 'ok', err: '', conflict: false, override: false, loading: false };
+    this.state = { mode: m, role: 'admin', dialog: false, banner: '', result: 'ok', err: '', conflict: false, loading: false, exc: 'return', saving: '', last: '' };
   }
-  spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Benefit Enrollment", "subtitle": "0040 – Health Insurance · effective 01/01/2026", "addTitle": "Add Benefit Enrollment", "addSubtitle": "New benefit enrollment", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Details", "cols": 3, "fields": [{"label": "Benefit ID", "view": "0040 – HEALTH INSURANCE", "e": "none", "k": "text", "val": "0040 – HEALTH INSURANCE"}, {"label": "Effective Date", "view": "01/01/2026", "e": "edit", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "help": "A new date adds a dated record; the old one stays in Benefits History."}]}, {"title": "Participant Information", "cols": 3, "fields": [{"label": "Birth Date", "view": "04/12/1980", "e": "none", "k": "text", "val": "04/12/1980"}, {"label": "Gender", "view": "U – NON-BINARY", "e": "none", "k": "text", "val": "U – NON-BINARY"}, {"label": "Marital Status", "view": "M – MARRIED", "e": "none", "k": "text", "val": "M – MARRIED"}, {"label": "Hire Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Employee Status", "view": "A – ACTIVE", "e": "none", "k": "text", "val": "A – ACTIVE"}, {"label": "Dept/Bur/Div", "view": "17040 – TI-EIS-ENT FINAN AND HR SYS", "e": "none", "k": "text", "val": "17040 – TI-EIS-ENT FINAN AND HR SYS"}, {"label": "Position Type", "view": "PF – PERMANENT/FULL TIME", "e": "none", "k": "text", "val": "PF – PERMANENT/FULL TIME"}, {"label": "Plan Inception Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Status Date", "view": "01/01/2026", "e": "both", "k": "text", "val": "01/01/2026", "ph": "MM/DD/YYYY"}, {"label": "Benefit Status", "view": "A – ACTIVE", "e": "both", "k": "select", "src": "Options: GET /v1/codes/RECORD_STATUS (table 00562)", "val": "A", "help": "T = terminate the enrollment (give a Term Reason).", "options": [{"v": "A", "l": "A – ACTIVE"}, {"v": "P", "l": "P – PENDING"}, {"v": "R", "l": "R – REVERSED"}, {"v": "T", "l": "T – TERMINATED"}]}, {"label": "Term Reason", "view": "", "e": "both", "k": "text", "val": "", "ph": "Code"}, {"label": "Benefit Plan", "view": "GWH – GREAT WEST PPO HIGH", "e": "both", "k": "select", "src": "Options: GET /v1/codes/BENEFIT_PLAN (table 00505) — 76 codes, a sample shown here", "val": "GWH"}, {"label": "Association", "view": "", "e": "both", "k": "text", "val": ""}]}, {"title": "Billing Information", "cols": 4, "fields": [{"label": "Coverage", "view": "5 – INSURED & DEPENDENTS", "e": "both", "k": "select", "src": "Options: GET /v1/codes/COVERAGE (table 00560)", "val": "5", "options": [{"v": "1", "l": "1 – INSURED ONLY"}, {"v": "2", "l": "2 – SPOUSE ONLY"}, {"v": "3", "l": "3 – INSURED & SPOUSE"}, {"v": "4", "l": "4 – DEPENDENTS ONLY"}, {"v": "5", "l": "5 – INSURED & DEPENDENTS"}, {"v": "6", "l": "6 – SPOUSE & DEPENDENTS"}, {"v": "7", "l": "7 – ALL FAMILY MEMBERS"}]}, {"label": "Fee", "view": "1,812.40", "e": "none", "k": "text", "val": "1,812.40"}, {"label": "Policy Type", "view": "", "e": "both", "k": "text", "val": ""}, {"label": "Billing Frequency", "view": "M – MONTHLY", "e": "both", "k": "select", "src": "Options: GET /v1/codes/BILLING_FREQUENCY (table 00032)", "val": "M", "options": [{"v": "A", "l": "A – ANNUAL"}, {"v": "H", "l": "H – HOURLY"}, {"v": "M", "l": "M – MONTHLY"}, {"v": "W", "l": "W – WEEKLY"}]}]}, {"title": "Salary Information", "cols": 4, "fields": [{"label": "Benefit Amount 1", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}, {"label": "Multiplier 1", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}, {"label": "Benefit Amount 2", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}, {"label": "Multiplier 2", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}]}, {"title": "Dependent Information", "cols": 3, "fields": [{"label": "Dependent Coverage Indicator", "view": "Y", "e": "both", "k": "radio", "val": "Y", "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}]}, {"label": "Number of Dependents", "view": "2", "e": "none", "k": "text", "val": "2"}, {"label": "Coverage Effective Date", "view": "01/01/2026", "e": "both", "k": "text", "val": "01/01/2026", "ph": "MM/DD/YYYY"}, {"label": "Termination Date", "view": "", "e": "both", "k": "text", "val": "", "blank": true, "ph": "MM/DD/YYYY"}, {"label": "Spouse Birth Date", "view": "07/30/1982", "e": "none", "k": "text", "val": "07/30/1982"}]}]}; }
+  spec() { return {"modes": ["view", "edit"], "canDelete": false, "title": "Benefit Enrollment", "subtitle": "0040 – Health Insurance · effective 01/01/2026", "addTitle": "Add Benefit Enrollment", "addSubtitle": "New benefit enrollment", "addedMsg": "Record added.", "deletedMsg": "", "sections": [{"title": "Details", "cols": 3, "fields": [{"label": "Benefit ID", "view": "0040 – HEALTH INSURANCE", "e": "none", "k": "text", "val": "0040 – HEALTH INSURANCE"}, {"label": "Effective Date", "view": "01/01/2026", "e": "edit", "k": "text", "val": "01/01/2026", "req": true, "ph": "MM/DD/YYYY", "help": "A new date adds a dated record; the old one stays in Benefits History."}]}, {"title": "Participant Information", "cols": 3, "fields": [{"label": "Birth Date", "view": "04/12/1980", "e": "none", "k": "text", "val": "04/12/1980"}, {"label": "Gender", "view": "U – NON-BINARY", "e": "none", "k": "text", "val": "U – NON-BINARY"}, {"label": "Marital Status", "view": "M – MARRIED", "e": "none", "k": "text", "val": "M – MARRIED"}, {"label": "Hire Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Employee Status", "view": "A – ACTIVE", "e": "none", "k": "text", "val": "A – ACTIVE"}, {"label": "Dept/Bur/Div", "view": "17040 – TI-EIS-ENT FINAN AND HR SYS", "e": "none", "k": "text", "val": "17040 – TI-EIS-ENT FINAN AND HR SYS"}, {"label": "Position Type", "view": "PF – PERMANENT/FULL TIME", "e": "none", "k": "text", "val": "PF – PERMANENT/FULL TIME"}, {"label": "Plan Inception Date", "view": "06/09/2007", "e": "none", "k": "text", "val": "06/09/2007"}, {"label": "Status Date", "view": "01/01/2026", "e": "both", "k": "text", "val": "01/01/2026", "ph": "MM/DD/YYYY"}, {"label": "Benefit Status", "view": "A – ACTIVE", "e": "both", "k": "select", "src": "Options: GET /v1/codes/RECORD_STATUS (table 00562)", "val": "A", "help": "T = terminate the enrollment (give a Term Reason).", "options": [{"v": "A", "l": "A – ACTIVE"}, {"v": "P", "l": "P – PENDING"}, {"v": "R", "l": "R – REVERSED"}, {"v": "T", "l": "T – TERMINATED"}]}, {"label": "Term Reason", "view": "", "e": "both", "k": "text", "val": "", "ph": "Code"}, {"label": "Benefit Plan", "view": "GWH – GREAT WEST PPO HIGH", "e": "both", "k": "select", "src": "Options: GET /v1/codes/BENEFIT_PLAN (table 00505) — 76 codes, a sample shown here", "val": "GWH"}, {"label": "Association", "view": "", "e": "both", "k": "text", "val": ""}]}, {"title": "Billing Information", "cols": 4, "fields": [{"label": "Coverage", "view": "5 – INSURED & DEPENDENTS", "e": "both", "k": "select", "src": "Options: GET /v1/codes/COVERAGE (table 00560)", "val": "5", "options": [{"v": "1", "l": "1 – INSURED ONLY"}, {"v": "2", "l": "2 – SPOUSE ONLY"}, {"v": "3", "l": "3 – INSURED & SPOUSE"}, {"v": "4", "l": "4 – DEPENDENTS ONLY"}, {"v": "5", "l": "5 – INSURED & DEPENDENTS"}, {"v": "6", "l": "6 – SPOUSE & DEPENDENTS"}, {"v": "7", "l": "7 – ALL FAMILY MEMBERS"}]}, {"label": "Fee", "view": "1,812.40", "e": "none", "k": "text", "val": "1,812.40"}, {"label": "Policy Type", "view": "", "e": "both", "k": "text", "val": ""}, {"label": "Billing Frequency", "view": "M – MONTHLY", "e": "both", "k": "select", "src": "Options: GET /v1/codes/BILLING_FREQUENCY (table 00032)", "val": "M", "options": [{"v": "A", "l": "A – ANNUAL"}, {"v": "H", "l": "H – HOURLY"}, {"v": "M", "l": "M – MONTHLY"}, {"v": "W", "l": "W – WEEKLY"}]}]}, {"title": "Salary Information", "cols": 4, "fields": [{"label": "Benefit Amount 1", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}, {"label": "Multiplier 1", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}, {"label": "Benefit Amount 2", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}, {"label": "Multiplier 2", "view": "0.00", "e": "both", "k": "text", "val": "0.00"}]}, {"title": "Dependent Information", "cols": 3, "fields": [{"label": "Dependent Coverage Indicator", "view": "Y", "e": "both", "k": "radio", "val": "Y", "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}]}, {"label": "Number of Dependents", "view": "2", "e": "none", "k": "text", "val": "2"}, {"label": "Coverage Effective Date", "view": "01/01/2026", "e": "both", "k": "text", "val": "01/01/2026", "ph": "MM/DD/YYYY"}, {"label": "Termination Date", "view": "", "e": "both", "k": "text", "val": "", "blank": true, "ph": "MM/DD/YYYY"}, {"label": "Spouse Birth Date", "view": "07/30/1982", "e": "none", "k": "text", "val": "07/30/1982"}]}], "exceptions": true, "addFromEdit": false}; }
   field(f, mode, n) {
     var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
     var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
@@ -284,40 +282,52 @@ class Component extends DCLogic {
     var clr = { banner: '', err: '', conflict: false };
     var ERR = {
       err: ['Effective Date must be within the current pay period, 08/08/2026 through 08/21/2026.', 'TS8033 – EFFECTIVE DATE NOT IN CURRENT PAY PERIOD'],
-      w403: ['Changes can’t be saved right now: writes are turned off on this gateway. Nothing was saved.', '']
+      w403: ['Changes can’t be saved right now: writes are turned off on this gateway. Nothing was saved.', ''],
+      '122': ['The benefits system flagged an exception on this change. Save again with Override Exceptions to accept it.', 'TS0122 – PROHIBITED FIELD']
     };
-    var R = this.state.result, ld = this.state.loading;
-    var done = function (msg) { self.setState({ banner: msg, err: '', conflict: false, override: false, mode: 'view' }); };
-    var saveFn = function () {
-      if (R === 'err' || R === 'w403') return self.setState({ err: R, banner: '', conflict: false });
-      if (R === '409') return self.setState({ conflict: true, err: '', banner: '', mode: mode === 'add' ? 'add' : 'view' });
-      if (R === '122') return self.setState({ override: true, err: '' });
-      done(mode === 'add' ? S.addedMsg : 'Changes saved.');
+    var R = this.state.result, ld = this.state.loading, X = this.state.exc, sv = this.state.saving;
+    // what = 'add' (a new row) or 'update' (this record in place). The Save buttons show a busy state for ~1s first.
+    var finish = function (what, ovr) {
+      var msg = what === 'add' ? (mode === 'add' ? S.addedMsg : 'Added as a new row; the record you opened is unchanged.') : 'Updated.';
+      self.setState({ banner: msg + (ovr ? ' Exceptions were overridden.' : ''), err: '', conflict: false, mode: 'view', exc: 'return', saving: '' });
     };
+    var run = function (what, ovr) {
+      if (R === 'err' || R === 'w403') return self.setState({ err: R, banner: '', conflict: false, saving: '' });
+      if (R === '409') return self.setState({ conflict: true, err: '', banner: '', saving: '', mode: mode === 'add' ? 'add' : 'view' });
+      if (R === '122' && !ovr) return self.setState({ err: '122', banner: '', saving: '', last: what });
+      finish(what, ovr);
+    };
+    var go = function (what, ovr) { return function () { self.setState({ saving: what }); setTimeout(function () { run(what, ovr); }, 900); }; };
     var e = ERR[this.state.err];
     return {
       sections: ld ? [] : sections, loading: ld,
       showErr: !!e, errDetail: e ? e[0] : '', errHost: e ? e[1] : '',
-      showConflict: this.state.conflict, showOverride: this.state.override,
-      closeOverride: set({ override: false }),
-      confirmOverride: function () { done((mode === 'add' ? S.addedMsg : 'Changes saved.') + ' (Exception overridden.)'); },
+      errOverride: this.state.err === '122' && S.exceptions,
+      overrideLabel: (this.state.last === 'add' ? 'Add' : 'Update') + ' with Override Exceptions',
+      saveOverride: go(this.state.last || 'update', true),
+      showConflict: this.state.conflict,
+      excReturn: X === 'return' ? 'on' : '', excOverride: X === 'override' ? 'on' : '',
+      setReturn: set({ exc: 'return' }), setOverride: set({ exc: 'override' }),
+      showAddBtn: mode === 'add' || (mode === 'edit' && S.addFromEdit), showUpdateBtn: mode === 'edit',
+      addCls: mode === 'add' ? 'btn primary' : 'btn',
+      doAdd: go('add', X === 'override'), doUpdate: go('update', X === 'override'),
+      savingAdd: sv === 'add', idleAdd: sv !== 'add', busyAdd: sv === 'add' ? 'true' : 'false',
+      savingUpd: sv === 'update', idleUpd: sv !== 'update', busyUpd: sv === 'update' ? 'true' : 'false',
       segLoaded: ld ? '' : 'on', segLoading: ld ? 'on' : '', toLoaded: set({ loading: false }), toLoading: set({ loading: true }),
       segRok: R === 'ok' ? 'on' : '', segRerr: R === 'err' ? 'on' : '', segR409: R === '409' ? 'on' : '', segR122: R === '122' ? 'on' : '', segR403: R === 'w403' ? 'on' : '',
       rOk: set({ result: 'ok' }), rErr: set({ result: 'err' }), r409: set({ result: '409' }), r122: set({ result: '122' }), r403: set({ result: 'w403' }),
       title: mode === 'add' ? S.addTitle : S.title,
       subtitle: mode === 'add' ? S.addSubtitle : S.subtitle,
-      showViewActions: mode === 'view' && admin && canEdit && !ld,
-      saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
+      showViewActions: mode === 'view' && !ld, showEditBtn: admin && canEdit,
       showSaveActions: mode !== 'view' && !ld,
       showEditDelete: mode === 'edit' && S.canDelete,
       banner: this.state.banner,
       showDialog: this.state.dialog,
       segView: mode === 'view' ? 'on' : '', segEdit: mode === 'edit' ? 'on' : '', segAdd: mode === 'add' ? 'on' : '',
       segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
-      toView: set(Object.assign({ mode: 'view' }, clr)), toEdit: set(Object.assign({ mode: 'edit' }, clr)), toAdd: set(Object.assign({ mode: 'add' }, clr)),
+      toView: set(Object.assign({ mode: 'view' }, clr)), toEdit: set(Object.assign({ mode: 'edit', exc: 'return' }, clr)), toAdd: set(Object.assign({ mode: 'add', exc: 'return' }, clr)),
       toAdmin: set({ role: 'admin' }), toReader: set(Object.assign({ role: 'reader', mode: 'view' }, clr)),
       cancel: set(Object.assign({ mode: 'view' }, clr)),
-      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(saveFn),
       askDelete: set({ dialog: true }), closeDialog: set({ dialog: false }),
       confirmDelete: set({ dialog: false, mode: 'view', banner: S.deletedMsg })
     };

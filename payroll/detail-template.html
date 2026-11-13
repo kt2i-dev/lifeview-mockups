@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Details/Edit Screen Template</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px;align-self:center}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
+.radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
+.radio{display:flex;gap:6px;align-items:center;font-size:14px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+.dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.titlebar.sticky{position:sticky;top:0;z-index:5;background:#f3f5f8;padding:12px 0;margin-top:0;border-bottom:1px solid #dde2e9}
+.exc{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#3a4350;margin-right:4px}
+.exc .opts{display:inline-flex;border:1px solid #b9c1cc;border-radius:6px;overflow:hidden}
+.exc .opts button{border:0;border-right:1px solid #b9c1cc;background:#fff;font:inherit;font-size:12px;padding:0 10px;min-height:32px;cursor:pointer;color:#2b3340}
+.exc .opts button:last-child{border-right:0}
+.exc .opts button.on{background:#0a5bd3;color:#fff}
+.btn:not(.primary) .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+.err .err-btn{margin-top:10px;min-height:32px;padding:0 12px;font-size:13px;border-color:#7a1a12;color:#7a1a12;background:#fff}
+.loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
+.loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+td.empty{text-align:center;color:#5b6575;padding:18px 10px}
+.nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
+.nores-i{width:72px;height:72px;color:#9aa4b2}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
+
+.page{max-width:1440px}
+.ptitle{margin:6px 0 16px;font-size:22px;font-weight:700}
+.shell{background:#fff;border-radius:10px;padding:24px 26px 32px}
+.emp{border:1px solid #dde2e9;border-left:4px solid #0a5bd3;border-radius:8px;padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.emp .nm{font-size:18px;font-weight:700}
+.emp .k{font-size:12px;color:#8a93a1}.emp .v{font-size:13px;font-weight:600;margin-left:4px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:16px 0 18px}
+.tile{border:1px solid #dde2e9;border-radius:6px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:600;font-size:14px;color:#2b3340;background:#fff}
+.tile .ic{color:#0a5bd3;font-size:16px}
+.tile.on{background:#e3edfb;border-color:#0a5bd3;color:#0a5bd3}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #d3d9e1;margin-bottom:22px}
+.tabs button{border:0;background:none;font:inherit;font-size:13px;color:#2b3340;padding:10px 13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{border-bottom-color:#1c2431;font-weight:600}
+.lhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.lhead h2{margin:0;font-size:16px;font-weight:700}
+.sbtn{min-height:32px;padding:0 14px;border-radius:4px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #0a5bd3;background:#0a5bd3;color:#fff;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.sbtn.out{background:#fff;color:#0a5bd3}
+.filters{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;margin-bottom:14px}
+.filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
+.filters input{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;box-sizing:border-box}
+table.list{border-collapse:collapse;width:100%;font-size:12px}
+table.list th{background:#0b4a8b;color:#fff;text-align:left;font-weight:600;padding:12px 10px}
+table.list td{padding:7px 10px;border-bottom:1px solid #e3e8ef;height:30px}
+table.list tbody tr:nth-child(even) td{background:#eaf1fb}
+.lact{display:flex;gap:12px}
+.lact .sbtn{background:#fff;color:#0a5bd3}
+.muted{color:#8a93a1}
+.ltbl{overflow-x:auto}
+.sum{border:1px solid #dde2e9;border-radius:8px;margin-bottom:14px}
+.sum .hd{padding:14px 18px;font-size:13px;border-bottom:1px solid #e3e8ef;display:flex;justify-content:space-between}
+.sum .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 24px;padding:16px 32px 20px}
+.sum .g4 .lbl{font-size:12px;color:#5b6575}.sum .g4 .val{font-size:12px;font-weight:500;margin-top:3px}
+@media (max-width:760px){.tiles,.sum .g4{grid-template-columns:minmax(0,1fr)}}
+
+.crumb{border:0;background:none;padding:0;font:inherit;font-size:13px;color:#0a5bd3;cursor:pointer;margin:0 0 10px}
+.crumb:hover{color:#0848a8;text-decoration:underline}
+.lhead .sub{margin-top:4px;font-size:13px;color:#5b6575}
+.filters select{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;background:#fff}
+.accd{border:1px solid #dde2e9;border-radius:6px}
+.accd-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:13px;border-top:1px solid #dde2e9}
+.accd-h:first-child{border-top:0}
+.chev{width:9px;height:9px;border-right:1.5px solid #2b3340;border-bottom:1.5px solid #2b3340;transform:rotate(45deg);margin-right:6px}
+.chev.up{transform:rotate(-135deg)}
+.accd-b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 24px;padding:6px 32px 20px}
+.accd-b .lbl{font-size:12px;color:#5b6575}.accd-b .val{font-size:12px;margin-top:3px}
+@media (max-width:760px){.accd-b{grid-template-columns:minmax(0,1fr)}}
+.pager{display:flex;justify-content:center;align-items:center;gap:16px;margin:16px 0 4px}
+.pager .sbtn{background:#fff;color:#0a5bd3}
+.pager .sbtn:disabled{border-color:#c5ccd6;color:#8a93a1;cursor:not-allowed}
+.pager .pg{font-size:13px;color:#2b3340;min-width:96px;text-align:center}
+
+.tpl{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
+@media (max-width:1000px){.tpl{grid-template-columns:minmax(0,1fr)}}
+.stage{background:#e9edf2;border-radius:10px;padding:18px}
+.sample{margin:0 auto;background:#f6f7f9;border-radius:8px;padding:16px;box-sizing:border-box}
+.sample.w1{max-width:390px}.sample.w2{max-width:700px}
+.eg-title{font-size:20px;font-weight:700;margin:0 0 4px}.eg-sub{font-size:13px;color:#5b6575}
+.ds-card{background:#fff;border:1px solid #dde2e9;border-radius:8px;padding:14px 18px 18px;margin-bottom:16px}
+.ds-card-title{display:block;font-size:15px;font-weight:700;padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid #e3e8ef}
+.ds-grid{display:grid;grid-template-columns:minmax(0,1fr);column-gap:24px;row-gap:16px}
+.ds-grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.ds-grid.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ds-field{min-width:0}
+.ds-label{display:block;font-size:12px;font-weight:600;color:#5b6575;margin-bottom:6px}
+.ds-value{font-size:14px;padding-left:4px;min-height:20px;overflow-wrap:anywhere}
+.ds-in{height:38px;width:100%;box-sizing:border-box;border:1px solid #c5ccd6;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;background:#fff}
+.ds-dd{display:flex;align-items:center;justify-content:space-between;height:38px;border:1px solid #c5ccd6;border-radius:6px;padding:0 10px;font-size:14px;background:#fff;box-sizing:border-box}
+.ds-dd .ph{color:#8a93a1}.ds-dd .ctl{color:#5b6575;font-size:12px}
+.ds-radios{display:flex;gap:16px;min-height:38px;align-items:center;font-size:14px}.ds-radios label{display:flex;gap:6px;align-items:center}
+.ds-help{font-size:12px;color:#5b6575;margin-top:4px}
+.ds-alert{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.ds-alert small{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+.ds-header{position:sticky;top:0;z-index:3;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;background:#f6f7f9;padding:10px 0 12px;margin-bottom:14px;border-bottom:1px solid #dde2e9}
+.ds-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px}
+.ds-actions .sep{width:1px;height:28px;background:#d3d9e1}
+.ds-exc{display:inline-flex;border:1px solid #b9c1cc;border-radius:6px;overflow:hidden}
+.ds-exc button{border:0;border-right:1px solid #b9c1cc;background:#fff;font:inherit;font-size:12px;padding:0 10px;min-height:32px;cursor:pointer;color:#2b3340}
+.ds-exc button:last-child{border-right:0}.ds-exc button.on{background:#0a5bd3;color:#fff}
+.ds-alert .btn{margin-top:10px;min-height:32px;padding:0 12px;font-size:13px;border-color:#7a1a12;color:#7a1a12;background:#fff}
+.btn.btn-delete{border-color:#b42318;color:#b42318}
+/* inspector */
+.insp [data-k]{cursor:pointer}
+.insp [data-k]:hover:not(:has([data-k]:hover)){outline:2px solid #0a5bd3;outline-offset:2px}
+.insp .picked{outline:2px solid #e8590c !important;outline-offset:2px}
+.outl [data-tag]{position:relative;outline:1px dashed #9aa4b2;outline-offset:1px}
+.outl [data-tag]::before{content:attr(data-tag);position:absolute;top:-9px;right:4px;font:600 10px/1.4 ui-monospace,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px solid #e6cf8f;border-radius:3px;padding:0 4px;z-index:2;pointer-events:none;white-space:nowrap}
+.panel{position:sticky;top:12px;background:#fff;border:1px solid #dde2e9;border-radius:10px;padding:16px 18px;font-size:13px;line-height:1.5;max-height:calc(100vh - 24px);overflow:auto}
+.panel .p-kind{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#e8590c}
+.panel h3{margin:2px 0 10px;font-size:16px}
+.panel table{border-collapse:collapse;width:100%;margin-bottom:10px}
+.panel th{text-align:left;font-weight:600;color:#5b6575;font-size:12px;padding:5px 8px 5px 0;vertical-align:top;width:38%}
+.panel td{font:12px/1.45 ui-monospace,Menlo,monospace;padding:5px 0;border-top:1px solid #eef1f5;overflow-wrap:anywhere}
+.panel th{border-top:1px solid #eef1f5}
+.panel .p-h{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#5b6575;margin:6px 0 4px}
+.panel ul{margin:0;padding-left:18px}.panel li{margin-bottom:4px}
+.panel li.tree{list-style:none;margin:0 0 0 -18px;font:12px/1.45 ui-monospace,Menlo,monospace;white-space:pre}
+.panel .hint{color:#5b6575}
+.ref h2{font-size:15px}
+.ref .body{padding:14px 20px 18px;font-size:13.5px;line-height:1.55;color:#2b3340}
+.ref pre{background:#f6f7f9;border:1px solid #e3e8ef;border-radius:6px;padding:10px 12px;font-size:12px;line-height:1.5;overflow-x:auto;margin:6px 0 12px}
+.ref table{border-collapse:collapse;width:100%;font-size:13px;margin:6px 0 10px}
+.ref th{text-align:left;background:#f3f6fa;font-weight:600;padding:8px 10px;border-bottom:1px solid #dde2e9}
+.ref td{padding:8px 10px;border-bottom:1px solid #eef1f5;vertical-align:top}
+.ref code{font-size:12px;background:#f3f5f8;border-radius:4px;padding:1px 4px}
+.ref ul{margin:4px 0 10px;padding-left:20px}
+.ref h3{font-size:13px;margin:14px 0 4px}
+.dd2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px}@media (max-width:760px){.dd2{grid-template-columns:minmax(0,1fr)}}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<style>.mock-home{display:flex;justify-content:flex-end;max-width:1440px;margin:0 auto;padding:10px 24px 0;box-sizing:border-box;font:12px Inter,system-ui,sans-serif}.mock-home a{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px dashed #9aa4b2;border-radius:6px;background:#fffbe8;color:#2b3340;text-decoration:none;font-weight:600}.mock-home a:hover{border-color:#0a5bd3;color:#0a5bd3}</style><nav class="mock-home" aria-label="Mockup navigation"><a href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Mockups home</a></nav>
+<template id="dc-template">
+<div class="page">
+  <div class="mock" aria-label="Mockup controls">
+    <span class="mock-t">Mockup controls — not part of the design</span>
+    <div class="mock-g">Mode
+      <div class="seg">
+        <button type="button" class="{{sgView}}" onClick="{{toView}}">View</button>
+        <button type="button" class="{{sgEdit}}" onClick="{{toEdit}}">Edit</button>
+        <button type="button" class="{{sgAdd}}" onClick="{{toAdd}}">Add</button>
+      </div>
+    </div>
+    <div class="mock-g">Width
+      <div class="seg">
+        <button type="button" class="{{sgW1}}" onClick="{{toW1}}">Phone · 1 col</button>
+        <button type="button" class="{{sgW2}}" onClick="{{toW2}}">Small · 2</button>
+        <button type="button" class="{{sgW3}}" onClick="{{toW3}}">Medium · 3</button>
+      </div>
+    </div>
+    <div class="mock-g">Error alert
+      <div class="seg">
+        <button type="button" class="{{sgAlOff}}" onClick="{{alOff}}">Off</button>
+        <button type="button" class="{{sgAlOn}}" onClick="{{alOn}}">Error</button>
+        <button type="button" class="{{sgAl122}}" onClick="{{al122}}">TS0122</button>
+      </div>
+    </div>
+    <div class="mock-g">Outlines
+      <div class="seg">
+        <button type="button" class="{{sgOlOff}}" onClick="{{olOff}}">Off</button>
+        <button type="button" class="{{sgOlOn}}" onClick="{{olOn}}">Show every class</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="titlebar"><div><h1>Details/Edit Screen Template</h1>
+    <div class="sub">One detail block built to the standard. Hover any part of the sample to outline it; click it to see its widget, class, properties and rules. Switch Mode to see what changes between View, Edit and Add. The written standard and the screen flow are below.</div></div></div>
+
+  <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}"><div class="banner" role="status">{{banner}}</div></template>
+
+  <div class="tpl">
+    <div class="stage">
+      <div class="{{sampleCls}}">
+        <div class="ds-root{{c_root}}" data-k="root" data-tag="ds-root" onClick="{{p_root}}">
+          <div class="{{c_form}}" data-k="form" data-tag="Form" onClick="{{p_form}}">
+            <div class="ds-header{{c_header}}" data-k="header" data-tag="Header row · sticky" onClick="{{p_header}}">
+              <div class="{{c_screenTitle}}" data-k="screenTitle" data-tag="Title" onClick="{{p_screenTitle}}"><div class="eg-title">{{title}}</div><div class="eg-sub">{{subtitle}}</div></div>
+              <div class="ds-actions{{c_actions}}" data-k="actions" data-tag="ds-actions" onClick="{{p_actions}}">
+                <template data-sc-if value="{{editing}}">
+                  <span class="ds-exc{{c_exc}}" role="group" aria-label="Exceptions" data-k="exc" data-tag="Exceptions toggle" onClick="{{p_exc}}"><button type="button" class="{{excR}}" onClick="{{setR}}">Return Exceptions</button><button type="button" class="{{excO}}" onClick="{{setO}}">Override Exceptions</button></span>
+                  <template data-sc-if value="{{existing}}"><button type="button" class="btn btn-delete{{c_b_delete}}" data-k="b_delete" data-tag="ButtonDelete" onClick="{{p_b_delete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button><span class="sep" aria-hidden="true"></span></template>
+                  <button type="button" class="btn{{c_b_cancel}}" data-k="b_cancel" data-tag="ButtonCancel" onClick="{{p_b_cancel}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+                  <button type="button" class="{{addBtnCls}}{{c_b_add}}" data-k="b_add" data-tag="Button" onClick="{{p_b_add}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+                  <template data-sc-if value="{{existing}}"><button type="button" class="btn primary{{c_b_update}}" data-k="b_update" data-tag="Button" onClick="{{p_b_update}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Update</button></template>
+                </template>
+                <template data-sc-if value="{{viewing}}">
+                  <button type="button" class="btn{{c_b_back}}" data-k="b_back" data-tag="Button" onClick="{{p_b_back}}">Back</button>
+                  <button type="button" class="btn primary{{c_b_edit}}" data-k="b_edit" data-tag="ButtonEdit" onClick="{{p_b_edit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button>
+                </template>
+              </div>
+            </div>
+            <template data-sc-if value="{{alert}}" hint-placeholder-val="{{ false }}">
+              <div class="ds-alert{{c_alert}}" role="alert" data-k="alert" data-tag="Error alert" onClick="{{p_alert}}">{{alDetail}}<small>{{alHost}}</small><template data-sc-if value="{{al122on}}"><button type="button" class="btn" onClick="{{ovrSave}}">{{ovrLabel}}</button></template></div>
+            </template>
+            <template data-sc-for list="{{cards}}" as="c" hint-placeholder-count="3">
+            <div class="ds-card{{c_card}}" data-k="card" data-tag="ds-card" onClick="{{p_card}}">
+              <div class="ds-card-title{{c_ctitle}}" data-k="ctitle" data-tag="ds-card-title" onClick="{{p_ctitle}}">{{c.title}}</div>
+              <div class="{{gridCls}}{{c_grid}}" data-k="grid" data-tag="Container · Grid" onClick="{{p_grid}}">
+              <template data-sc-for list="{{c.fields}}" as="f" hint-placeholder-count="3">
+              <div class="ds-field{{f.cf}}" data-k="{{f.kf}}" data-tag="ds-field" onClick="{{f.pf}}">
+                <label class="ds-label{{f.cl}}" data-k="{{f.kl}}" data-tag="{{f.lt}}" onClick="{{f.pl}}">{{f.label}}<template data-sc-if value="{{f.req}}"><span class="req" aria-hidden="true">*</span></template></label>
+                <template data-sc-if value="{{f.isText}}"><input class="ds-in{{f.ci}}" data-k="{{f.ki}}" data-tag="{{f.it}}" onClick="{{f.pi}}" type="text" aria-label="{{f.label}}" defaultValue="{{f.cur}}" placeholder="{{f.ph}}" maxlength="{{f.maxl}}"></template>
+                <template data-sc-if value="{{f.isDrop}}"><div class="ds-dd{{f.ci}}" data-k="{{f.ki}}" data-tag="CodeTableDropdown" onClick="{{f.pi}}"><template data-sc-if value="{{f.cur}}"><span>{{f.view}}</span></template><template data-sc-if value="{{f.noCur}}"><span class="ph">Select…</span></template><span class="ctl" aria-hidden="true">✕ ⌄</span></div></template>
+                <template data-sc-if value="{{f.isRadio}}"><div class="ds-radios{{f.ci}}" role="radiogroup" aria-label="{{f.label}}" data-k="{{f.ki}}" data-tag="Radio group" onClick="{{f.pi}}"><template data-sc-for list="{{f.opts}}" as="o"><label><input type="radio" name="{{f.rid}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template></div></template>
+                <template data-sc-if value="{{f.showValue}}"><div class="ds-value{{f.cv}}" data-k="{{f.kv}}" data-tag="{{f.vt}}" onClick="{{f.pv}}">{{f.view}}</div></template>
+                <template data-sc-if value="{{f.hasHelp}}"><div class="ds-help">{{f.help}}</div></template>
+              </div>
+              </template>
+              </div>
+            </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="panel" aria-live="polite">
+      <template data-sc-if value="{{noSel}}">
+        <div class="p-kind">Inspector</div>
+        <h3>Click any part of the sample</h3>
+        <p class="hint">Hovering outlines the part you’re on (blue); clicking keeps it selected (orange) and shows here what to build it with: the widget or block, its class and properties, and the rules for it.</p>
+        <p class="hint">Try a card, its title, the grid, a label, a value, an input in Edit, or a button. Turn on <strong>Outlines</strong> to see every class at once.</p>
+      </template>
+      <template data-sc-if value="{{hasSel}}">
+        <div class="p-kind">{{inf.kind}}</div>
+        <h3>{{inf.title}}</h3>
+        <table><tbody><template data-sc-for list="{{inf.props}}" as="p"><tr><th scope="row">{{p.k}}</th><td>{{p.v}}</td></tr></template></tbody></table>
+        <div class="p-h">Rules</div>
+        <ul><template data-sc-for list="{{rules}}" as="r"><li class="{{r.cls}}">{{r.t}}</li></template></ul>
+      </template>
+    </aside>
+  </div>
+
+  <section class="card ref"><h2>How a detail screen behaves</h2><div class="body">
+    <table><thead><tr><th scope="col">Step</th><th scope="col">When</th><th scope="col">What the screen does</th></tr></thead><tbody>
+      <tr><td>Open</td><td>The screen receives the record’s Id</td><td>Fetch it with a data action (Fetch at start), never in the initialization action, with a loading state while it runs. Opens read-only.</td></tr>
+      <tr><td>Open to add</td><td>The key is empty (<code>IsNew</code>, or an empty <code>ColToken</code> / <code>BatchId</code>)</td><td>Opens already in edit mode. Don’t call the detail GET (an empty key reaches the list route); load dropdowns from the endpoint’s <code>/options</code> or <code>/v1/codes</code>. Effective Date left blank = the gateway uses the current pay period begin.</td></tr>
+      <tr><td>Edit</td><td><code>CanEdit</code> and the endpoint has a PUT</td><td>Sets <code>IsEditing</code>: only the editable fields become inputs, in place. Read-only fields (and keys) stay plain text in the same position.</td></tr>
+      <tr><td>Exceptions</td><td>Editing or adding, where the endpoint takes <code>overrideExceptions</code></td><td>Return Exceptions (default) or Override Exceptions, as LifeView’s Submit Options. Resets to Return when the form opens and after each save. Override adds <code>?overrideExceptions=true</code> to the write.</td></tr>
+      <tr><td>Update</td><td>Editing an existing record</td><td>PUT: changes this record in place. Validates the form, sends every shown field (blanks too) and <code>colToken</code> unchanged; disabled with a busy state while it runs. Success: back to the list or tab.</td></tr>
+      <tr><td>Add</td><td>Adding, or editing where LifeView has both Add and Update</td><td>POST: the form as a new row; the record opened stays as history, so it usually goes with a new Effective Date. Same validation, busy state and return as Update.</td></tr>
+      <tr><td>Save fails</td><td>Any non-2xx</td><td>One error alert above the first card: <code>detail</code>, then <code>hostCode – hostMessage</code> smaller (left out when <code>hostCode</code> is null). Stays in edit mode, and the page scrolls to the alert.</td></tr>
+      <tr><td>&nbsp;&nbsp;409</td><td>Someone changed the record</td><td>Say so and reload it. Don’t retry silently.</td></tr>
+      <tr><td>&nbsp;&nbsp;422 TS0122</td><td>An exception that can be overridden, sent with Return Exceptions</td><td>The alert carries an “Update with Override Exceptions” (or “Add …”) button: one click re-sends the same save with <code>overrideExceptions=true</code>. No dialog.</td></tr>
+      <tr><td>&nbsp;&nbsp;403</td><td>Writes are off on this gateway</td><td>Show the error: nothing was saved.</td></tr>
+      <tr><td>Cancel</td><td>Editing</td><td>Existing record: leave edit mode and reset the values, stay on the screen. New record: back to the list.</td></tr>
+      <tr><td>Delete</td><td>Editing an existing record, the endpoint has a DELETE</td><td>Confirm, naming the record (“Delete deduction 068 effective 08/08/2026?”), then back to the list.</td></tr>
+      <tr><td>Back</td><td>Not editing</td><td>Back to the list or tab the user came from.</td></tr>
+    </tbody></table>
+    <p>Three screen patterns, set by what the endpoint allows: <strong>Editable</strong> (has a PUT: Back, Edit), <strong>Add-only</strong> (POST but no PUT, a change is a new dated row: Back plus the action that adds it), <strong>Read-only</strong> (GET only: Back).</p>
+  </div></section>
+
+  <section class="card ref"><h2>1. Page structure</h2><div class="body">
+<pre>Screen or block root          class: ds-root
+└─ Form                       (form screens)
+   ├─ Header row              sticky: title left, actions right
+   │  ├─ Title + subtitle
+   │  └─ Actions              class: ds-actions
+   ├─ Error alert             (above the first card)
+   └─ Section card            class: ds-card          (one per section)
+      ├─ Section title        class: ds-card-title    (first child)
+      └─ Field grid           Container, Layout = Grid
+         ├─ Field             class: ds-field
+         └─ …</pre>
+    <ul><li>Every section is its own <code>ds-card</code> with a <code>ds-card-title</code> as its first child.</li>
+      <li>Fields never sit directly in the card: they go in the grid container.</li></ul>
+  </div></section>
+
+  <section class="card ref"><h2>2. The grid container</h2><div class="body">
+    <p>Set these on the Container (Layout = Grid), not in CSS:</p>
+    <table><thead><tr><th scope="col">Property</th><th scope="col">Value</th></tr></thead><tbody>
+      <tr><td>Layout mode</td><td>Grid</td></tr><tr><td>Columns</td><td>1 (base)</td></tr>
+      <tr><td>Column gap</td><td>M (<code>--space-m</code>, 24px)</td></tr><tr><td>Row gap</td><td>Base (<code>--space-base</code>, 16px)</td></tr>
+      <tr><td>Columns override, Small breakpoint</td><td>2</td></tr><tr><td>Columns override, Medium breakpoint</td><td>3</td></tr>
+    </tbody></table>
+    <ul><li>No style class on the grid container itself.</li>
+      <li>Spacing comes from the gaps only; no <code>display:grid</code> or <code>display:flex</code> in custom CSS.</li>
+      <li>A field that needs the full row (a long note) takes a column span on its own <code>ds-field</code>.</li></ul>
+  </div></section>
+
+  <section class="card ref"><h2>3. Field patterns</h2><div class="body"><div class="dd2">
+    <div><h3>Read-only field</h3>
+<pre>ds-field
+├─ Container  ds-label → Text (label)
+└─ Container  ds-value → Expression</pre></div>
+    <div><h3>Editable field</h3>
+<pre>ds-field
+├─ Label widget  ds-label  (the input's label)
+└─ If IsEditing
+   ├─ True:  input / dropdown / date picker / radio
+   └─ False: Expression  ds-value</pre></div>
+    <div><h3>Code-table field</h3>
+<pre>If IsEditing
+├─ True:  CodeTableDropdown (draws its own ds-label)
+└─ False: ds-field
+          ├─ Container  ds-label → label text
+          └─ Container  ds-value → Form.&lt;x&gt;Description</pre></div>
+    <div><h3>Values</h3><ul>
+      <li>Code-table values in read-only: the response’s description field (e.g. <code>Form.taxEntityDescription</code>). No <code>CodeTableText</code> in EmployeeManagement screens.</li>
+      <li>No description field: build the text from the code (Checking/Savings from “C” or “S”).</li>
+      <li>Dates: the <code>DateExpression</code> block (MM/dd/yyyy; blank for a null date).</li>
+      <li>Decimals: <code>FormatDecimal(value, 2, ".", ",")</code> in the <code>ds-value</code> expression.</li>
+      <li>Required markers: the input’s Mandatory (CodeTableDropdown: <code>IsRequired</code>), only while editing. Never type an asterisk.</li></ul></div>
+  </div></div></section>
+
+  <section class="card ref"><h2>4. Class reference</h2><div class="body">
+    <table><thead><tr><th scope="col">Class</th><th scope="col">Where</th><th scope="col">What it does</th></tr></thead><tbody>
+      <tr><td><code>ds-root</code></td><td>Outermost container of a block or screen body</td><td>Full width</td></tr>
+      <tr><td><code>ds-card</code></td><td>One per section</td><td>White box, border, rounded corners, inner padding, space below</td></tr>
+      <tr><td><code>ds-card-title</code></td><td>First child of a card</td><td>Bold heading with a bottom rule; block display</td></tr>
+      <tr><td><code>ds-field</code></td><td>One per field, directly inside the grid</td><td>Prevents overflow in grid cells</td></tr>
+      <tr><td><code>ds-label</code></td><td>Label container or Label widget</td><td>Small bold gray text, block display (don’t also add <code>display-block</code>)</td></tr>
+      <tr><td><code>ds-value</code></td><td>The value container or expression</td><td>Normal text, indented one small step, minimum height so empty values keep their row</td></tr>
+      <tr><td><code>ds-actions</code></td><td>The actions container, right side of the sticky header row</td><td>Right-aligned row, gap between buttons</td></tr>
+      <tr><td>sticky header class</td><td>The header row</td><td>Keeps the title and actions pinned while the form scrolls (how to build it in OutSystems: to come)</td></tr>
+      <tr><td><code>validation-message</code></td><td>Under an invalid input</td><td>Error text, from the base OutSystems UI theme</td></tr>
+      <tr><td><code>btn</code>, <code>btn-primary</code>, <code>btn-delete</code></td><td>Buttons</td><td><code>btn-delete</code> is a red outline. Prefer the button blocks where they fit.</td></tr>
+    </tbody></table>
+  </div></section>
+
+  <section class="card ref"><h2>5. Header row and actions</h2><div class="body">
+<pre>Header row (sticky)
+├─ Title + subtitle
+└─ ds-actions
+   Viewing:  Back · Edit
+   Editing:  [Return | Override Exceptions] · Delete | Cancel · Add · Update
+   Adding:   [Return | Override Exceptions] · Cancel · Add</pre>
+    <ul><li>Same place in every mode, pinned at the top while the form scrolls, so the buttons are always visible.</li>
+      <li>Delete stands apart from the save buttons (a divider), so it isn’t clicked by mistake.</li>
+      <li><strong>Add and Update</strong>: where LifeView shows both while editing (55 screens, including every Editable payroll screen and CalPERS IDs), so do we. Update = PUT in place; Add = POST a new row. Update-only screens (Payroll Status, Check Distribution, Time Sheet Control) show Update alone.</li>
+      <li><strong>Return | Override Exceptions</strong> on every screen whose endpoint takes <code>overrideExceptions</code> (LifeView’s Submit Options); Return by default, reset each time.</li>
+      <li>Add and Update run the form’s validation, so they’re normal buttons, and so is Back (there’s no block for it). Edit, Delete and Cancel are the <code>ButtonEdit</code> / <code>ButtonDelete</code> / <code>ButtonCancel</code> blocks. See the <a href="buttons.html">Button standard</a>.</li>
+      <li>Popups keep their buttons at the bottom, as dialogs do.</li></ul>
+  </div></section>
+
+  <section class="card ref"><h2>6. Do and don’t</h2><div class="body"><div class="dd2">
+    <div><h3>Do</h3><ul><li>Use the grid container for every field area.</li><li>Label above value, the value indented by <code>ds-value</code>.</li><li>One <code>ds-card</code> per section, each with a <code>ds-card-title</code>.</li></ul></div>
+    <div><h3>Don’t</h3><ul><li>Use the Columns blocks for new field layouts.</li><li>Use <code>ds-row</code>, <code>ds-stack-rows</code> or <code>display-block</code> on labels (they did nothing or are redundant).</li>
+      <li>Add margins to <code>ds-field</code>: the grid gap already spaces it, so a margin doubles it.</li><li>Put inline colors, sizes, flex or grid CSS on widgets.</li>
+      <li>Type a hex color or a pixel size: use the theme’s colors and spacing steps (next section).</li></ul></div>
+  </div></div></section>
+
+  <section class="card ref"><h2>7. Colors, spacing and type: use the theme</h2><div class="body">
+    <p>Never type a hex code or a pixel value. Use OutSystems UI’s theme: a utility class on the widget first, and in a theme class the CSS variable (<code>var(--color-error)</code>, <code>var(--space-base)</code>). Then a theme change reaches every screen.</p>
+    <table><thead><tr><th scope="col">What</th><th scope="col">Use</th></tr></thead><tbody>
+      <tr><td>Brand colors</td><td><code>primary</code>, <code>secondary</code>: classes <code>text-primary</code>, <code>background-primary</code>; variables <code>--color-primary</code>, <code>--color-secondary</code></td></tr>
+      <tr><td>Status colors</td><td><code>info</code>, <code>success</code>, <code>warning</code>, <code>error</code>, each with a <code>-light</code> variant: <code>text-error</code>, <code>background-error-light</code>, <code>--color-warning</code>… (there is no “alert” color: use <code>warning</code>)</td></tr>
+      <tr><td>Grays</td><td><code>neutral-0</code> (white) to <code>neutral-10</code> (darkest): <code>text-neutral-7</code>, <code>background-neutral-1</code>, <code>--color-neutral-4</code></td></tr>
+      <tr><td>Spacing</td><td>Steps <code>none</code> 0, <code>xs</code> 4px, <code>s</code> 8px, <code>base</code> 16px, <code>m</code> 24px, <code>l</code> 32px, <code>xl</code> 40px, <code>xxl</code> 48px. Classes <code>margin-base</code>, <code>padding-m</code>, and per side <code>margin-top-s</code>, <code>padding-x-base</code> (top / right / bottom / left / x / y). Variables <code>--space-base</code>…</td></tr>
+      <tr><td>Type</td><td>Sizes <code>heading1</code>–<code>heading6</code>, <code>font-size-base</code>, <code>font-size-s</code>, <code>font-size-xs</code>; weights <code>font-light</code>, <code>font-regular</code>, <code>font-semi-bold</code>, <code>font-bold</code></td></tr>
+      <tr><td>Borders and shadows</td><td><code>border-radius-none</code> / <code>-soft</code> / <code>-rounded</code> / <code>-circle</code>; <code>border-size-none</code> / <code>-s</code> (1px) / <code>-m</code> (2px) / <code>-l</code> (3px); <code>shadow-none</code>, <code>shadow-xs</code> … <code>shadow-xl</code></td></tr>
+    </tbody></table>
+    <p>Names from the OutSystems UI style guide. It doesn’t print the pixel values; the spacing values above are its 8px scale (with 4px as the smallest step). Check them in the app’s theme (<code>:root</code> in the browser’s dev tools) if one matters.</p>
+  </div></section>
+
+  <section class="card ref"><h2>8. Not on the standard yet, and the reference screens</h2><div class="body">
+    <p><code>DirectDeposit_Detail</code>, <code>GarnishmentDetail</code> and <code>Deduction_Detail</code> still use the older Columns blocks (2 or 3 columns), spaced by a stopgap: each Columns row has the <code>ds-form-row</code> extended class, and the theme pads the cells in a card (not the last row). When a screen is rebuilt, replace the Columns rows with the grid container and remove <code>ds-form-row</code>. Widgets can’t be moved between containers, so converting means rebuilding the section.</p>
+    <p>Reference implementations: <code>GrossToNet_Detail</code> and <code>Accrual_Accumulator</code> (read-only): a <code>ds-root</code> wrapper and <code>ds-card</code> sections, each grid 1 / 2 / 3 columns at base / Small / Medium, column gap M and row gap Base. Only the read-only grid exists in the app so far; the editable pattern is the one <code>DirectDeposit_Detail</code> uses, moved into a <code>ds-field</code> inside the grid.</p>
+  </div></section>
+
+
+  <template data-sc-if value="{{dlg}}" hint-placeholder-val="{{ false }}">
+    <div class="overlay">
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
+        <h2 id="dlg-t">Delete direct deposit 999 effective 04/21/2023?</h2>
+        <p>This permanently deletes the record. It can’t be undone.</p>
+        <div class="actions" style="justify-content: flex-end">
+          <button type="button" class="btn" onClick="{{dlgNo}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+          <button type="button" class="btn danger-solid" onClick="{{dlgYes}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { mode: 'view', cols: 3, alert: '', outl: false, sel: '', banner: '', dlg: false, exc: 'return', last: 'update' }; }
+  spec() { return {"cards": [{"title": "Details", "fields": [{"id": "eff", "label": "Effective Date", "view": "04/21/2023", "k": "date", "e": "both", "req": true, "val": "04/21/2023", "ph": "MM/DD/YYYY", "max": null, "opts": [], "addView": "", "helpAdd": "Leave blank to use the current pay period begin date."}, {"id": "txe", "label": "Tax Entity", "view": "CITY OF LONG BEACH", "k": "code", "e": "add", "req": true, "val": "CITY OF LONG BEACH", "ph": "", "max": null, "opts": [], "addView": "", "helpAdd": ""}, {"id": "beg", "label": "Begin Date", "view": "05/01/2023", "k": "date", "e": "none", "req": false, "val": "05/01/2023", "ph": "", "max": null, "opts": [], "addView": "", "helpAdd": ""}]}, {"title": "Direct Deposit Settings", "fields": [{"id": "freq", "label": "Frequency", "view": "EVERY PERIOD", "k": "code", "e": "both", "req": true, "val": "EVERY PERIOD", "ph": "", "max": null, "opts": [], "addView": "", "helpAdd": ""}, {"id": "trn", "label": "Transit Routing #", "view": "122235821", "k": "text", "e": "both", "req": true, "val": "122235821", "ph": "9 digits", "max": 9, "opts": [], "addView": "", "helpAdd": ""}, {"id": "acct", "label": "Deposit Account #", "view": "004418827301", "k": "text", "e": "both", "req": true, "val": "004418827301", "ph": "Up to 17 digits", "max": 17, "opts": [], "addView": "", "helpAdd": ""}, {"id": "cs", "label": "Checking/Savings", "view": "Checking", "k": "radio", "e": "both", "req": true, "val": "C", "ph": "", "max": null, "opts": [{"v": "C", "l": "Checking"}, {"v": "S", "l": "Savings"}], "addView": "", "helpAdd": ""}]}, {"title": "Direct Deposit Formula", "fields": [{"id": "calc", "label": "Calc 1 Code", "view": "ALL OF NET", "k": "code", "e": "both", "req": true, "val": "ALL OF NET", "ph": "", "max": null, "opts": [], "addView": "", "helpAdd": ""}, {"id": "amt", "label": "Calc 1 Amt/Pct", "view": "0.00", "k": "dec", "e": "both", "req": false, "val": "0.00", "ph": "0.00", "max": null, "opts": [], "addView": "", "helpAdd": ""}, {"id": "end", "label": "End Date", "view": "", "k": "date", "e": "both", "req": false, "val": "", "ph": "MM/DD/YYYY", "max": null, "opts": [], "addView": "", "helpAdd": ""}]}], "info": {"root": {"kind": "Container", "title": "Screen or block root", "props": [{"k": "Class", "v": "ds-root"}, {"k": "Widget", "v": "Container"}], "rules": ["The outermost container of the screen body or the detail block: full width.", "One block per record for viewing AND editing (IsEditing), never a separate edit screen.", "Name: <Thing>Detail for a screen, <Thing>_Detail for a block, with a one-sentence description (say what an empty Id does)."]}, "header": {"kind": "Container (sticky)", "title": "Header row", "props": [{"k": "Left", "v": "Title + subtitle"}, {"k": "Right", "v": "ds-actions"}, {"k": "Behaviour", "v": "Sticky: stays pinned under the app header while the form scrolls"}, {"k": "Class", "v": "sticky header class (how to build it in OutSystems: to come)"}], "rules": ["One row, the same place in View, Edit and Add, so the buttons are always visible on long forms.", "A theme class does the sticking (position sticky, a top offset equal to the layout header’s height, the page background, a z-index). Nothing inline.", "A failed save scrolls back up to the error alert; form validation goes to the first invalid field."]}, "screenTitle": {"kind": "Text", "title": "Screen title", "props": [{"k": "Where", "v": "Left side of the header row"}], "rules": ["Names the record (here the deduction type and effective date).", "Don’t repeat a value from the title or a header card inside the cards."]}, "form": {"kind": "Form", "title": "Form", "props": [{"k": "Widget", "v": "Form"}, {"k": "Children", "v": "error alert, ds-card × n, ds-actions"}], "rules": ["A form screen wraps the header row and its cards in the Form widget, so Add and Update can validate them.", "The error alert goes above the first card."]}, "alert": {"kind": "Alert", "title": "Error alert", "props": [{"k": "Shown", "v": "After a failed save (any non-2xx)"}, {"k": "Line 1", "v": "detail"}, {"k": "Line 2", "v": "hostCode – hostMessage, smaller"}], "rules": ["One alert per failed save, above the first card. The form stays in edit mode with the user’s values.", "detail is always a plain sentence for the user. Leave the second line out when hostCode is null.", "409: tell the user the record changed and reload it. 403: writes are off, nothing was saved.", "TS0122 (an exception that can be overridden) with Return Exceptions: the alert has an “Update with Override Exceptions” (or “Add …”) button that re-sends the same save with overrideExceptions=true. One click, no dialog."]}, "card": {"kind": "Container", "title": "Section card", "props": [{"k": "Class", "v": "ds-card"}, {"k": "Widget", "v": "Container"}, {"k": "First child", "v": "ds-card-title"}, {"k": "Then", "v": "the field grid"}], "rules": ["One ds-card per section: white box, border, rounded corners, inner padding, space below.", "Sections, their order and their names follow the screen’s mockup (taken from LifeView).", "Fields never sit directly in the card: they go in the grid container."]}, "ctitle": {"kind": "Text", "title": "Section title", "props": [{"k": "Class", "v": "ds-card-title"}, {"k": "Widget", "v": "Text or Container"}, {"k": "Position", "v": "First child of the card"}], "rules": ["Bold heading with a bottom rule, block display.", "No inline font size or weight."]}, "grid": {"kind": "Container (Grid)", "title": "Field grid", "props": [{"k": "Layout mode", "v": "Grid"}, {"k": "Columns (base)", "v": "1"}, {"k": "Small breakpoint", "v": "2"}, {"k": "Medium breakpoint", "v": "3"}, {"k": "Column gap", "v": "M (--space-m, 24px)"}, {"k": "Row gap", "v": "Base (--space-base, 16px)"}, {"k": "Class", "v": "none"}], "rules": ["Set these on the Container’s properties, not in CSS: no display:grid or display:flex in custom CSS.", "Gaps are theme spacing steps, not typed pixel values.", "Spacing comes from the gaps only: no margins on ds-field.", "A field that needs the whole row (a long note) takes a column span on its own ds-field.", "Try the Width control in the yellow strip: 1, 2 and 3 columns."]}, "actions": {"kind": "Container", "title": "Actions", "props": [{"k": "Class", "v": "ds-actions"}, {"k": "Position", "v": "Right side of the sticky header row"}, {"k": "Viewing", "v": "Back · Edit"}, {"k": "Editing", "v": "Exceptions · Delete | Cancel · Add · Update"}, {"k": "Adding", "v": "Exceptions · Cancel · Add"}], "rules": ["Right-aligned, with a gap between the buttons. Delete stands apart from the save buttons (a divider) so it isn’t clicked by mistake.", "Add and Update both show while editing where LifeView has both (most Editable screens); an Update-only screen shows Update alone.", "Hidden for a read-only role: Edit, Delete and the save buttons (CanEdit)."]}, "exc": {"kind": "Toggle", "title": "Return Exceptions | Override Exceptions", "props": [{"k": "LifeView", "v": "Submit Options radio (TERMRULE NOEXCPS / INCOMMIT)"}, {"k": "Default", "v": "Return Exceptions"}, {"k": "Sends", "v": "?overrideExceptions=true when Override"}, {"k": "Visible", "v": "Editing or adding, on screens whose endpoint takes overrideExceptions"}], "rules": ["Resets to Return every time the form opens and after each save, so an override is never carried to the next record by accident.", "Users who know an exception is coming pick Override before saving; anyone who forgets gets the one-click override in the TS0122 alert.", "With Override the host commits despite the exceptions and doesn’t say which ones it overrode."]}, "b_back": {"kind": "Button", "title": "Back", "props": [{"k": "Widget", "v": "Button"}, {"k": "Class", "v": "btn"}, {"k": "Visible", "v": "Not editing"}], "rules": ["Returns to the list or tab the user came from."]}, "b_edit": {"kind": "Block", "title": "Edit", "props": [{"k": "Block", "v": "ButtonEdit"}, {"k": "Class", "v": "btn btn-primary"}, {"k": "Visible", "v": "Not editing, CanEdit, and the endpoint has a write"}], "rules": ["Sets IsEditing. Only the editable fields switch to inputs, in the same place."]}, "b_add": {"kind": "Button", "title": "Add", "props": [{"k": "Widget", "v": "Button (not a block: it validates the form)"}, {"k": "Class", "v": "btn (btn btn-primary when adding)"}, {"k": "Sends", "v": "POST: the form as a new row"}, {"k": "Busy", "v": "Button Loading, disabled while the request runs"}], "rules": ["While editing an existing record: saves the form as a NEW row and leaves the one opened as history. It usually goes with a new Effective Date (the same keys as an existing row are refused).", "While adding: the only save button, and the primary one.", "Sends every field the form shows, blanks too. Success: back to the list or tab."]}, "b_cancel": {"kind": "Block", "title": "Cancel", "props": [{"k": "Block", "v": "ButtonCancel"}, {"k": "Class", "v": "btn"}, {"k": "Visible", "v": "Editing or adding"}], "rules": ["Existing record: leaves edit mode and resets the values, without navigating away.", "New record: returns to the list."]}, "b_delete": {"kind": "Block", "title": "Delete", "props": [{"k": "Block", "v": "ButtonDelete"}, {"k": "Class", "v": "btn btn-delete (red outline, the theme’s error color)"}, {"k": "Visible", "v": "Editing an existing record, where the endpoint has a DELETE"}], "rules": ["Always confirms first, naming the record: “Delete direct deposit 999 effective 04/21/2023?”.", "After deleting, return to the list."]}, "b_update": {"kind": "Button", "title": "Update", "props": [{"k": "Widget", "v": "Button (not a block: it validates the form)"}, {"k": "Class", "v": "btn btn-primary"}, {"k": "Sends", "v": "PUT: this record in place, colToken unchanged"}, {"k": "Busy", "v": "Button Loading (OutSystems UI), disabled while the request runs"}], "rules": ["Validates the form, then sends every field the form shows with its current value (blanks too) and passes colToken back unchanged.", "Some writes take over 20 seconds: a second click would send the write twice, so disable it while running.", "Success: back to the list or tab the user came from. Failure: the error alert above the first card."]}, "f_eff": {"kind": "Field", "title": "Effective Date (editable field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Input", "v": "Date picker"}], "rules": ["Effective Date on Add: left blank, the gateway uses the current pay period begin date. Never default it to CurrentDate().", "Pattern: editable field. Each field is an If on IsEditing: the input when True, the ds-value expression when False.", "Structure:", "ds-field", "├─ Label  class ds-label", "└─ If IsEditing", "   ├─ True:  the input", "   └─ False: Expression  class ds-value"]}, "l_eff": {"kind": "Label", "title": "Effective Date: label", "props": [{"k": "Widget", "v": "Label (the input’s label)"}, {"k": "Class", "v": "ds-label"}, {"k": "Mandatory", "v": "True"}], "rules": ["Small bold gray text, block display: don’t also add display-block.", "Never type an asterisk: the required marker comes from the input’s Mandatory, and shows only while editing."]}, "v_eff": {"kind": "Value", "title": "Effective Date: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "DateExpression (MM/dd/yyyy, blank when null)"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row."]}, "i_eff": {"kind": "Input", "title": "Effective Date: input", "props": [{"k": "Widget", "v": "Date picker"}, {"k": "Mandatory", "v": "True"}], "rules": ["Bound to the record’s attribute; Save sends it even when blank."]}, "f_txe@view": {"kind": "Field", "title": "Tax Entity (code-table field)", "props": [{"k": "Pattern", "v": "Code-table field"}, {"k": "View", "v": "ds-field: ds-label + ds-value"}], "rules": ["A key field: chosen on Add only. In Edit it stays plain text in the same position (the endpoint refuses a changed key).", "In View the value is the description the gateway already returns (Form.taxEntityDescription): no lookup, and no CodeTableText in EmployeeManagement screens.", "Structure:", "If IsEditing", "├─ True:  CodeTableDropdown (draws its own ds-label)", "└─ False: ds-field", "          ├─ Container  ds-label → label text", "          └─ Container  ds-value → Form.taxEntityDescription"]}, "f_txe@edit": {"kind": "Field", "title": "Tax Entity (code-table field)", "props": [{"k": "Pattern", "v": "Code-table field"}, {"k": "View", "v": "ds-field: ds-label + ds-value"}], "rules": ["A key field: chosen on Add only. In Edit it stays plain text in the same position (the endpoint refuses a changed key).", "In View the value is the description the gateway already returns (Form.taxEntityDescription): no lookup, and no CodeTableText in EmployeeManagement screens.", "Structure:", "If IsEditing", "├─ True:  CodeTableDropdown (draws its own ds-label)", "└─ False: ds-field", "          ├─ Container  ds-label → label text", "          └─ Container  ds-value → Form.taxEntityDescription"]}, "f_txe@add": {"kind": "Block", "title": "Tax Entity: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.taxEntityCode"}, {"k": "DropdownLabel", "v": "Tax Entity"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.taxEntityCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "l_txe@view": {"kind": "Label", "title": "Tax Entity: label", "props": [{"k": "Widget", "v": "Container with a Text"}, {"k": "Class", "v": "ds-label"}], "rules": ["Small bold gray text, block display: don’t also add display-block."]}, "l_txe@edit": {"kind": "Label", "title": "Tax Entity: label", "props": [{"k": "Widget", "v": "Container with a Text"}, {"k": "Class", "v": "ds-label"}], "rules": ["Small bold gray text, block display: don’t also add display-block."]}, "l_txe@add": {"kind": "Block", "title": "Tax Entity: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.taxEntityCode"}, {"k": "DropdownLabel", "v": "Tax Entity"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.taxEntityCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "v_txe": {"kind": "Value", "title": "Tax Entity: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "Form.taxEntityDescription"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row.", "The record’s description field, as the GET returns it."]}, "i_txe": {"kind": "Block", "title": "Tax Entity: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.taxEntityCode"}, {"k": "DropdownLabel", "v": "Tax Entity"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.taxEntityCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "f_beg": {"kind": "Field", "title": "Begin Date (read-only field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Pattern", "v": "Read-only field"}], "rules": ["Not on the write, so it’s never an input: plain text in the same position in every mode (no disabled input).", "Structure:", "ds-field", "├─ Container  ds-label → Text", "└─ Container  ds-value → Expression"]}, "l_beg": {"kind": "Label", "title": "Begin Date: label", "props": [{"k": "Widget", "v": "Container with a Text"}, {"k": "Class", "v": "ds-label"}], "rules": ["Small bold gray text, block display: don’t also add display-block."]}, "v_beg": {"kind": "Value", "title": "Begin Date: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Block", "v": "DateExpression"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row.", "DateExpression prints MM/dd/yyyy, and blank for a null date."]}, "f_freq@view": {"kind": "Field", "title": "Frequency (code-table field)", "props": [{"k": "Pattern", "v": "Code-table field"}, {"k": "View", "v": "ds-field: ds-label + ds-value"}], "rules": ["In View the value is the description the gateway already returns (Form.frequencyDescription): no lookup, and no CodeTableText in EmployeeManagement screens.", "Structure:", "If IsEditing", "├─ True:  CodeTableDropdown (draws its own ds-label)", "└─ False: ds-field", "          ├─ Container  ds-label → label text", "          └─ Container  ds-value → Form.frequencyDescription"]}, "f_freq@edit": {"kind": "Block", "title": "Frequency: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.frequencyCode"}, {"k": "DropdownLabel", "v": "Frequency"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.frequencyCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "f_freq@add": {"kind": "Block", "title": "Frequency: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.frequencyCode"}, {"k": "DropdownLabel", "v": "Frequency"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.frequencyCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "l_freq@view": {"kind": "Label", "title": "Frequency: label", "props": [{"k": "Widget", "v": "Container with a Text"}, {"k": "Class", "v": "ds-label"}], "rules": ["Small bold gray text, block display: don’t also add display-block."]}, "l_freq@edit": {"kind": "Block", "title": "Frequency: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.frequencyCode"}, {"k": "DropdownLabel", "v": "Frequency"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.frequencyCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "l_freq@add": {"kind": "Block", "title": "Frequency: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.frequencyCode"}, {"k": "DropdownLabel", "v": "Frequency"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.frequencyCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "v_freq": {"kind": "Value", "title": "Frequency: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "Form.frequencyDescription"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row.", "The record’s description field, as the GET returns it."]}, "i_freq": {"kind": "Block", "title": "Frequency: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.frequencyCode"}, {"k": "DropdownLabel", "v": "Frequency"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.frequencyCode"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "f_trn": {"kind": "Field", "title": "Transit Routing # (editable field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Input", "v": "Input (Text)"}], "rules": ["Max length = the attribute’s length (9).", "Pattern: editable field. Each field is an If on IsEditing: the input when True, the ds-value expression when False.", "Structure:", "ds-field", "├─ Label  class ds-label", "└─ If IsEditing", "   ├─ True:  the input", "   └─ False: Expression  class ds-value"]}, "l_trn": {"kind": "Label", "title": "Transit Routing #: label", "props": [{"k": "Widget", "v": "Label (the input’s label)"}, {"k": "Class", "v": "ds-label"}, {"k": "Mandatory", "v": "True"}], "rules": ["Small bold gray text, block display: don’t also add display-block.", "Never type an asterisk: the required marker comes from the input’s Mandatory, and shows only while editing."]}, "v_trn": {"kind": "Value", "title": "Transit Routing #: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "Form.transitRoutingNumber"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row."]}, "i_trn": {"kind": "Input", "title": "Transit Routing #: input", "props": [{"k": "Widget", "v": "Input (Text)"}, {"k": "Mandatory", "v": "True"}, {"k": "Max length", "v": "9"}], "rules": ["Bound to the record’s attribute; Save sends it even when blank."]}, "f_acct": {"kind": "Field", "title": "Deposit Account # (editable field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Input", "v": "Input (Text)"}], "rules": ["Max length = the attribute’s length (17).", "Pattern: editable field. Each field is an If on IsEditing: the input when True, the ds-value expression when False.", "Structure:", "ds-field", "├─ Label  class ds-label", "└─ If IsEditing", "   ├─ True:  the input", "   └─ False: Expression  class ds-value"]}, "l_acct": {"kind": "Label", "title": "Deposit Account #: label", "props": [{"k": "Widget", "v": "Label (the input’s label)"}, {"k": "Class", "v": "ds-label"}, {"k": "Mandatory", "v": "True"}], "rules": ["Small bold gray text, block display: don’t also add display-block.", "Never type an asterisk: the required marker comes from the input’s Mandatory, and shows only while editing."]}, "v_acct": {"kind": "Value", "title": "Deposit Account #: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "Form.depositAccountNumber"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row."]}, "i_acct": {"kind": "Input", "title": "Deposit Account #: input", "props": [{"k": "Widget", "v": "Input (Text)"}, {"k": "Mandatory", "v": "True"}, {"k": "Max length", "v": "17"}], "rules": ["Bound to the record’s attribute; Save sends it even when blank."]}, "f_cs": {"kind": "Field", "title": "Checking/Savings (editable field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Input", "v": "Radio group"}], "rules": ["No description field on the record: the text is built from the code (C → Checking, S → Savings).", "Pattern: editable field. Each field is an If on IsEditing: the input when True, the ds-value expression when False.", "Structure:", "ds-field", "├─ Label  class ds-label", "└─ If IsEditing", "   ├─ True:  the input", "   └─ False: Expression  class ds-value"]}, "l_cs": {"kind": "Label", "title": "Checking/Savings: label", "props": [{"k": "Widget", "v": "Label (the input’s label)"}, {"k": "Class", "v": "ds-label"}, {"k": "Mandatory", "v": "True"}], "rules": ["Small bold gray text, block display: don’t also add display-block.", "Never type an asterisk: the required marker comes from the input’s Mandatory, and shows only while editing."]}, "v_cs": {"kind": "Value", "title": "Checking/Savings: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "If(Form.accountType = \"C\", \"Checking\", \"Savings\")"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row."]}, "i_cs": {"kind": "Input", "title": "Checking/Savings: input", "props": [{"k": "Widget", "v": "Radio group"}, {"k": "Mandatory", "v": "True"}], "rules": ["Bound to the record’s attribute; Save sends it even when blank."]}, "f_calc@view": {"kind": "Field", "title": "Calc 1 Code (code-table field)", "props": [{"k": "Pattern", "v": "Code-table field"}, {"k": "View", "v": "ds-field: ds-label + ds-value"}], "rules": ["In View the value is the description the gateway already returns (Form.calc1Description): no lookup, and no CodeTableText in EmployeeManagement screens.", "Structure:", "If IsEditing", "├─ True:  CodeTableDropdown (draws its own ds-label)", "└─ False: ds-field", "          ├─ Container  ds-label → label text", "          └─ Container  ds-value → Form.calc1Description"]}, "f_calc@edit": {"kind": "Block", "title": "Calc 1 Code: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.calc1Code"}, {"k": "DropdownLabel", "v": "Calc 1 Code"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.calc1Code"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "f_calc@add": {"kind": "Block", "title": "Calc 1 Code: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.calc1Code"}, {"k": "DropdownLabel", "v": "Calc 1 Code"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.calc1Code"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "l_calc@view": {"kind": "Label", "title": "Calc 1 Code: label", "props": [{"k": "Widget", "v": "Container with a Text"}, {"k": "Class", "v": "ds-label"}], "rules": ["Small bold gray text, block display: don’t also add display-block."]}, "l_calc@edit": {"kind": "Block", "title": "Calc 1 Code: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.calc1Code"}, {"k": "DropdownLabel", "v": "Calc 1 Code"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.calc1Code"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "l_calc@add": {"kind": "Block", "title": "Calc 1 Code: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.calc1Code"}, {"k": "DropdownLabel", "v": "Calc 1 Code"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.calc1Code"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "v_calc": {"kind": "Value", "title": "Calc 1 Code: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "Form.calc1Description"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row.", "The record’s description field, as the GET returns it."]}, "i_calc": {"kind": "Block", "title": "Calc 1 Code: CodeTableDropdown", "props": [{"k": "Block", "v": "CodeTableDropdown"}, {"k": "Table", "v": "the field’s code table"}, {"k": "Code_Input", "v": "Form.calc1Code"}, {"k": "DropdownLabel", "v": "Calc 1 Code"}, {"k": "IsRequired", "v": "True"}, {"k": "CodeSelected", "v": "handler sets Form.calc1Code"}], "rules": ["The block draws its own ds-label (with the red asterisk when required), so there’s no separate label in edit mode.", "Wire CodeSelected on every use. Don’t change the block for one screen."]}, "f_amt": {"kind": "Field", "title": "Calc 1 Amt/Pct (editable field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Input", "v": "Input (Decimal)"}], "rules": ["Decimal and currency inputs use the number type; the value shows 2 decimals.", "Pattern: editable field. Each field is an If on IsEditing: the input when True, the ds-value expression when False.", "Structure:", "ds-field", "├─ Label  class ds-label", "└─ If IsEditing", "   ├─ True:  the input", "   └─ False: Expression  class ds-value"]}, "l_amt": {"kind": "Label", "title": "Calc 1 Amt/Pct: label", "props": [{"k": "Widget", "v": "Label (the input’s label)"}, {"k": "Class", "v": "ds-label"}, {"k": "Mandatory", "v": "False"}], "rules": ["Small bold gray text, block display: don’t also add display-block.", "Never type an asterisk: the required marker comes from the input’s Mandatory, and shows only while editing."]}, "v_amt": {"kind": "Value", "title": "Calc 1 Amt/Pct: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "FormatDecimal(Form.calc1Amount, 2, \".\", \",\")"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row."]}, "i_amt": {"kind": "Input", "title": "Calc 1 Amt/Pct: input", "props": [{"k": "Widget", "v": "Input (Decimal)"}, {"k": "Mandatory", "v": "False"}], "rules": ["Bound to the record’s attribute; Save sends it even when blank."]}, "f_end": {"kind": "Field", "title": "End Date (editable field)", "props": [{"k": "Class", "v": "ds-field"}, {"k": "Input", "v": "Date picker"}], "rules": ["A null date shows blank, never N/A or 01/01/1900.", "Pattern: editable field. Each field is an If on IsEditing: the input when True, the ds-value expression when False.", "Structure:", "ds-field", "├─ Label  class ds-label", "└─ If IsEditing", "   ├─ True:  the input", "   └─ False: Expression  class ds-value"]}, "l_end": {"kind": "Label", "title": "End Date: label", "props": [{"k": "Widget", "v": "Label (the input’s label)"}, {"k": "Class", "v": "ds-label"}, {"k": "Mandatory", "v": "False"}], "rules": ["Small bold gray text, block display: don’t also add display-block.", "Never type an asterisk: the required marker comes from the input’s Mandatory, and shows only while editing."]}, "v_end": {"kind": "Value", "title": "End Date: value", "props": [{"k": "Class", "v": "ds-value"}, {"k": "Expression", "v": "DateExpression (MM/dd/yyyy, blank when null)"}], "rules": ["Normal text, indented one small step, with a minimum height so an empty value keeps its row."]}, "i_end": {"kind": "Input", "title": "End Date: input", "props": [{"k": "Widget", "v": "Date picker"}, {"k": "Mandatory", "v": "False"}], "rules": ["Bound to the record’s attribute; Save sends it even when blank."]}}}; }
+  renderVals() {
+    var self = this, S = this.spec(), st = this.state, m = st.mode;
+    var pick = function (k, more) { return function (e) { if (e && e.stopPropagation) e.stopPropagation(); self.setState(Object.assign({ sel: k }, more || {})); }; };
+    var cls = function (k) { return st.sel === k ? ' picked' : ''; };
+    var cards = S.cards.map(function (c) {
+      return { title: c.title, fields: c.fields.map(function (f) {
+        var ed = f.e === 'both' ? m !== 'view' : (f.e === 'add' ? m === 'add' : false);
+        var cur = m === 'add' ? '' : (f.val || '');
+        var k = f.id, kind = f.k;
+        var view = m === 'add' ? (f.addView || '') : f.view;
+        return {
+          kf: 'f_' + k, kl: 'l_' + k, kv: 'v_' + k, ki: 'i_' + k,
+          pf: pick('f_' + k), pl: pick('l_' + k), pv: pick('v_' + k), pi: pick('i_' + k),
+          cf: cls('f_' + k), cl: cls('l_' + k), cv: cls('v_' + k), ci: cls('i_' + k),
+          lt: ed && kind === 'code' ? 'CodeTableDropdown label' : (ed ? 'Label · ds-label' : 'ds-label'),
+          vt: kind === 'date' ? 'ds-value · DateExpression' : 'ds-value',
+          it: kind === 'date' ? 'Date picker' : (kind === 'dec' ? 'Input · Decimal' : 'Input'),
+          label: f.label, req: ed && f.req, ph: f.ph || '', maxl: f.max || '',
+          isText: ed && (kind === 'text' || kind === 'date' || kind === 'dec'), isDrop: ed && kind === 'code', isRadio: ed && kind === 'radio',
+          showValue: !ed, view: view, cur: cur, noCur: !cur, rid: 'r_' + k,
+          opts: (f.opts || []).map(function (o) { return { v: o.v, l: o.l, checked: o.v === cur }; }),
+          hasHelp: ed && m === 'add' && !!f.helpAdd, help: f.helpAdd || ''
+        };
+      }) };
+    });
+    var inf = st.sel ? (S.info[st.sel + '@' + m] || S.info[st.sel]) : null;
+    var rules = inf ? inf.rules.map(function (r) { return { t: r, cls: /^[\u2500-\u257f ]|^ds-field$|^If IsEditing$/.test(r) ? 'tree' : '' }; }) : [];
+    var v = {
+      cards: cards, inf: inf || {}, rules: rules, hasSel: !!inf, noSel: !inf,
+      title: m === 'add' ? 'Add Direct Deposit' : 'Direct Deposit',
+      subtitle: m === 'add' ? 'New direct deposit' : '999 – Direct Deposit · Effective 04/21/2023',
+      sampleCls: 'sample insp w' + st.cols + (st.outl ? ' outl' : ''), gridCls: 'ds-grid c' + st.cols,
+      alert: !!st.alert, banner: st.banner, dlg: st.dlg,
+      alDetail: st.alert === '122' ? 'The payroll system flagged an exception on this change. Save again with Override Exceptions to accept it.' : 'Effective Date must be within the current pay period, 08/08/2026 through 08/21/2026.',
+      alHost: st.alert === '122' ? 'TS0122 – PROHIBITED FIELD' : 'TS8033 – EFFECTIVE DATE NOT IN CURRENT PAY PERIOD',
+      al122on: st.alert === '122', ovrLabel: (st.last === 'add' ? 'Add' : 'Update') + ' with Override Exceptions',
+      ovrSave: function (e) { if (e && e.stopPropagation) e.stopPropagation(); self.setState({ alert: '', mode: 'view', exc: 'return', sel: 'alert', banner: (st.last === 'add' ? 'Added as a new row' : 'Updated') + ' with Override Exceptions. In the app this returns to the list or tab.' }); },
+      excR: st.exc === 'return' ? 'on' : '', excO: st.exc === 'override' ? 'on' : '',
+      setR: function () { self.setState({ exc: 'return' }); }, setO: function () { self.setState({ exc: 'override' }); },
+      addBtnCls: m === 'add' ? 'btn primary' : 'btn',
+      editing: m !== 'view', viewing: m === 'view', existing: m === 'edit',
+      sgView: m === 'view' ? 'on' : '', sgEdit: m === 'edit' ? 'on' : '', sgAdd: m === 'add' ? 'on' : '',
+      toView: function () { self.setState({ mode: 'view', banner: '', alert: '' }); }, toEdit: function () { self.setState({ mode: 'edit', banner: '', exc: 'return' }); },
+      toAdd: function () { self.setState({ mode: 'add', banner: '', exc: 'return' }); },
+      sgW1: st.cols === 1 ? 'on' : '', sgW2: st.cols === 2 ? 'on' : '', sgW3: st.cols === 3 ? 'on' : '',
+      toW1: function () { self.setState({ cols: 1 }); }, toW2: function () { self.setState({ cols: 2 }); }, toW3: function () { self.setState({ cols: 3 }); },
+      sgAlOff: st.alert ? '' : 'on', sgAlOn: st.alert === 'err' ? 'on' : '', sgAl122: st.alert === '122' ? 'on' : '',
+      alOff: function () { self.setState({ alert: '' }); }, alOn: function () { self.setState({ alert: 'err', mode: m === 'view' ? 'edit' : m }); },
+      al122: function () { self.setState({ alert: '122', mode: m === 'view' ? 'edit' : m }); },
+      sgOlOff: st.outl ? '' : 'on', sgOlOn: st.outl ? 'on' : '', olOff: function () { self.setState({ outl: false }); }, olOn: function () { self.setState({ outl: true }); },
+      dlgNo: function () { self.setState({ dlg: false }); },
+      dlgYes: function () { self.setState({ dlg: false, mode: 'view', banner: 'Deleted. In the app this returns to the list.' }); }
+    };
+    ['root', 'header', 'screenTitle', 'form', 'alert', 'card', 'ctitle', 'grid', 'actions', 'exc', 'b_back', 'b_edit', 'b_cancel', 'b_delete', 'b_add', 'b_update'].forEach(function (k) {
+      v['c_' + k] = cls(k); v['p_' + k] = pick(k);
+    });
+    v.p_b_edit = pick('b_edit', { mode: 'edit', banner: '', exc: 'return' });
+    v.p_b_back = pick('b_back', { banner: 'Back: in the app this returns to the list or tab the user came from.' });
+    v.p_b_cancel = pick('b_cancel', m === 'add' ? { mode: 'view', alert: '', banner: 'Cancel on a new record: in the app this returns to the list.' } : { mode: 'view', alert: '', banner: '' });
+    v.p_b_delete = pick('b_delete', { dlg: true });
+    var saved = function (what) {
+      var ovr = st.exc === 'override';
+      if (st.alert && !(st.alert === '122' && ovr)) return { last: what };
+      var msg = what === 'add' ? (m === 'add' ? 'Added' : 'Added as a new row (the record you opened is unchanged)') : 'Updated';
+      return { mode: 'view', alert: '', exc: 'return', banner: msg + (ovr ? ' with Override Exceptions' : '') + '. In the app this returns to the list or tab the user came from.' };
+    };
+    v.p_b_add = pick('b_add', saved('add'));
+    v.p_b_update = pick('b_update', saved('update'));
+    return v;
+  }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

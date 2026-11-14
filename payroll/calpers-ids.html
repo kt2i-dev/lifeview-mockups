@@ -113,7 +113,7 @@ table.acc tr.total td{font-weight:600}
         <button type="button" class="{{segLoading}}" onClick="{{toLoading}}">Loading</button>
       </div>
     </div>
-    <div class="mock-g">Next Save
+    <div class="mock-g">Next Add / Update
       <div class="seg">
         <button type="button" class="{{segRok}}" onClick="{{rOk}}">Succeeds</button>
         <button type="button" class="{{segRerr}}" onClick="{{rErr}}">Error</button>
@@ -199,7 +199,7 @@ table.acc tr.total td{font-weight:600}
     <h3>Notes for the OutSystems build</h3>
     <ul>
       <li>Pattern: <strong>Editable</strong> (Add, Edit). One block for view and edit: Edit switches only the editable fields to inputs, in place; read-only fields stay plain text in the same position. Add opens the same block already in edit mode (empty colToken) and loads its dropdowns from <code>/options</code> or <code>/v1/codes</code>, never the detail GET.</li>
-      <li>Mockup controls <strong>Data</strong> and <strong>Next Save</strong> show the states every screen needs: a loading state while the GET runs; Save busy (“Saving…”) and disabled while the write runs; an error alert with <code>detail</code> as the main line and <code>hostCode – hostMessage</code> on a smaller line when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; 403 = writes are off, nothing saved. TS0122 (with Return Exceptions) = the alert offers “Update/Add with Override Exceptions”, one click, which re-sends with <code>overrideExceptions=true</code>.</li>
+      <li>Mockup controls <strong>Data</strong> and <strong>Next Add / Update</strong> show the states every screen needs: a loading state while the GET runs; Add / Update busy (“Adding…” / “Updating…”) and disabled while the write runs; an error alert with <code>detail</code> as the main line and <code>hostCode – hostMessage</code> on a smaller line when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; 403 = writes are off, nothing saved. TS0122 (with Return Exceptions) = the alert offers “Update/Add with Override Exceptions”, one click, which re-sends with <code>overrideExceptions=true</code>.</li>
       <li><strong>Return Exceptions | Override Exceptions</strong> (LifeView’s Submit Options): shown while editing, Return by default and reset to Return every time the form opens and after each save. Override sends <code>?overrideExceptions=true</code> on the write.</li>
       <li>Editing an existing record shows <strong>Add</strong> and <strong>Update</strong>, as LifeView does: Update changes this record in place (PUT); Add sends the form as a NEW row (POST) and leaves the one you opened as history, so it usually goes with a new Effective Date (the same keys as an existing row are refused).</li>
       <li>Fields and labels: legacy PayCalPERSIdDetail (one block, no sections). Buttons: <strong>Add, Update</strong> (no Delete).</li>
@@ -283,7 +283,7 @@ class Component extends DCLogic {
     var ERR = {
       err: ['Effective Date must be within the current pay period, 08/08/2026 through 08/21/2026.', 'TS8033 – EFFECTIVE DATE NOT IN CURRENT PAY PERIOD'],
       w403: ['Changes can’t be saved right now: writes are turned off on this gateway. Nothing was saved.', ''],
-      '122': ['The payroll system flagged an exception on this change. Save again with Override Exceptions to accept it.', 'TS0122 – PROHIBITED FIELD']
+      '122': ['The payroll system flagged an exception on this change. Try again with Override Exceptions to accept it.', 'TS0122 – PROHIBITED FIELD']
     };
     var R = this.state.result, ld = this.state.loading, X = this.state.exc, sv = this.state.saving;
     // what = 'add' (a new row) or 'update' (this record in place). The Save buttons show a busy state for ~1s first.

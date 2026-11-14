@@ -111,7 +111,7 @@ tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;lett
         <button type="button" class="btn danger" onClick="{{askDelete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
         <span class="sep" aria-hidden="true"></span>
         <button type="button" class="btn" onClick="{{cancel}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
-        <button type="button" class="btn primary" onClick="{{save}}" aria-busy="{{savingAria}}"><template data-sc-if value="{{saving}}"><span class="spin" aria-hidden="true"></span>Saving…</template><template data-sc-if value="{{notSaving}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Save</template></button>
+        <button type="button" class="btn primary" onClick="{{save}}" aria-busy="{{savingAria}}"><template data-sc-if value="{{saving}}"><span class="spin" aria-hidden="true"></span>Updating…</template><template data-sc-if value="{{notSaving}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Update</template></button>
       </template>
     </div>
   </div>
@@ -304,7 +304,7 @@ class Component extends DCLogic {
     var n = 0;
     var mk = function (r) {
       n++;
-      var view = P ? r[1] : r[2]; if (view === '—' && r[7] === 'MM/DD/YYYY') view = ''; var ed = edit && !!r[3], kind = r[4] || 'text', opts = r[5] || [];
+      var view = P ? r[1] : r[2]; if (view === '—' && r[7] === 'MM/DD/YYYY') view = ''; view = view.replace(/^([A-Z0-9$]{1,8}) – /, '$1 - '); var ed = edit && !!r[3], kind = r[4] || 'text', opts = r[5] || [];
       var cur = view === '—' ? '' : view;
       if (kind === 'select') { var m = opts.filter(function (x) { return view.indexOf(x.v + ' ') === 0 || view === x.v; })[0]; cur = m ? m.v : ''; }
       return { id: 'c' + n, label: r[0], view: view, cur: cur, ph: r[7] || '', options: opts,

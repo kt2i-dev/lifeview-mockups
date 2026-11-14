@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recent Updates</title>
+<style>body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+main{max-width:760px;margin:0 auto;padding:32px 16px}h1{font-size:24px;font-weight:600;margin:0 0 6px}h2{font-size:14px;margin:24px 0 8px;color:#5b6575;text-transform:uppercase;letter-spacing:.05em}
+p{color:#5b6575;font-size:14px;margin:0 0 16px}a{display:block;background:#fff;border:1px solid #dde2e9;border-radius:10px;padding:12px 18px;margin-bottom:8px;color:#0a5bd3;text-decoration:none;font-weight:500}
+a.start{border-color:#0a5bd3;background:#e3edfb}a span{display:block;color:#5b6575;font-weight:400;font-size:13px;margin-top:2px}
+.check{background:#fff;border:1px solid #dde2e9;border-radius:10px;padding:16px 20px;font-size:14px;line-height:1.5}
+.check ul{list-style:none;margin:0;padding:0}.check li{display:flex;gap:10px;padding:6px 0;border-top:1px solid #eef1f5}.check li:first-child{border-top:0}
+.check input{margin-top:4px;flex:none}.check .grp{font-size:12px;font-weight:600;color:#5b6575;text-transform:uppercase;letter-spacing:.05em;padding-top:14px;border-top:0}
+.check .grp:first-child{padding-top:0}code{font-size:12.5px;background:#f3f5f8;border-radius:4px;padding:1px 4px}
+.note{font-size:13px;color:#5b6575;margin:10px 0 0}.sub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 8px}@media (max-width:600px){.sub{grid-template-columns:minmax(0,1fr)}}
+h3{font-size:13px;margin:16px 0 8px;color:#2b3340}
+.upd{background:#fff;border:1px solid #dde2e9;border-left:4px solid #0a5bd3;border-radius:10px;padding:14px 20px;font-size:14px;line-height:1.5}.upd h3{margin:12px 0 4px}.upd h3:first-child{margin-top:0}.upd ul{margin:0;padding-left:18px}.upd li{margin:4px 0;overflow-wrap:anywhere}
+.check a.inl,.upd a.inl{display:inline;padding:0;border:0;background:none;margin:0;font-weight:500}
+.mock-home{display:flex;justify-content:flex-end;margin:0 0 16px}.mock-home a{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;margin:0;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;color:#2b3340;font-size:14px;font-weight:600}
+.mock-home a:hover{border-color:#0a5bd3;color:#0a5bd3}
+.row{display:grid;gap:0 8px}.row.c3{grid-template-columns:repeat(3,minmax(0,1fr))}.row.c2{grid-template-columns:repeat(2,minmax(0,1fr))}@media (max-width:600px){.row.c3,.row.c2{grid-template-columns:minmax(0,1fr)}}
+a.area{border-left:4px solid #0a5bd3}.ref{font-size:12.5px;color:#5b6575;white-space:nowrap}</style></head>
+<body><main><nav class="mock-home" aria-label="Mockup navigation"><a href="index.html"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Mockups home</a></nav><h1>Recent updates</h1>
+<p>What’s new or different in the standard, newest first. Check here before building or reviewing a screen.</p>
+<div class="upd">
+<h3>11/13/2026</h3><ul>
+<li><strong>Start page reorganized:</strong> HR, Payroll and Benefits screens, the review checklist and these updates each have their own page. Checklist items now link to the widget, button or template section that explains them. <a class="inl" href="checklist.html">Review checklist</a></li>
+<li><strong>Coded values show “Code - Description”</strong> in View, as LifeView does (“10000 - CITY OF LONG BEACH”), not the description alone: the <code>CodeDescriptionConcat</code> block with the code and the description the GET returns. Every mockup shows it. <a class="inl" href="widgets.html#CodeDescriptionConcat">Custom widgets</a></li>
+<li><strong>Renamed blocks:</strong> <code>CodeDescriptionExpression</code> → <code>CodeDescriptionConcat</code>, <code>DateExpression</code> → <code>DateFormat</code>. <a class="inl" href="widgets.html#CodeDescriptionConcat">CodeDescriptionConcat</a> · <a class="inl" href="widgets.html#DateFormat">DateFormat</a></li>
+<li><strong><code>StickyPageHeader</code></strong> is the header of every detail and edit screen (replaces <code>FloatingActionButtons</code>, which is gone): <code>Title</code> (mandatory), <code>Subtitle</code> and <code>BackLabel</code> (optional; blank = “Back”) inputs, ← Back built in (handle its event with the screen’s back action), the buttons in <code>ButtonPlaceholder</code>. Piloted on TaxControl_Detail. <a class="inl" href="widgets.html#StickyPageHeader">Custom widgets</a> · <a class="inl" href="detail-template.html#actions">Template</a></li>
+<li><strong>No Save button.</strong> Update saves in place, Add saves a new record; a screen shows only what its endpoint supports (Add · Update, Update alone, or Add alone). In-form buttons (Add, Update, Previous, Next) stay plain buttons, since block buttons don’t run the form’s validation; <code>ButtonUpdate</code> is to be removed, <code>ButtonAdd</code> stays for lists. <a class="inl" href="buttons.html#save">Button standard</a></li>
+<li><strong>New blocks <code>ButtonSearch</code> / <code>ButtonReset</code></strong> for filter rows, icon then text like every button: Search with a magnifying glass, Reset with the same prohibit icon as Cancel. <code>EffectiveDateFilter</code> uses them and only searches when Search is clicked. <a class="inl" href="widgets.html#ButtonSearch">ButtonSearch / ButtonReset</a> · <a class="inl" href="widgets.html#EffectiveDateFilter">EffectiveDateFilter</a></li>
+<li><strong>Sorted table headers</strong> in an <code>app-table</code> keep white text; the sorted column is bold with a white underline (LongBeachAdmin theme). <a class="inl" href="checklist.html#lists">Review checklist</a></li>
+<li><strong>Rollout list:</strong> where each block is still needed, from an AI audit of the app (not yet checked). <a class="inl" href="widgets.html#rollout">Custom widgets</a></li>
+</ul>
+<h3>11/12/2026</h3><ul>
+<li><strong>Detail header and actions:</strong> View: Edit. Editing: Return | Override Exceptions · Delete | Cancel · Add · Update. The exceptions toggle replaces the TS0122 dialog. <a class="inl" href="detail-template.html#actions">Template</a></li>
+<li><strong>← Back is a link</strong> (“← Back to Check History”), not a button. <a class="inl" href="buttons.html#standard">Button standard</a></li>
+<li><strong>Lists:</strong> every table has the <code>app-table</code> class (primary-color header, named by its theme token, never a value). <code>APIPagination</code> has an error state (<code>IsError</code>, <code>ErrorMessage</code>). <a class="inl" href="widgets.html#APIPagination">APIPagination</a></li>
+<li><strong>Code tables:</strong> <code>CodeTableDropdown</code> is edit-only; <code>CodeTableText</code> only in the HR1 and New Hire requests. Null dates show blank. <a class="inl" href="widgets.html#CodeTableDropdown">CodeTableDropdown</a> · <a class="inl" href="widgets.html#CodeTableText">CodeTableText</a></li>
+</ul>
+</div>
+</main></body></html>

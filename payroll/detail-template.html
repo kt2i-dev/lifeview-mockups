@@ -196,7 +196,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
 /*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
 </head>
 <body>
-<style>.mock-home{display:flex;justify-content:flex-end;max-width:1440px;margin:0 auto;padding:10px 24px 0;box-sizing:border-box;font:12px Inter,system-ui,sans-serif}.mock-home a{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px dashed #9aa4b2;border-radius:6px;background:#fffbe8;color:#2b3340;text-decoration:none;font-weight:600}.mock-home a:hover{border-color:#0a5bd3;color:#0a5bd3}</style><nav class="mock-home" aria-label="Mockup navigation"><a href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Mockups home</a></nav>
+<style>.mock-home{display:flex;justify-content:flex-end;max-width:1440px;margin:0 auto;padding:10px 24px 0;box-sizing:border-box;font:14px Inter,system-ui,sans-serif}.mock-home a{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;color:#2b3340;text-decoration:none;font-weight:600}.mock-home a:hover{border-color:#0a5bd3;color:#0a5bd3}</style><nav class="mock-home" aria-label="Mockup navigation"><a href="index.html"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Mockups home</a></nav>
 <template id="dc-template">
 <div class="page">
   <div class="mock" aria-label="Mockup controls">
@@ -297,7 +297,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
     </aside>
   </div>
 
-  <section class="card ref"><h2>How a detail screen behaves</h2><div class="body">
+  <section class="card ref" id="behavior"><h2>How a detail screen behaves</h2><div class="body">
     <table><thead><tr><th scope="col">Step</th><th scope="col">When</th><th scope="col">What the screen does</th></tr></thead><tbody>
       <tr><td>Open</td><td>The screen receives the record’s Id</td><td>Fetch it with a data action (Fetch at start), never in the initialization action, with a loading state while it runs, and only while the block is on screen: inside the Employee Profile, only the open tab and view fetch. Opens read-only.</td></tr>
       <tr><td>Open to add</td><td>The key is empty (<code>IsNew</code>, or an empty <code>ColToken</code> / <code>BatchId</code>)</td><td>Opens already in edit mode. Don’t call the detail GET (an empty key reaches the list route); load dropdowns from the endpoint’s <code>/options</code> or <code>/v1/codes</code>. Effective Date left blank = the gateway uses the current pay period begin.</td></tr>
@@ -316,7 +316,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
     <p>Three screen patterns, set by what the endpoint allows: <strong>Editable</strong> (has a PUT: Edit), <strong>Add-only</strong> (POST but no PUT, a change is a new dated row: the action that adds it), <strong>Read-only</strong> (GET only: no actions). All three have the ← Back breadcrumb.</p>
   </div></section>
 
-  <section class="card ref"><h2>1. Page structure</h2><div class="body">
+  <section class="card ref" id="structure"><h2>1. Page structure</h2><div class="body">
 <pre>Screen or block root          class: ds-root
 └─ Form                       (form screens)
    ├─ StickyPageHeader        block (← Back is built in)
@@ -332,7 +332,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <li>Fields never sit directly in the card: they go in the grid container.</li></ul>
   </div></section>
 
-  <section class="card ref"><h2>2. The grid container</h2><div class="body">
+  <section class="card ref" id="grid"><h2>2. The grid container</h2><div class="body">
     <p>Set these on the Container (Layout = Grid), not in CSS:</p>
     <table><thead><tr><th scope="col">Property</th><th scope="col">Value</th></tr></thead><tbody>
       <tr><td>Layout mode</td><td>Grid</td></tr><tr><td>Columns</td><td>1 (base)</td></tr>
@@ -344,7 +344,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <li>A field that needs the full row (a long note) takes a column span on its own <code>ds-field</code>.</li></ul>
   </div></section>
 
-  <section class="card ref"><h2>3. Field patterns</h2><div class="body"><div class="dd2">
+  <section class="card ref" id="fields"><h2>3. Field patterns</h2><div class="body"><div class="dd2">
     <div><h3>Read-only field</h3>
 <pre>ds-field
 ├─ Container  ds-label → Text (label)
@@ -370,7 +370,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <li>Required markers: the input’s Mandatory (CodeTableDropdown: <code>IsRequired</code>), only while editing. Never type an asterisk.</li></ul></div>
   </div></div></section>
 
-  <section class="card ref"><h2>4. Class reference</h2><div class="body">
+  <section class="card ref" id="classes"><h2>4. Class reference</h2><div class="body">
     <table><thead><tr><th scope="col">Class</th><th scope="col">Where</th><th scope="col">What it does</th></tr></thead><tbody>
       <tr><td><code>ds-root</code></td><td>Outermost container of a block or screen body</td><td>Full width</td></tr>
       <tr><td><code>ds-card</code></td><td>One per section</td><td>White box, border, rounded corners, inner padding, space below</td></tr>
@@ -384,7 +384,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
     </tbody></table>
   </div></section>
 
-  <section class="card ref"><h2>5. Header row and actions</h2><div class="body">
+  <section class="card ref" id="actions"><h2>5. Header row and actions</h2><div class="body">
 <pre>StickyPageHeader      (← Back built in: handle its event; BackLabel, blank = “Back”)
 │  inputs: Title, Subtitle (optional)
 └─ ButtonPlaceholder  the action buttons
@@ -399,14 +399,14 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <li>Popups keep their buttons at the bottom, as dialogs do.</li></ul>
   </div></section>
 
-  <section class="card ref"><h2>6. Do and don’t</h2><div class="body"><div class="dd2">
+  <section class="card ref" id="dos"><h2>6. Do and don’t</h2><div class="body"><div class="dd2">
     <div><h3>Do</h3><ul><li>Use the grid container for every field area.</li><li>Label above value, the value indented by <code>ds-value</code>.</li><li>One <code>ds-card</code> per section, each with a <code>ds-card-title</code>.</li></ul></div>
     <div><h3>Don’t</h3><ul><li>Use the Columns blocks for new field layouts.</li><li>Use <code>ds-row</code>, <code>ds-stack-rows</code> or <code>display-block</code> on labels (they did nothing or are redundant).</li>
       <li>Add margins to <code>ds-field</code>: the grid gap already spaces it, so a margin doubles it.</li><li>Put inline colors, sizes, flex or grid CSS on widgets.</li>
       <li>Type a hex color or a pixel size: use the theme’s colors and spacing steps (next section).</li></ul></div>
   </div></div></section>
 
-  <section class="card ref"><h2>7. Colors, spacing and type: use the theme</h2><div class="body">
+  <section class="card ref" id="theme"><h2>7. Colors, spacing and type: use the theme</h2><div class="body">
     <p>Never type a hex code or a pixel value. Use OutSystems UI’s theme: a utility class on the widget first, and in a theme class the CSS variable (<code>var(--color-error)</code>, <code>var(--space-base)</code>). Then a theme change reaches every screen.</p>
     <table><thead><tr><th scope="col">What</th><th scope="col">Use</th></tr></thead><tbody>
       <tr><td>Brand colors</td><td><code>primary</code>, <code>secondary</code>: classes <code>text-primary</code>, <code>background-primary</code>; variables <code>--color-primary</code>, <code>--color-secondary</code></td></tr>
@@ -419,7 +419,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
     <p>Names from the OutSystems UI style guide. It doesn’t print the pixel values; the spacing values above are its 8px scale (with 4px as the smallest step). Check them in the app’s theme (<code>:root</code> in the browser’s dev tools) if one matters.</p>
   </div></section>
 
-  <section class="card ref"><h2>8. Not on the standard yet, and the reference screens</h2><div class="body">
+  <section class="card ref" id="gaps"><h2>8. Not on the standard yet, and the reference screens</h2><div class="body">
     <p><code>DirectDeposit_Detail</code>, <code>GarnishmentDetail</code> and <code>Deduction_Detail</code> still use the older Columns blocks (2 or 3 columns), spaced by a stopgap: each Columns row has the <code>ds-form-row</code> extended class, and the theme pads the cells in a card (not the last row). When a screen is rebuilt, replace the Columns rows with the grid container and remove <code>ds-form-row</code>. Widgets can’t be moved between containers, so converting means rebuilding the section.</p>
     <p>Reference implementations: <code>GrossToNet_Detail</code> and <code>Accrual_Accumulator</code> (read-only): a <code>ds-root</code> wrapper and <code>ds-card</code> sections, each grid 1 / 2 / 3 columns at base / Small / Medium, column gap M and row gap Base. Only the read-only grid exists in the app so far; the editable pattern is the one <code>DirectDeposit_Detail</code> uses, moved into a <code>ds-field</code> inside the grid.</p>
   </div></section>
@@ -473,7 +473,8 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
   window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
   window.DCLogic.prototype.renderVals=function(){return {};};
   function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
-  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();};
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();
+    if(location.hash){var t=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView();}};
 })();
 </script>
 <script>

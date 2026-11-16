@@ -235,6 +235,7 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <button type="button" role="tab" class="{{cls_dd}}" onClick="{{go_dd}}">Direct Deposits</button>
       <button type="button" role="tab" class="{{cls_calpers}}" onClick="{{go_calpers}}">CalPERS</button>
       <button type="button" role="tab" class="{{cls_status}}" onClick="{{go_status}}">Payroll Status</button>
+      <button type="button" role="tab" class="{{cls_controls}}" onClick="{{go_controls}}">Payroll Controls</button>
       <button type="button" role="tab" class="{{cls_garnishments}}" onClick="{{go_garnishments}}">Garnishments</button>
     </div>
    </template>
@@ -1305,8 +1306,6 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <div class="lhead">
       <h2>Payroll Status</h2>
       <div class="actions">
-        <a class="sbtn" href="check-distribution.html">Check Distribution</a>
-        <a class="sbtn" href="time-sheet-control.html">Time Sheet Control</a>
       </div>
     </div>
     <div class="filters">
@@ -1333,12 +1332,34 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     <ul>
       <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Legacy PayStatusList: one row per tax entity (home + any alternates). No Add here: a new record comes from Payroll New Hire Enrollment.</li>
-      <li>Proposal: Check Distribution and Time Sheet Control live here as header buttons. Each edits one field on the home Pay Status record and has no list of its own.</li>
+      <li>Check Distribution and Time Sheet Control, which edit the home Pay Status record too, are on the Payroll Controls tab.</li>
       <li>Calls: <code>PayStatus_List</code>. An alternate tax entity row would open Add Alternate Enrollment instead (not mocked: no alternates in the sample).</li>
       <li>Paged: <code>PayStatus_List</code> takes <code>pageSize</code> (default 25, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>
+  </template>
+  <template data-sc-if value="{{tab_controls}}" hint-placeholder-val="{{ false }}">
+    <div class="lhead">
+      <h2>Payroll Controls</h2>
+      <div class="actions">
+        <template data-sc-if value="{{admin}}"><a class="sbtn" href="payroll-controls.html?mode=edit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</a></template>
+      </div>
+    </div>
+    <div class="sum"><div class="hd"><strong>Payroll Controls</strong></div><div class="g4"><div><div class="lbl">Effective Date</div><div class="val"></div></div><div><div class="lbl">Print Pay Stubs</div><div class="val">Yes</div></div><div><div class="lbl">Check Distribution</div><div class="val">05 - LOCATION 05</div></div><div><div class="lbl">Mail W2 Form</div><div class="val">Yes</div></div><div><div class="lbl">Print Time Sheets</div><div class="val">No</div></div></div></div>
+    <div class="sum"><div class="hd"><strong>Record Details</strong></div><div class="g4"><div><div class="lbl">Record Status</div><div class="val">A - ACTIVE</div></div><div><div class="lbl">Create Date</div><div class="val">09/28/2026</div></div><div><div class="lbl">Create Time</div><div class="val">10312602</div></div><div><div class="lbl">Original Create Date</div><div class="val">09/28/2026</div></div><div><div class="lbl">Original Create Time</div><div class="val">10312602</div></div></div></div>
+    <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
+      <li>In the app this tab holds the Payroll Controls block (the Details/Edit Screen Template pattern): Edit switches it to inputs <strong>in place</strong>. The mockup opens it as its own board so View, Edit, the exceptions toggle and the save results can be tried: <a href="payroll-controls.html">Payroll Controls</a>. Edit is hidden for a read-only role.</li>
+      <li><strong>One block, one Update</strong> for four LifeView screens: Pay Stub Control (Print Pay Stubs, PUOP5), Pay Check Distribution (Check Dist, CDIST), W2 Mail Control (Mail W2 Form, PUOP6) and Time Sheet Control (Print Time Sheets, PUOPA). All four edit the <strong>same record</strong>, the employee’s home Pay Status (A1) record: the same Record Status and create dates on every screen, and one colToken. Separate saves would each change that token, so the next one would fail as “the record changed” (409). That’s why they’re one form, not four, and not one-row lists.</li>
+      <li>No list: there’s one current record and no history screen for it. Yes / No values are the Yes / No radios LifeView shows; Check Distribution is a <code>CodeTableDropdown</code> (a picklist, not a toggle) and shows “Code - Description” in View (a blank code shows blank: LifeView’s “- NULL LOCATION”).</li>
+      <li>Effective Date: LifeView doesn’t read it back (its box is empty when the screen opens), so View shows it blank. Left blank on Update = the current pay period begin date.</li>
+      <li>Buttons: <strong>Update</strong> only (no Add, no Delete), as LifeView. <strong>Return | Override Exceptions</strong> as on every payroll write.</li>
+      <li>Calls: <strong>endpoint not built yet</strong> for the combined block: one Payroll Controls GET + PUT is planned; the PUT will run each changed control’s own LifeView Update, exactly as LifeView sends it. Built today: <code>PayCheckDistribution_Get</code> / <code>_Put</code> and <code>PayTimeSheetControl_Get</code> / <code>_Put</code>; Pay Stub Control and W2 Mail Control (admin) aren’t.</li>
+    </ul>
+  </div>
   </template>
   <template data-sc-if value="{{tab_garnishments}}" hint-placeholder-val="{{ false }}">
    <template data-sc-if value="{{vList}}" hint-placeholder-val="{{ true }}">
@@ -1861,11 +1882,11 @@ class PayrollArea extends AreaLogic {
   constructor(props) {
     super(props);
     var q = (props && props.query) || {};
-    var keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"];
+    var keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "controls", "garnishments"];
     this.state = { tab: keys.indexOf(q.tab) >= 0 ? q.tab : 'paychecks', view: ['list', 'g2nList', 'persList'].indexOf(q.view) >= 0 ? q.view : 'list', role: 'admin', page: 1, ls: 'rows' };
   }
   renderVals() {
-    var self = this, keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"], t = this.state.tab, w = this.state.view, admin = this.state.role === 'admin';
+    var self = this, keys = ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "controls", "garnishments"], t = this.state.tab, w = this.state.view, admin = this.state.role === 'admin';
     var go = function (o) { return function () { self.setState(Object.assign({ page: 1 }, o)); if (typeof window !== 'undefined' && window.scrollTo) window.scrollTo(0, 0); }; };
     // Pager (mockup): pages per list; the real app doesn't know the total until hasMore is false.
     var PAGES = { paychecks: 3 }, list = w === 'g2nList' ? 'g2n' : t, pages = PAGES[list] || 1, p = this.state.page || 1;
@@ -1922,7 +1943,7 @@ class BenefitsArea extends AreaLogic {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    var q = (props && props.query) || {}, TABS = {"hr": ["details", "addresses", "dependents", "emergency", "actions", "education", "skills"], "payroll": ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "garnishments"], "benefits": ["details", "benefits", "dependents", "transactions", "enrollment"]}, order = ['payroll', 'benefits', 'hr'];
+    var q = (props && props.query) || {}, TABS = {"hr": ["details", "addresses", "dependents", "emergency", "actions", "education", "skills"], "payroll": ["details", "paychecks", "taxes", "deductions", "additional", "accruals", "w2s", "dd", "calpers", "status", "controls", "garnishments"], "benefits": ["details", "benefits", "dependents", "transactions", "enrollment"]}, order = ['payroll', 'benefits', 'hr'];
     // ?area= picks the tile; without it a tab name picks the area that has it (Details = HR)
     var area = TABS[q.area] ? q.area : (order.filter(function (a) { return q.tab && q.tab !== 'details' && TABS[a].indexOf(q.tab) >= 0; })[0] || 'hr');
     var C = { hr: HrArea, payroll: PayrollArea, benefits: BenefitsArea }, self = this;

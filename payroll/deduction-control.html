@@ -54,6 +54,12 @@ h1{margin:0;font-size:24px;font-weight:600}
 .warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
 .err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
 .err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+/* MessageBanner (theme: ds-banner, ds-banner--warning / --info, __icon, __body, __title, __stamp) */
+.dsb{--a:#b42318;display:flex;align-items:flex-start;gap:8px;padding:16px;border-radius:6px;border-left:4px solid var(--a);background:color-mix(in srgb,var(--a) 10%,#fff);color:#1c2431;font-size:14px;box-sizing:border-box}
+.dsb.warning{--a:#c77700}.dsb.info{--a:#0a5bd3}
+.dsb-i{flex:none;width:22px;height:22px;color:var(--a)}.dsb-b{min-width:0;overflow-wrap:anywhere}
+.dsb-t{font-weight:700;margin-bottom:4px}.dsb-s{font-size:12px;color:#5b6575;margin-top:4px}
+.titlebar .hb{flex-basis:100%;display:flex;flex-direction:column;gap:8px}
 .dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
 .titlebar.sticky{position:sticky;top:0;z-index:5;background:#f3f5f8;padding:12px 0;margin-top:0;border-bottom:1px solid #dde2e9}
 .exc{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#3a4350;margin-right:4px}
@@ -62,7 +68,6 @@ h1{margin:0;font-size:24px;font-weight:600}
 .exc .opts button:last-child{border-right:0}
 .exc .opts button.on{background:#0a5bd3;color:#fff}
 .btn:not(.primary) .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
-.err .err-btn{margin-top:10px;min-height:32px;padding:0 12px;font-size:13px;border-color:#7a1a12;color:#7a1a12;background:#fff}
 .loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
 .loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
 td.empty{text-align:center;color:#5b6575;padding:18px 10px}
@@ -145,16 +150,14 @@ table.acc tr.total td{font-weight:600}
         <template data-sc-if value="{{showUpdateBtn}}"><button type="button" class="btn primary" onClick="{{doUpdate}}" aria-busy="{{busyUpd}}"><template data-sc-if value="{{savingUpd}}"><span class="spin" aria-hidden="true"></span>Updating…</template><template data-sc-if value="{{idleUpd}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Update</template></button></template>
       </template>
     </div>
+    <template data-sc-if value="{{showBannerRow}}" hint-placeholder-val="{{ false }}"><div class="hb">
+      <template data-sc-if value="{{showErr}}"><div class="dsb" role="alert"><svg class="dsb-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><div class="dsb-b">{{errDetail}}<template data-sc-if value="{{errHost}}"> ({{errHost}})</template><div class="dsb-s">11/18/2026 9:42 AM</div></div></div></template>
+      <template data-sc-if value="{{showConflict}}"><div class="dsb warning" role="alert"><svg class="dsb-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><div class="dsb-b">Someone else changed this record after you opened it, so it has been reloaded with the latest values. Make your change again.<div class="dsb-s">11/18/2026 9:42 AM</div></div></div></template>
+    </div></template>
   </div>
 
   <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}">
     <div class="banner" role="status">{{banner}}</div>
-  </template>
-  <template data-sc-if value="{{showErr}}" hint-placeholder-val="{{ false }}">
-    <div class="err" role="alert">{{errDetail}}<template data-sc-if value="{{errHost}}"><span class="host">{{errHost}}</span></template><template data-sc-if value="{{errOverride}}"><button type="button" class="btn small err-btn" onClick="{{saveOverride}}">{{overrideLabel}}</button></template></div>
-  </template>
-  <template data-sc-if value="{{showConflict}}" hint-placeholder-val="{{ false }}">
-    <div class="warn" role="alert">Someone else changed this record after you opened it, so it has been reloaded with the latest values. Make your change again.</div>
   </template>
   
 
@@ -199,8 +202,8 @@ table.acc tr.total td{font-weight:600}
     <h3>Notes for the OutSystems build</h3>
     <ul>
       <li>Pattern: <strong>Editable</strong> (Add, Edit, Delete). One block for view and edit: Edit switches only the editable fields to inputs, in place; read-only fields stay plain text in the same position. Add opens the same block already in edit mode (empty colToken) and loads its dropdowns from <code>/options</code> or <code>/v1/codes</code>, never the detail GET.</li>
-      <li>Mockup controls <strong>Data</strong> and <strong>Next Add / Update</strong> show the states every screen needs: a loading state while the GET runs; Add / Update busy (“Adding…” / “Updating…”) and disabled while the write runs; an error alert with <code>detail</code> as the main line and <code>hostCode – hostMessage</code> on a smaller line when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; 403 = writes are off, nothing saved. TS0122 (with Return Exceptions) = the alert offers “Update/Add with Override Exceptions”, one click, which re-sends with <code>overrideExceptions=true</code>.</li>
-      <li><strong>Return Exceptions | Override Exceptions</strong> (LifeView’s Submit Options): shown while editing, Return by default and reset to Return every time the form opens and after each save. Override sends <code>?overrideExceptions=true</code> on the write.</li>
+      <li>Mockup controls <strong>Data</strong> and <strong>Next Add / Update</strong> show the states every screen needs: a loading state while the GET runs; Add / Update busy (“Adding…” / “Updating…”) and disabled while the write runs; a <code>MessageBanner</code> with <code>detail</code> and “(<code>hostCode</code> – <code>hostMessage</code>)” after it when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; 403 = writes are off, nothing saved. TS0122 (with Return Exceptions) = the message says to switch to Override Exceptions and save again. Errors show in <code>StickyPageHeader</code>’s banner row (its <code>Message</code> inputs, drawn by <code>MessageBanner</code>), so they stay in view while the page scrolls.</li>
+      <li><strong>Return Exceptions | Override Exceptions</strong> (LifeView’s Submit Options), the <code>ExceptionHandlingToggle</code> block: shown while editing, Return by default and reset to Return every time the form opens and after each save. Override sends <code>?overrideExceptions=true</code> on the write.</li>
       <li>Editing an existing record shows <strong>Add</strong> and <strong>Update</strong>, as LifeView does: Update changes this record in place (PUT); Add sends the form as a NEW row (POST) and leaves the one you opened as history, so it usually goes with a new Effective Date (the same keys as an existing row are refused).</li>
       <li>Sections, field order and labels: legacy PayDeductionControlDetail. Buttons: <strong>Add, Update, Delete</strong> (Delete in Edit only, confirmed).</li>
       <li>Calls: <code>PayDeductionControl_Get</code>, <code>_Put</code>, <code>_Post</code>, <code>_Delete</code>; Add’s Disburse Type list = <code>PayDeductionControl_Options</code>.</li>
@@ -315,9 +318,7 @@ class Component extends DCLogic {
     return {
       sections: ld ? [] : sections, loading: ld,
       showErr: !!e, errDetail: e ? e[0] : '', errHost: e ? e[1] : '',
-      errOverride: this.state.err === '122' && S.exceptions,
-      overrideLabel: (this.state.last === 'add' ? 'Add' : 'Update') + ' with Override Exceptions',
-      saveOverride: go(this.state.last || 'update', true),
+      showBannerRow: !!e || this.state.conflict,
       showConflict: this.state.conflict,
       excReturn: X === 'return' ? 'on' : '', excOverride: X === 'override' ? 'on' : '',
       setReturn: set({ exc: 'return' }), setOverride: set({ exc: 'override' }),

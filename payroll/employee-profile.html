@@ -1108,13 +1108,20 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <tr><td>2023</td><td>$112,950.07</td><td>$13,240.18</td><td>$5,640.77</td><td><div class="lact"><a class="sbtn" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</a></div></td></tr>
     </tbody></table></div>
     </template>
+    <template data-sc-if value="{{lsRows}}" hint-placeholder-val="{{ true }}">
+    <nav class="pager" aria-label="Pages">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg" aria-live="polite">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
       <li><strong>Load only this view.</strong> Its data action fetches only while this tab, section and view are open: its own block inside an If on the open tab or view (or Only on demand, refreshed when the view opens), never on profile load. History, accumulators and detail views load when opened.</li>
       <li>Read-only, no detail screen: View W2 opens the PDF (<code>documentUrl</code>) in a new tab, as the legacy Details link does.</li>
       <li>Call: <code>PayW2Forms_Get</code>; the Effective Date filter is its <code>asOf</code>.</li>
-      <li>Not paged (no pager): one row per tax year, and the call returns them all in one array.</li>
+      <li>Paged: <code>PayW2Forms_Get</code> takes <code>pageSize</code> (default 10, max 100) and <code>skip</code> and answers <code>{skip, pageSize, hasMore, rows}</code>. Use the <code>APIPagination</code> block: send its PageSize as <code>pageSize</code> and its StartIndex as <code>skip</code>; Next shows while <code>hasMore</code>, Previous when skip &gt; 0. No total count: “Page n”, and “Page n of n” once <code>hasMore</code> is false. Set StartIndex back to 0 when a filter changes.</li>
     </ul>
   </div>
    </template>

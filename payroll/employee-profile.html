@@ -1796,6 +1796,16 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
     </template>
   </template>
    </template>
+    <div class="notes">
+    <h3>Notes for the OutSystems build: the profile itself</h3>
+    <ul>
+      <li><strong>No inputs.</strong> <code>EmployeeProfile</code> opens with no arguments (TabIndex, StartSection and PayrollTab were removed 11/21); all 13 navigation points to it pass none. The <code>?area=</code> / <code>?tab=</code> links on these mockups are for the mockups only.</li>
+      <li><strong>Where the user is lives in client variables:</strong> <code>ProfileSection</code> (the tile; default HROperations) and each section’s last tab, <code>ProfileHRTab</code>, <code>ProfilePayrollTab</code>, <code>ProfileBenefitsTab</code> (default Details). They are identifiers of the static entities of the same names, so their defaults can’t be edited in the editor.</li>
+      <li><strong>The tab strip is the <a href="widgets.html#ProfileTabs"><code>ProfileTabs</code></a> block:</strong> <code>Tabs</code> from an aggregate on the section’s static entity, type-converted to <code>ProfileTabItem</code>; <code>ActiveTabId</code> = the client variable as an integer; <code>TabSelected</code> converts back and assigns it.</li>
+      <li><strong>Each tab’s content</strong> shows or hides on a condition on the client variable, using the static entity’s named values, never numbers. Each block inside has <code>IsActive</code> = True.</li>
+      <li><strong>Static entities</strong> (<code>Id</code>, <code>Label</code>, <code>Order</code>, <code>Is_Active</code>): Ids are 1-based and never edited, Order is 0-based.</li>
+    </ul>
+    </div>
   </div>
 </div>
 </template>

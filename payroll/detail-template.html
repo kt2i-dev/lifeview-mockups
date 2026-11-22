@@ -318,6 +318,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <tr><td>Delete</td><td>Editing an existing record, the endpoint has a DELETE</td><td>Confirm, naming the record (“Delete deduction 068 effective 08/08/2026?”), then back to the list.</td></tr>
       <tr><td>← Back</td><td>Any time (StickyPageHeader’s back link)</td><td>Back to the list or tab the user came from.</td></tr>
     </tbody></table>
+    <p><strong>The block doesn’t navigate.</strong> A detail block raises its <code>Back</code> event (after ← Back, and where it leaves the screen after a save or delete); the host screen does the navigation. <code>DirectDeposit_Detail</code> was the last one navigating to EmployeeProfile itself and now raises Back too (11/21).</p>
     <p>Three screen patterns, set by what the endpoint allows: <strong>Editable</strong> (has a PUT: Edit), <strong>Add-only</strong> (POST but no PUT, a change is a new dated row: the action that adds it), <strong>Read-only</strong> (GET only: no actions). All three have the ← Back breadcrumb.</p>
   </div></section>
 

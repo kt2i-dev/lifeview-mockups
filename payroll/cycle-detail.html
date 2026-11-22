@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cycle Detail</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px;align-self:center}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
+.radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
+.radio{display:flex;gap:6px;align-items:center;font-size:14px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+/* MessageBanner (theme: ds-banner, ds-banner--warning / --info, __icon, __body, __title, __stamp) */
+.dsb{--a:#b42318;display:flex;align-items:flex-start;gap:8px;padding:16px;border-radius:6px;border-left:4px solid var(--a);background:color-mix(in srgb,var(--a) 10%,#fff);color:#1c2431;font-size:14px;box-sizing:border-box}
+.dsb.warning{--a:#c77700}.dsb.info{--a:#0a5bd3}
+.dsb-i{flex:none;width:22px;height:22px;color:var(--a)}.dsb-b{min-width:0;overflow-wrap:anywhere}
+.dsb-t{font-weight:700;margin-bottom:4px}.dsb-s{font-size:12px;color:#5b6575;margin-top:4px}
+.titlebar .hb{flex-basis:100%;display:flex;flex-direction:column;gap:8px}
+.dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.titlebar.sticky{position:sticky;top:0;z-index:5;background:#f3f5f8;padding:12px 0;margin-top:0;border-bottom:1px solid #dde2e9}
+.exc{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#3a4350;margin-right:4px}
+.exc .opts{display:inline-flex;border:1px solid #b9c1cc;border-radius:6px;overflow:hidden}
+.exc .opts button{border:0;border-right:1px solid #b9c1cc;background:#fff;font:inherit;font-size:12px;padding:0 10px;min-height:32px;cursor:pointer;color:#2b3340}
+.exc .opts button:last-child{border-right:0}
+.exc .opts button.on{background:#0a5bd3;color:#fff}
+.btn:not(.primary) .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+.loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
+.loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+td.empty{text-align:center;color:#5b6575;padding:18px 10px}
+.nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
+.nores-i{width:72px;height:72px;color:#9aa4b2}
+.nores-i.warn-i{color:#c77700}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
+
+.page{max-width:1440px}
+.ptitle{margin:6px 0 16px;font-size:22px;font-weight:700}
+.shell{background:#fff;border-radius:10px;padding:24px 26px 32px}
+.emp{border:1px solid #dde2e9;border-left:4px solid #0a5bd3;border-radius:8px;padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.emp .nm{font-size:18px;font-weight:700}
+.emp .k{font-size:12px;color:#8a93a1}.emp .v{font-size:13px;font-weight:600;margin-left:4px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:16px 0 18px}
+.tile{border:1px solid #dde2e9;border-radius:6px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:600;font-size:14px;color:#2b3340;background:#fff}
+.tile .ic{color:#0a5bd3;font-size:16px}
+.tile.on{background:#e3edfb;border-color:#0a5bd3;color:#0a5bd3}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #d3d9e1;margin-bottom:22px}
+.tabs button{border:0;background:none;font:inherit;font-size:13px;color:#2b3340;padding:10px 13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{border-bottom-color:#1c2431;font-weight:600}
+.lhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.lhead h2{margin:0;font-size:16px;font-weight:700}
+.sbtn{min-height:32px;padding:0 14px;border-radius:4px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #0a5bd3;background:#0a5bd3;color:#fff;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.sbtn.out{background:#fff;color:#0a5bd3}
+.filters{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;margin-bottom:14px}
+.filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
+.filters input{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;box-sizing:border-box}
+table.list{border-collapse:collapse;width:100%;font-size:12px}
+table.list th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;padding:12px 10px}
+table.list td{padding:7px 10px;border-bottom:1px solid #e3e8ef;height:30px}
+table.list tbody tr:nth-child(even) td{background:#eaf1fb}
+.lact{display:flex;gap:12px}
+.lact .sbtn{background:#fff;color:#0a5bd3}
+.muted{color:#8a93a1}
+.ltbl{overflow-x:auto}
+.sum{border:1px solid #dde2e9;border-radius:8px;margin-bottom:14px}
+.sum .hd{padding:14px 18px;font-size:13px;border-bottom:1px solid #e3e8ef;display:flex;justify-content:space-between}
+.sum .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 24px;padding:16px 32px 20px}
+.sum .g4 .lbl{font-size:12px;color:#5b6575}.sum .g4 .val{font-size:12px;font-weight:500;margin-top:3px}
+@media (max-width:760px){.tiles,.sum .g4{grid-template-columns:minmax(0,1fr)}}
+
+.crumb{border:0;background:none;padding:0;font:inherit;font-size:13px;color:#0a5bd3;cursor:pointer;margin:0 0 10px}
+.crumb:hover{color:#0848a8;text-decoration:underline}
+.lhead .sub{margin-top:4px;font-size:13px;color:#5b6575}
+.filters select{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;background:#fff}
+.accd{border:1px solid #dde2e9;border-radius:6px}
+.accd-h{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:13px;border-top:1px solid #dde2e9}
+.accd-h:first-child{border-top:0}
+.chev{width:9px;height:9px;border-right:1.5px solid #2b3340;border-bottom:1.5px solid #2b3340;transform:rotate(45deg);margin-right:6px}
+.chev.up{transform:rotate(-135deg)}
+.accd-b{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 24px;padding:6px 32px 20px}
+.accd-b .lbl{font-size:12px;color:#5b6575}.accd-b .val{font-size:12px;margin-top:3px}
+@media (max-width:760px){.accd-b{grid-template-columns:minmax(0,1fr)}}
+.pager{display:flex;justify-content:center;align-items:center;gap:16px;margin:16px 0 4px}
+.pager .sbtn{background:#fff;color:#0a5bd3}
+.pager .sbtn:disabled{border-color:#c5ccd6;color:#8a93a1;cursor:not-allowed}
+.pager .pg{font-size:13px;color:#2b3340;min-width:96px;text-align:center}
+
+.nb{display:inline-block;margin-left:10px;padding:3px 10px;border-radius:999px;background:#fdecc8;color:#7a4b00;font-size:12px;font-weight:600;vertical-align:middle}
+.hdr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 24px}
+@media (max-width:760px){.hdr{grid-template-columns:minmax(0,1fr)}}
+table.cgrid{border-collapse:collapse;width:100%;font-size:12px}
+table.cgrid th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;padding:10px 8px;white-space:nowrap}
+table.cgrid td{padding:5px 8px;border-bottom:1px solid #e3e8ef;white-space:nowrap}
+table.cgrid tr.new td{background:#f3f8ff}
+table.cgrid tr.del td{background:#fdeeee;color:#8a93a1;text-decoration:line-through}
+table.cgrid input,table.cgrid select{height:28px;border:1px solid #c5ccd6;border-radius:4px;padding:0 6px;font:inherit;font-size:12px;box-sizing:border-box;min-width:56px}
+table.cgrid input.err{border-color:#c62828;background:#fff5f5}
+.rowacts{display:flex;gap:8px}
+.gfoot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:12px;color:#5b6575}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<style>.mock-home{display:flex;justify-content:flex-end;max-width:1440px;margin:0 auto;padding:10px 24px 0;box-sizing:border-box;font:14px Inter,system-ui,sans-serif}.mock-home a{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;color:#2b3340;text-decoration:none;font-weight:600}.mock-home a:hover{border-color:#0a5bd3;color:#0a5bd3}</style><nav class="mock-home" aria-label="Mockup navigation"><a href="index.html"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Mockups home</a></nav>
+<template id="dc-template">
+<div class="page">
+  <div class="mock" aria-label="Mockup controls">
+    <span class="mock-t">Mockup controls — not part of the design</span>
+    <div class="mock-g">Form
+      <div class="seg">
+        <button type="button" class="{{segTime}}" onClick="{{toTime}}">Time Entry</button>
+        <button type="button" class="{{segLong}}" onClick="{{toLong}}">Long Form</button>
+        <button type="button" class="{{segPeriod}}" onClick="{{toPeriod}}">Period Overrides</button>
+      </div>
+    </div>
+    <div class="mock-g">Mode
+      <div class="seg">
+        <button type="button" class="{{segView}}" onClick="{{toView}}">View</button>
+        <button type="button" class="{{segEdit}}" onClick="{{toEdit}}">Edit</button>
+      </div>
+    </div>
+    <div class="mock-g">Role
+      <div class="seg">
+        <button type="button" class="{{segAdmin}}" onClick="{{toAdmin}}">Payroll Admin</button>
+        <button type="button" class="{{segReader}}" onClick="{{toReader}}">Read-only</button>
+      </div>
+    </div>
+    <div class="mock-g">Next Update
+      <div class="seg">
+        <button type="button" class="{{segRok}}" onClick="{{rOk}}">Succeeds</button>
+        <button type="button" class="{{segRerr}}" onClick="{{rErr}}">Row error</button>
+        <button type="button" class="{{segRclosed}}" onClick="{{rClosed}}">Batch closed</button>
+        <button type="button" class="{{segR403}}" onClick="{{r403}}">403 writes off</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="titlebar sticky">
+    <div>
+      <a class="back" href="batch-header.html" title="Back to Batch Header">← Back</a>
+      <h1>{{title}}<span class="nb">Endpoint not built yet</span></h1>
+      <div class="sub">Batch 20TM · B - REGULAR BI-WEEKLY · Pay Year 26, Period 20</div>
+    </div>
+    <div class="actions">
+      <template data-sc-if value="{{showEditBtn}}"><button type="button" class="btn primary" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button></template>
+      <template data-sc-if value="{{editing}}">
+        <span class="exc" role="group" aria-label="Exceptions"><span class="opts"><button type="button" class="{{excReturn}}" onClick="{{setReturn}}">Return Exceptions</button><button type="button" class="{{excOverride}}" onClick="{{setOverride}}">Override Exceptions</button></span></span>
+        <button type="button" class="btn" onClick="{{toView}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+        <button type="button" class="btn primary" onClick="{{save}}" aria-busy="{{savingAria}}"><template data-sc-if value="{{saving}}"><span class="spin" aria-hidden="true"></span>Updating…</template><template data-sc-if value="{{notSaving}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Update</template></button>
+      </template>
+    </div>
+    <template data-sc-if value="{{showErr}}"><div class="hb"><div class="dsb" role="alert"><svg class="dsb-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><div class="dsb-b">{{errDetail}}<template data-sc-if value="{{errHost}}"> ({{errHost}})</template><div class="dsb-s">11/22/2026 9:42 AM</div></div></div></div></template>
+  </div>
+  <template data-sc-if value="{{banner}}"><div class="banner" role="status">{{banner}}</div></template>
+
+  <section class="card">
+    <h2>Header Information</h2>
+    <div class="hdr">
+      <div class="f"><span class="lbl">Batch ID</span><span class="val">20TM</span></div>
+      <div class="f"><span class="lbl">Mixed Batch ?</span><span class="val">N</span></div>
+      <div class="f"><span class="lbl">Transaction Type</span><span class="val">{{txType}}</span></div>
+      <div class="f"><span class="lbl">Tax Entity</span><span class="val">10000 - City of Long Beach</span></div>
+      <div class="f"><span class="lbl">Pay Entity</span><span class="val">B - REGULAR BI-WEEKLY</span></div>
+      <div class="f"><span class="lbl">Pay Year</span><span class="val">26</span></div>
+      <div class="f"><span class="lbl">Pay Period</span><span class="val">20</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="lhead" style="margin-bottom:8px"><h2 style="margin:0">Detail Records</h2>
+      <template data-sc-if value="{{editing}}"><button type="button" class="sbtn" onClick="{{addLine}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add line</button></template>
+    </div>
+    <div class="help" style="margin:0 0 10px">{{rules}}</div>
+    <div class="ltbl"><table class="cgrid">
+      <thead><tr><template data-sc-for list="{{cols}}" as="c"><th scope="col">{{c.label}}</th></template><template data-sc-if value="{{editing}}"><th scope="col">Actions</th></template></tr></thead>
+      <tbody>
+        <template data-sc-for list="{{rows}}" as="r">
+          <tr class="{{r.cls}}">
+            <template data-sc-for list="{{r.cells}}" as="c"><td>
+              <template data-sc-if value="{{c.isInput}}"><input type="text" defaultValue="{{c.v}}" size="{{c.w}}" aria-label="{{c.label}}" class="{{c.errCls}}"></template>
+              <template data-sc-if value="{{c.isSelect}}"><select defaultValue="{{c.v}}" aria-label="{{c.label}}"><option value="">Select…</option><template data-sc-for list="{{etv}}" as="o"><option value="{{o}}">{{o}}</option></template></select></template>
+              <template data-sc-if value="{{c.isText}}">{{c.v}}</template>
+            </td></template>
+            <template data-sc-if value="{{editing}}"><td><div class="rowacts">
+              <template data-sc-if value="{{r.canRemove}}"><button type="button" class="sbtn out" onClick="{{r.remove}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button></template>
+              <template data-sc-if value="{{r.isDel}}"><button type="button" class="sbtn out" onClick="{{r.undo}}">Undo</button></template>
+            </div></td></template>
+          </tr>
+        </template>
+      </tbody>
+    </table></div>
+    <div class="gfoot"><span>{{count}}</span><span>Rows per page: 25 (LifeView’s ROWLMT)</span></div>
+  </section>
+
+  <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li><strong>Not built in the gateway yet</strong>, on purpose: these grids write the cycle detail records the payroll run consumes, so they wait for a City sign-off (<code>docs/payroll-next-screens.md</code>). This mockup shows the intended screen so the decision can be made with it in hand.</li>
+      <li>Pattern: an <strong>editable grid</strong>, new to this app (no other screen has one yet). View shows the batch’s detail rows; Edit turns every row into inputs, <strong>Add line</strong> appends a blank row, <strong>Remove</strong> marks a row for deletion (Undo until saved), and <strong>Update</strong> sends every change in one call, as LifeView’s single Submit does. LifeView’s help: no more than 15 new rows at a time.</li>
+      <li>Name is display-only (from the read). Opened from the Batch Header’s Detail Records buttons, or from an Employee Cycle File row (that employee’s rows only).</li>
+      <li>Legacy contracts (transproperties): Time Entry = <code>PayCycleFileTimeEntryUpdateList</code>, Long Form = <code>PayCycleFileLongFormUpdateList</code> (view PAYG5); Period Overrides = <code>PayPeriodOverridesUpdateList</code> (view PAYG4); all TRANID QCD, each a header select (PAYG1) + a detail select + IN / UP / DE per row. A Remove is a DE with <code>RECFL=D</code>. A future endpoint would most likely be <code>GET</code> + one <code>POST …/details</code> taking <code>{add[], update[], remove[]}</code>; nothing is decided.</li>
+      <li>Errors: a rejected row should name its row and field (the Row error state outlines the field). A batch that is closed (CL) or deleted (DE) can’t take details. </li>
+      <li><strong>Writes are double-gated</strong>, like Online Check: the gateway would answer 403 unless both <code>WRITES_ENABLED</code> and <code>PAYROLL_PROCESSING_ENABLED</code> are on (a closed batch is picked up by the payroll run). Show the 403 as a <code>MessageBanner</code>; nothing is saved.</li>
+      <li><strong>Return Exceptions | Override Exceptions</strong> (LifeView’s Submit Options), the <code>ExceptionHandlingToggle</code> block: shown while editing, Return by default and reset to Return every time the form opens and after each save. Override sends <code>?overrideExceptions=true</code> on the write.</li>
+    </ul>
+  </div>
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();
+    if(location.hash){var t=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView();}};
+})();
+</script>
+<script>
+var FORMS = {"time": {"errCol": 2, "title": "Cycle Detail (Time Entry)", "legacy": "PayCycleFileTimeEntryUpdateList", "view": "PAYG5", "cols": [{"label": "Employee ID", "k": "t", "w": 7}, {"label": "Name", "k": "r", "w": 0}, {"label": "Earnings ID (ETV ID)", "k": "t", "w": 5}, {"label": "Amt/Pct", "k": "t", "w": 9}, {"label": "Hours", "k": "t", "w": 7}, {"label": "Transaction Date", "k": "t", "w": 10}], "rows": [["12345", "DOE,JANE A", "001", "", "80.00", ""], ["12345", "DOE,JANE A", "110", "", "6.50", "08/14/2026"], ["67890", "SAMPLE,ALEX J", "001", "", "80.00", ""], ["67890", "SAMPLE,ALEX J", "205", "125.00", "", ""]], "rules": "Each row: Employee ID, Earnings ID, and Hours OR Amt/Pct (not both). Transaction Date is optional (e.g. the day overtime was worked). Every row is an earnings row (ETV Code E is sent for you)."}, "long": {"errCol": 3, "title": "Cycle Detail (Long Form)", "legacy": "PayCycleFileLongFormUpdateList", "view": "PAYG5", "cols": [{"label": "Employee ID", "k": "t", "w": 7}, {"label": "Name", "k": "r", "w": 0}, {"label": "ETV Code", "k": "s", "w": 0}, {"label": "ETV Id", "k": "t", "w": 5}, {"label": "Hours", "k": "t", "w": 7}, {"label": "Amount", "k": "t", "w": 9}, {"label": "Transaction Date", "k": "t", "w": 10}, {"label": "Check Code", "k": "t", "w": 2}, {"label": "Action", "k": "t", "w": 2}, {"label": "Calc Code", "k": "t", "w": 2}, {"label": "Standard Pay Rate", "k": "t", "w": 9}, {"label": "Units", "k": "t", "w": 7}, {"label": "Base", "k": "t", "w": 9}, {"label": "LD Department Override", "k": "t", "w": 6}, {"label": "Index-account", "k": "t", "w": 12}, {"label": "Weeks Worked", "k": "t", "w": 3}, {"label": "Job Location", "k": "t", "w": 6}], "rows": [["12345", "DOE,JANE A", "E - Earnings", "001", "80.00", "", "", "R", "", "", "42.5000", "", "", "", "", "", ""], ["12345", "DOE,JANE A", "V - Voluntary Deductions", "036", "", "25.00", "", "R", "", "F", "", "", "", "", "", "", ""], ["67890", "SAMPLE,ALEX J", "T - Taxes", "$$002", "", "50.00", "", "R", "", "F", "", "", "", "", "", "", ""], ["67890", "SAMPLE,ALEX J", "E - Earnings", "110", "4.00", "", "08/12/2026", "R", "", "", "38.1000", "", "", "3200", "4410-1100-5101", "", ""]], "rules": "Each row: Employee ID, ETV Code, an ETV Id matching that code (earnings / tax / deduction / additional payment), and Hours OR Amount. A tax or deduction Amount is a one-time override; left blank, the employee’s own record and the rule table apply. LD Department / Index-account override the labor distribution for that row only."}, "period": {"errCol": 4, "title": "Period Overrides", "legacy": "PayPeriodOverridesUpdateList", "view": "PAYG4", "cols": [{"label": "Employee ID", "k": "t", "w": 7}, {"label": "Name", "k": "r", "w": 0}, {"label": "Year", "k": "t", "w": 2}, {"label": "Period", "k": "t", "w": 2}, {"label": "Ded Freq", "k": "t", "w": 1}, {"label": "A/P Freq", "k": "t", "w": 1}, {"label": "Tax Days", "k": "t", "w": 3}], "rows": [["12345", "DOE,JANE A", "26", "20", "2", "2", "28"], ["24680", "ROE,PAT", "26", "20", "0", "1", "14"]], "rules": "Overrides an employee’s deduction and automatic-payment frequency and tax days for one pay period (vacation advance, bonus, supplemental pay). Tax Days: a check spanning several periods may need deductions taken that many times."}};
+var ETV = ["E - Earnings", "T - Taxes", "V - Voluntary Deductions", "P - Additional Payments", "U"];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var q = (props && props.query) || {};
+    var form = FORMS[q.form] ? q.form : 'time';
+    this.state = { form: form, mode: 'view', role: 'admin', result: 'ok', err: '', banner: '', exc: 'return', rows: this.load(form) };
+  }
+  doSave() {
+    var s = this.state, R = s.result;
+    if (R !== 'ok') return this.setState({ err: R, banner: '' });
+    var adds = s.rows.filter(function (r) { return r.state === 'new'; }).length, dels = s.rows.filter(function (r) { return r.state === 'del'; }).length;
+    var kept = s.rows.filter(function (r) { return r.state !== 'del'; }).map(function (r) { return { cells: r.cells, state: 'old' }; });
+    this.setState({ mode: 'view', rows: kept, err: '', exc: 'return', banner: 'Updated: ' + adds + ' added, ' + dels + ' removed, the rest saved as shown.' });
+  }
+  load(form) { return FORMS[form].rows.map(function (r) { return { cells: r.slice(), state: 'old' }; }); }
+  renderVals() {
+    var self = this, s = this.state, F = FORMS[s.form], editing = s.mode === 'edit';
+    var set = function (o) { return function () { self.setState(o); }; };
+    var pick = function (f) { return function () { self.setState({ form: f, mode: 'view', rows: self.load(f), err: '', banner: '' }); }; };
+    var rows = s.rows.map(function (r, i) {
+      return {
+        cls: r.state === 'new' ? 'new' : (r.state === 'del' ? 'del' : ''),
+        canRemove: r.state !== 'del', isDel: r.state === 'del',
+        remove: function () { var rs = s.rows.slice(); if (rs[i].state === 'new') rs.splice(i, 1); else rs[i] = { cells: rs[i].cells, state: 'del' }; self.setState({ rows: rs }); },
+        undo: function () { var rs = s.rows.slice(); rs[i] = { cells: rs[i].cells, state: 'old' }; self.setState({ rows: rs }); },
+        cells: r.cells.map(function (v, j) {
+          var c = F.cols[j], ed = editing && r.state !== 'del' && c.k !== 'r';
+          return { v: v, label: c.label, w: c.w || 8, isInput: ed && c.k === 't', isSelect: ed && c.k === 's', isText: !ed,
+                   errCls: s.err === 'row' && i === 0 && j === F.errCol ? 'err' : '' };
+        })
+      };
+    });
+    var ERR = {
+      row: ['Row 1: ' + F.cols[F.errCol].label + ' isn’t a valid code for this employee. Nothing was saved.', 'TS1010 – CODE NOT IN TABLE'],
+      closed: ['This batch is closed, so details can’t be added or changed. Reopen it (Header Action OP) on the Batch Header first.', ''],
+      w403: ['Changes can’t be saved right now: payroll processing writes are turned off on this gateway. Nothing was saved.', '']
+    };
+    var e = ERR[s.err], R = s.result;
+    var adds = s.rows.filter(function (r) { return r.state === 'new'; }).length, dels = s.rows.filter(function (r) { return r.state === 'del'; }).length;
+    var live = s.rows.length - adds - dels;
+    return {
+      title: F.title, rules: F.rules, cols: F.cols, rows: rows, etv: ETV,
+      txType: s.form === 'period' ? 'PERIOD - PERIOD OVERRIDES' : 'EARN - EARNINGS TRANSACTIONS',
+      count: live + ' rows' + (adds ? ' · ' + adds + ' to add' : '') + (dels ? ' · ' + dels + ' to remove' : ''),
+      editing: editing, showEditBtn: !editing && s.role === 'admin',
+      segTime: s.form === 'time' ? 'on' : '', segLong: s.form === 'long' ? 'on' : '', segPeriod: s.form === 'period' ? 'on' : '',
+      toTime: pick('time'), toLong: pick('long'), toPeriod: pick('period'),
+      segView: editing ? '' : 'on', segEdit: editing ? 'on' : '',
+      toView: function () { self.setState({ mode: 'view', rows: self.load(s.form), err: '', exc: 'return' }); },
+      toEdit: set({ mode: 'edit', err: '', banner: '', exc: 'return' }),
+      segAdmin: s.role === 'admin' ? 'on' : '', segReader: s.role === 'admin' ? '' : 'on',
+      toAdmin: set({ role: 'admin' }), toReader: function () { self.setState({ role: 'reader', mode: 'view', rows: self.load(s.form) }); },
+      segRok: R === 'ok' ? 'on' : '', segRerr: R === 'row' ? 'on' : '', segRclosed: R === 'closed' ? 'on' : '', segR403: R === 'w403' ? 'on' : '',
+      rOk: set({ result: 'ok' }), rErr: set({ result: 'row' }), rClosed: set({ result: 'closed' }), r403: set({ result: 'w403' }),
+      excReturn: s.exc === 'return' ? 'on' : '', excOverride: s.exc === 'override' ? 'on' : '',
+      setReturn: set({ exc: 'return' }), setOverride: set({ exc: 'override' }),
+      addLine: function () { var rs = s.rows.slice(); rs.push({ cells: F.cols.map(function () { return ''; }), state: 'new' }); self.setState({ rows: rs }); },
+      save: /*saving*/(function (fn) { return function () { self.setState({ saving: true }); setTimeout(function () { self.setState({ saving: false }); fn(); }, 900); }; })(function () { self.doSave(); }),
+      saving: !!this.state.saving, notSaving: !this.state.saving, savingAria: this.state.saving ? "true" : "false",
+      showSaveActions: editing,
+      showErr: !!e, errDetail: e ? e[0] : '', errHost: e ? e[1] : '', banner: s.banner
+    };
+  }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

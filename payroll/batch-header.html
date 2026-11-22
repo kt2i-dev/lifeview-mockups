@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Batch Header</title>
+<!-- LifeView Gateway payroll detail mockup. Standalone export of the claude.ai design canvas:
+     open in any browser. The yellow "Mockup controls" strip only switches states; it is not part of the design. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f5f8;font-family:Inter,system-ui,sans-serif;color:#1c2431}
+a{color:#0a5bd3}a:hover{color:#0848a8}
+.page{max-width:1240px;margin:0 auto;padding:16px 24px 48px;box-sizing:border-box}
+.mock{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:10px 14px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;font-size:12px;color:#4a5361;margin-bottom:20px}
+.mock-t{font-weight:600;color:#2b3340;letter-spacing:.05em;text-transform:uppercase;font-size:11px}
+.mock-g{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid #c5ccd6;border-radius:6px;overflow:hidden}
+.seg button{border:0;border-right:1px solid #c5ccd6;background:#fff;padding:0 12px;font:inherit;cursor:pointer;color:#2b3340;min-height:32px}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#1c2431;color:#fff}
+.seg button:disabled{color:#8a93a1;cursor:not-allowed;text-decoration:line-through}
+.back{font-size:13px;text-decoration:none}
+.titlebar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin:8px 0 20px}
+h1{margin:0;font-size:24px;font-weight:600}
+.sub{margin-top:4px;font-size:14px;color:#5b6575}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef1f5;color:#3a4350;font-size:12px;font-weight:600;margin-left:8px;vertical-align:middle}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{min-height:40px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #0a5bd3;background:#fff;color:#0a5bd3;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
+.btn.primary{background:#0a5bd3;color:#fff}
+.btn.danger{border-color:#b42318;color:#b42318}
+.btn.danger-solid{background:#b42318;border-color:#b42318;color:#fff}
+.btn.ghost{border-color:#b9c1cc;color:#2b3340}
+.sep{width:1px;height:28px;background:#d3d9e1;margin:0 4px;align-self:center}
+.card{background:#fff;border:1px solid #dde2e9;border-radius:10px;margin-bottom:16px}
+.card h2{margin:0;padding:14px 20px;font-size:15px;font-weight:600;border-bottom:1px solid #e8ecf1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px;padding:18px 20px 22px}
+.grid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.grid,.grid.c2,.grid.c4{grid-template-columns:minmax(0,1fr)}}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lbl{font-size:12px;color:#5b6575;font-weight:500}
+.req{color:#b42318;margin-left:3px}
+.val{font-size:14px;min-height:20px;overflow-wrap:anywhere}
+.val.muted{color:#5b6575;min-height:38px;display:flex;align-items:center}
+.big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.in{height:38px;border:1px solid #b9c1cc;border-radius:6px;padding:0 10px;font:inherit;font-size:14px;color:#1c2431;background:#fff;box-sizing:border-box;width:100%}
+.in:focus{outline:2px solid #0a5bd3;outline-offset:-1px}
+.help{font-size:12px;color:#5b6575}
+.src{align-self:flex-start;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#6b4500;background:#fffbe8;border:1px dashed #d9b75e;border-radius:4px;padding:1px 6px}
+.radios{display:flex;flex-wrap:wrap;gap:6px 18px;min-height:38px;align-items:center}
+.radio{display:flex;gap:6px;align-items:center;font-size:14px}
+.banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
+.editing{padding:10px 16px;border-radius:8px;background:#eaf1fd;border:1px solid #b6cdf5;color:#173f84;font-size:14px;margin-bottom:16px}
+.warn{padding:10px 16px;border-radius:8px;background:#fff6e5;border:1px solid #f1cf8f;color:#6b4500;font-size:14px;margin-bottom:16px}
+.err{padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f1aeb5;color:#7a1a12;font-size:14px;margin-bottom:16px}
+.err .host{display:block;margin-top:4px;font-size:12px;color:#8c2f26}
+/* MessageBanner (theme: ds-banner, ds-banner--warning / --info, __icon, __body, __title, __stamp) */
+.dsb{--a:#b42318;display:flex;align-items:flex-start;gap:8px;padding:16px;border-radius:6px;border-left:4px solid var(--a);background:color-mix(in srgb,var(--a) 10%,#fff);color:#1c2431;font-size:14px;box-sizing:border-box}
+.dsb.warning{--a:#c77700}.dsb.info{--a:#0a5bd3}
+.dsb-i{flex:none;width:22px;height:22px;color:var(--a)}.dsb-b{min-width:0;overflow-wrap:anywhere}
+.dsb-t{font-weight:700;margin-bottom:4px}.dsb-s{font-size:12px;color:#5b6575;margin-top:4px}
+.titlebar .hb{flex-basis:100%;display:flex;flex-direction:column;gap:8px}
+.dialog .host{display:block;margin-top:6px;font-size:12px;color:#5b6575}
+.titlebar.sticky{position:sticky;top:0;z-index:5;background:#f3f5f8;padding:12px 0;margin-top:0;border-bottom:1px solid #dde2e9}
+.exc{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#3a4350;margin-right:4px}
+.exc .opts{display:inline-flex;border:1px solid #b9c1cc;border-radius:6px;overflow:hidden}
+.exc .opts button{border:0;border-right:1px solid #b9c1cc;background:#fff;font:inherit;font-size:12px;padding:0 10px;min-height:32px;cursor:pointer;color:#2b3340}
+.exc .opts button:last-child{border-right:0}
+.exc .opts button.on{background:#0a5bd3;color:#fff}
+.btn:not(.primary) .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+.loadbox{display:flex;gap:10px;align-items:center;justify-content:center;padding:36px 16px;color:#5b6575;font-size:14px}
+.loadbox .spin{border-color:rgba(10,91,211,.25);border-top-color:#0a5bd3}
+td.empty{text-align:center;color:#5b6575;padding:18px 10px}
+.nores{display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 36px;font-size:13px;color:#2b3340}
+.nores-i{width:72px;height:72px;color:#9aa4b2}
+.nores-i.warn-i{color:#c77700}
+.notes{background:#f8fafc;border:1px dashed #b9c1cc;border-radius:10px;padding:14px 20px 16px;font-size:13px;color:#3a4350;line-height:1.55;margin-top:28px}
+.notes h3{margin:0 0 6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#5b6575}
+.notes ul{margin:0;padding-left:18px}
+.overlay{position:fixed;inset:0;background:rgba(20,26,36,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.dialog{background:#fff;border-radius:10px;max-width:460px;width:100%;padding:22px 24px;box-sizing:border-box}
+.dialog h2{margin:0 0 8px;font-size:18px}
+.dialog p{margin:0 0 18px;font-size:14px;color:#3a4350;line-height:1.5}
+.tblwrap{overflow-x:auto;padding:4px 20px 20px}
+table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.acc th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
+table.acc th.num{text-align:right}
+table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
+table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.acc td.na{text-align:right;color:#8a93a1}
+table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
+table.acc tr.total td{font-weight:600}
+/*icons*/.btn,.sbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;box-sizing:border-box;white-space:nowrap}.lact{flex-wrap:nowrap}.i{width:16px;height:16px;flex:none}.sbtn .i{width:14px;height:14px}.btn.small .i{width:14px;height:14px}.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.spin{animation-duration:2.4s}}</style>
+</head>
+<body>
+<style>.mock-home{display:flex;justify-content:flex-end;max-width:1440px;margin:0 auto;padding:10px 24px 0;box-sizing:border-box;font:14px Inter,system-ui,sans-serif}.mock-home a{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px dashed #9aa4b2;border-radius:8px;background:#fffbe8;color:#2b3340;text-decoration:none;font-weight:600}.mock-home a:hover{border-color:#0a5bd3;color:#0a5bd3}</style><nav class="mock-home" aria-label="Mockup navigation"><a href="index.html"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Mockups home</a></nav>
+<template id="dc-template">
+<div class="page">
+  <div class="mock" aria-label="Mockup controls">
+    <span class="mock-t">Mockup controls — not part of the design</span>
+    <div class="mock-g">Mode
+      <div class="seg">
+        <button type="button" class="{{segView}}" onClick="{{toView}}">View</button>
+        <button type="button" class="{{segEdit}}" onClick="{{toEdit}}">Edit</button>
+        <button type="button" class="{{segAdd}}" onClick="{{toAdd}}">Add</button>
+      </div>
+      <span>No Delete: Header Action DE deletes a batch</span>
+    </div>
+    <div class="mock-g">Role
+      <div class="seg">
+        <button type="button" class="{{segAdmin}}" onClick="{{toAdmin}}">Payroll Admin</button>
+        <button type="button" class="{{segReader}}" onClick="{{toReader}}">Read-only</button>
+      </div>
+    </div>
+    <div class="mock-g">Data
+      <div class="seg">
+        <button type="button" class="{{segLoaded}}" onClick="{{toLoaded}}">Loaded</button>
+        <button type="button" class="{{segLoading}}" onClick="{{toLoading}}">Loading</button>
+      </div>
+    </div>
+    <div class="mock-g">Next Add / Update
+      <div class="seg">
+        <button type="button" class="{{segRok}}" onClick="{{rOk}}">Succeeds</button>
+        <button type="button" class="{{segRerr}}" onClick="{{rErr}}">Error</button>
+        <button type="button" class="{{segR409}}" onClick="{{r409}}">409 changed</button>
+        <button type="button" class="{{segR122}}" onClick="{{r122}}">TS0122</button>
+        <button type="button" class="{{segR403}}" onClick="{{r403}}">403 writes off</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="titlebar sticky">
+    <div>
+      <a class="back" href="payroll-cycle.html" title="Back to Batches">← Back</a>
+      <h1>{{title}}</h1>
+      <div class="sub">{{subtitle}}</div>
+    </div>
+    <div class="actions">
+      <template data-sc-if value="{{showViewActions}}" hint-placeholder-val="{{ true }}">
+        <template data-sc-if value="{{showEditBtn}}"><button type="button" class="btn primary" onClick="{{toEdit}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4L16.5 3.5z"/><path d="M14 6l4 4"/></svg>Edit</button></template>
+      </template>
+      <template data-sc-if value="{{showSaveActions}}" hint-placeholder-val="{{ false }}">
+        <span class="exc" role="group" aria-label="Exceptions"><span class="opts"><button type="button" class="{{excReturn}}" onClick="{{setReturn}}">Return Exceptions</button><button type="button" class="{{excOverride}}" onClick="{{setOverride}}">Override Exceptions</button></span></span>
+        <template data-sc-if value="{{showEditDelete}}" hint-placeholder-val="{{ false }}">
+          <button type="button" class="btn danger" onClick="{{askDelete}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Delete</button>
+          <span class="sep" aria-hidden="true"></span>
+        </template>
+        <button type="button" class="btn" onClick="{{cancel}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Cancel</button>
+        <template data-sc-if value="{{showAddBtn}}"><button type="button" class="{{addCls}}" onClick="{{doAdd}}" aria-busy="{{busyAdd}}"><template data-sc-if value="{{savingAdd}}"><span class="spin" aria-hidden="true"></span>Adding…</template><template data-sc-if value="{{idleAdd}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add</template></button></template>
+        <template data-sc-if value="{{showUpdateBtn}}"><button type="button" class="btn primary" onClick="{{doUpdate}}" aria-busy="{{busyUpd}}"><template data-sc-if value="{{savingUpd}}"><span class="spin" aria-hidden="true"></span>Updating…</template><template data-sc-if value="{{idleUpd}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3"/><circle cx="12" cy="15" r="2.5"/></svg>Update</template></button></template>
+      </template>
+    </div>
+    <template data-sc-if value="{{showBannerRow}}" hint-placeholder-val="{{ false }}"><div class="hb">
+      <template data-sc-if value="{{showErr}}"><div class="dsb" role="alert"><svg class="dsb-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><div class="dsb-b">{{errDetail}}<template data-sc-if value="{{errHost}}"> ({{errHost}})</template><div class="dsb-s">11/18/2026 9:42 AM</div></div></div></template>
+      <template data-sc-if value="{{showConflict}}"><div class="dsb warning" role="alert"><svg class="dsb-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><div class="dsb-b">Someone else changed this record after you opened it, so it has been reloaded with the latest values. Make your change again.<div class="dsb-s">11/18/2026 9:42 AM</div></div></div></template>
+    </div></template>
+  </div>
+
+  <template data-sc-if value="{{banner}}" hint-placeholder-val="{{ false }}">
+    <div class="banner" role="status">{{banner}}</div>
+  </template>
+    <template data-sc-if value="{{showViewActions}}" hint-placeholder-val="{{ true }}"><section class="card" aria-label="Detail records">
+    <h2>Detail Records</h2>
+    <div class="actions" style="justify-content:flex-start;flex-wrap:wrap;gap:10px">
+      <a class="btn" href="cycle-detail.html?form=time">Time Entry</a>
+      <a class="btn" href="cycle-detail.html?form=long">Long Form</a>
+      <span class="help" style="margin:0">20TM’s transaction type (EARN) uses detail form G5: Time Entry and Long Form. A G4 type shows Period Overrides instead.</span>
+    </div>
+  </section></template>
+
+  <template data-sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
+    <section class="card"><div class="loadbox" role="status"><span class="spin" aria-hidden="true"></span>Loading…</div></section>
+  </template>
+  <template data-sc-for list="{{sections}}" as="s" hint-placeholder-count="4">
+    <section class="card">
+      <template data-sc-if value="{{s.title}}"><h2>{{s.title}}</h2></template>
+      <div class="{{s.gridCls}}">
+        <template data-sc-for list="{{s.fields}}" as="f" hint-placeholder-count="3">
+          <div class="f">
+            <label class="lbl" for="{{f.id}}">{{f.label}}<template data-sc-if value="{{f.reqMark}}"><span class="req" aria-hidden="true">*</span></template></label>
+            <template data-sc-if value="{{f.isText}}">
+              <input class="in" id="{{f.id}}" type="text" defaultValue="{{f.cur}}" placeholder="{{f.ph}}">
+            </template>
+            <template data-sc-if value="{{f.isSelect}}">
+              <select class="in" id="{{f.id}}" defaultValue="{{f.cur}}">
+                <template data-sc-for list="{{f.options}}" as="o"><option value="{{o.v}}">{{o.l}}</option></template>
+              </select>
+            </template>
+            <template data-sc-if value="{{f.isRadio}}">
+              <div class="radios" role="radiogroup" aria-label="{{f.label}}">
+                <template data-sc-for list="{{f.options}}" as="o"><label class="radio"><input type="radio" name="{{f.id}}" value="{{o.v}}" defaultChecked="{{o.checked}}">{{o.l}}</label></template>
+              </div>
+            </template>
+            <template data-sc-if value="{{f.isCheck}}">
+              <label class="radio"><input type="checkbox" id="{{f.id}}" defaultChecked="{{f.checked}}">{{f.cbText}}</label>
+            </template>
+            <template data-sc-if value="{{f.showValue}}">
+              <div class="{{f.valCls}}" id="{{f.id}}">{{f.view}}</div>
+            </template>
+            <template data-sc-if value="{{f.hasHelp}}"><div class="help">{{f.help}}</div></template>
+            <template data-sc-if value="{{f.hasSrc}}"><div class="src">{{f.src}}</div></template>
+          </div>
+        </template>
+      </div>
+    </section>
+  </template>
+
+  <div class="notes">
+    <h3>Notes for the OutSystems build</h3>
+    <ul>
+      <li>Pattern: <strong>Editable</strong> (Add, Edit). One block for view and edit: Edit switches only the editable fields to inputs, in place; read-only fields stay plain text in the same position. Add opens the same block already in edit mode (empty colToken) and loads its dropdowns from <code>/options</code> or <code>/v1/codes</code>, never the detail GET.</li>
+      <li>Mockup controls <strong>Data</strong> and <strong>Next Add / Update</strong> show the states every screen needs: a loading state while the GET runs; Add / Update busy (“Adding…” / “Updating…”) and disabled while the write runs; a <code>MessageBanner</code> with <code>detail</code> and “(<code>hostCode</code> – <code>hostMessage</code>)” after it when <code>hostCode</code> isn’t null (sample text); 409 = tell the user and reload; 403 = writes are off, nothing saved. TS0122 (with Return Exceptions) = the message says to switch to Override Exceptions and save again. Errors show in <code>StickyPageHeader</code>’s banner row (its <code>Message</code> inputs, drawn by <code>MessageBanner</code>), so they stay in view while the page scrolls.</li>
+      <li><strong>Return Exceptions | Override Exceptions</strong> (LifeView’s Submit Options), the <code>ExceptionHandlingToggle</code> block: shown while editing, Return by default and reset to Return every time the form opens and after each save. Override sends <code>?overrideExceptions=true</code> on the write.</li>
+      <li>Sections, field order and labels: legacy PayBatchHeaderDetail (View / Edit) and PayAddNewBatchDetail (Add). Buttons: <strong>Edit, Update</strong>; Add from the Batches list. <strong>No Delete button</strong>: a batch is deleted, opened, balanced, held or closed by saving its <strong>Batch Header Action</strong> (OP / BA / HO / CL / DE), as in LifeView.</li>
+      <li>Calls: <code>PayrollPayBatchDetail_Get</code> (<code>GET /v1/payroll/pay-batches/{batchId}</code> + the row’s other six keys as query params), <code>PayrollPayBatch_Update</code> (PUT, same keys; colToken in the body; omitted = unchanged, "" = cleared), <code>PayrollPayBatch_Create</code> (POST).</li>
+      <li>Add: a uniform batch needs Batch ID, Pay Entity, Pay Year, Pay Period and Transaction Type; a mixed batch (Mixed Batch? = Y) only Batch ID and Transaction Type. Batch Header Action must be OP (defaulted). The control totals are optional. Effective Date and Batch Status aren’t on the Add: Payroll sets them.</li>
+      <li>Batch ID and Mixed Batch? can’t change after the Add; Status, Pay Id, Tax Entity, Detail Form and the balancing results are display-only.</li>
+      <li><strong>Detail Records</strong> buttons open the batch’s grid: Time Entry + Long Form when Detail Form starts G5, Period Overrides when it starts G4. Time Entry needs Pay Year and Period (else Long Form). Those grids aren’t built in the gateway yet.</li>
+      <li><strong>Writes are double-gated</strong>, like Online Check: the gateway answers 403 unless both <code>WRITES_ENABLED</code> and <code>PAYROLL_PROCESSING_ENABLED</code> are on (a closed batch is picked up by the payroll run). Show the 403 as a <code>MessageBanner</code>; nothing is saved.</li>
+      <li>Not yet live-confirmed: the header’s full layout, the Add, the Update, and the status each header action leaves.</li>
+    </ul>
+  </div>
+
+</div>
+</template>
+<div id="dc-root"></div>
+<script>
+(function(){
+  var HOLE=/\{\{([^}]*)\}\}/g;
+  function get(scope,e){e=(e||'').trim();if(e==='true')return true;if(e==='false')return false;
+    return e.split('.').reduce(function(a,k){return a==null?undefined:a[k];},scope);}
+  function one(s){var m=(s||'').match(/^\s*\{\{([^}]*)\}\}\s*$/);return m?m[1]:null;}
+  function interp(s,scope){return s.replace(HOLE,function(m,e){var v=get(scope,e);return v==null||v===false?'':String(v);});}
+  function build(nodes,scope,out){
+    for(var i=0;i<nodes.length;i++){var n=nodes[i];
+      if(n.nodeType===3){out.appendChild(document.createTextNode(interp(n.data,scope)));continue;}
+      if(n.nodeType!==1)continue;
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-if')){if(get(scope,one(n.getAttribute('value'))))build(n.content.childNodes,scope,out);continue;}
+      if(n.tagName==='TEMPLATE'&&n.hasAttribute('data-sc-for')){
+        var list=get(scope,one(n.getAttribute('list')))||[],as=n.getAttribute('as');
+        list.forEach(function(item){var sc=Object.create(scope);sc[as]=item;build(n.content.childNodes,sc,out);});continue;}
+      var el=n.cloneNode(false),post=[];
+      Array.prototype.slice.call(el.attributes).forEach(function(a){
+        var nm=a.name,v=a.value;
+        if(nm.indexOf('hint-placeholder')===0){el.removeAttribute(nm);return;}
+        if(v.indexOf('{{')<0)return;
+        if(nm.slice(0,2)==='on'){el.removeAttribute(nm);var fn=get(scope,one(v));if(typeof fn==='function')el.addEventListener(nm.slice(2),fn);return;}
+        if(nm==='defaultvalue'){el.removeAttribute(nm);var dv=get(scope,one(v));post.push(function(){el.value=dv==null?'':dv;});return;}
+        if(nm==='defaultchecked'){el.removeAttribute(nm);el.checked=!!get(scope,one(v));return;}
+        el.setAttribute(nm,interp(v,scope));
+      });
+      build(n.childNodes,scope,el);post.forEach(function(f){f();});out.appendChild(el);
+    }
+  }
+  var tpl=document.getElementById('dc-template'),root=document.getElementById('dc-root'),comp;
+  window.DCLogic=function(props){this.props=props||{};this.state={};};
+  window.DCLogic.prototype.setState=function(o){Object.assign(this.state,o);render();};
+  window.DCLogic.prototype.renderVals=function(){return {};};
+  function render(){var y=window.scrollY;root.replaceChildren();build(tpl.content.childNodes,comp.renderVals(),root);window.scrollTo(0,y);}
+  window.__dcMount=function(C){var q={};new URLSearchParams(location.search).forEach(function(v,k){q[k]=v;});comp=new C({query:q});render();
+    if(location.hash){var t=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView();}};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var q = (props && props.query) || {}, S = this.spec();
+    var m = q.mode && S.modes.indexOf(q.mode) >= 0 ? q.mode : 'view';
+    this.state = { mode: m, role: 'admin', dialog: false, banner: '', result: 'ok', err: '', conflict: false, loading: false, exc: 'return', saving: '', last: '' };
+  }
+  spec() { return {"modes": ["view", "edit", "add"], "canDelete": false, "title": "Batch Header", "subtitle": "Batch 20TM · B - REGULAR BI-WEEKLY · Pay Year 26, Period 20", "addTitle": "Add New Batch", "addSubtitle": "A new batch opens with Header Action OP - OPEN BATCH", "addedMsg": "Batch added. (In the app this goes on to the batch’s Time Entry, Long Form or Period Overrides.)", "deletedMsg": "", "sections": [{"title": "Batch Identification", "fields": [{"label": "Batch ID", "view": "20TM", "e": "add", "k": "text", "val": "20TM", "req": true, "ph": "Up to 7 characters"}, {"label": "Pay Entity", "view": "B - REGULAR BI-WEEKLY", "e": "both", "k": "select", "src": "Options: GET /v1/codes/PAY_ENTITY (table 00028)", "val": "B", "helpAdd": "Required unless Mixed Batch? is Y.", "options": [{"v": "B", "l": "B – REGULAR BI-WEEKLY"}, {"v": "C", "l": "C – CONTRACT BI-WEEKLY"}, {"v": "P", "l": "P – PENSION MONTHLY"}, {"v": "S", "l": "S – POLICE/FIRE BIWEEKLY"}, {"v": "X", "l": "X – TEST PAY ENTITY"}]}, {"label": "Mixed Batch ?", "view": "N - No", "e": "add", "k": "select", "val": "N", "helpAdd": "Y = a batch across pay entities: only Batch ID and Transaction Type are required.", "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}], "addVal": "N"}, {"label": "Pay Year", "view": "26", "e": "both", "k": "text", "val": "26", "ph": "YY", "helpAdd": "Required unless Mixed Batch? is Y."}, {"label": "Pay Period", "view": "20", "e": "both", "k": "text", "val": "20", "ph": "e.g. 20", "helpAdd": "Required unless Mixed Batch? is Y."}, {"label": "Transaction Type", "view": "EARN - EARNINGS TRANSACTIONS", "e": "both", "k": "select", "src": "Options: GET /v1/codes/BATCH_TYPE (table 00355)", "val": "EARN", "req": true, "options": [{"v": "AD", "l": "AD – ADVANCED DISABILITY"}, {"v": "CRRCTN", "l": "CRRCTN – DEPT ENTER PP CORECTION BATCH"}, {"v": "DED", "l": "DED – DEDUCTION TRANSACTIONS"}, {"v": "EARN", "l": "EARN – EARNINGS TRANSACTIONS"}, {"v": "ED", "l": "ED – EDUCATION ASSIST"}, {"v": "ME", "l": "ME – MILEAGE EXPENSE"}, {"v": "PAYADJ", "l": "PAYADJ – PAY ADJUSTMENTS"}, {"v": "PERIOD", "l": "PERIOD – PERIOD OVERRIDES"}, {"v": "TAX", "l": "TAX – TAX CYCLE FILE"}, {"v": "TAX/DED", "l": "TAX/DED – TAXES AND DEDUCTIONS"}, {"v": "TIMECARD", "l": "TIMECARD – TIME CARDS"}, {"v": "TR", "l": "TR – TRIP REDUCTION"}, {"v": "WP", "l": "WP – WORKER COMP ADJUSTMENT"}]}, {"label": "Tax Entity", "view": "10000 - City of Long Beach", "e": "none", "k": "text", "val": "10000 - City of Long Beach", "addView": "Set by Payroll"}, {"label": "Batch Status", "view": "A", "e": "none", "k": "text", "val": "A", "addView": "Set by Payroll"}, {"label": "Pay Id", "view": "B - REGULAR BI-WEEKLY", "e": "none", "k": "text", "val": "B - REGULAR BI-WEEKLY", "addView": "Set by Payroll"}], "cols": 3}, {"title": "Batch Description", "fields": [{"label": "Batch Header Action", "view": "BA - BALANCE BATCH", "e": "both", "k": "select", "src": "Options: GET /v1/codes/BATCH_HEADER_ACTION (table 00360)", "val": "BA", "req": true, "help": "OP open · BA balance · HO hold · CL close (picked up by the payroll run) · DE delete the batch.", "helpAdd": "Must be OP - OPEN BATCH to add a batch.", "options": [{"v": "BA", "l": "BA – BALANCE BATCH"}, {"v": "CL", "l": "CL – CLOSE BATCH"}, {"v": "DE", "l": "DE – DELETE BATCH"}, {"v": "HO", "l": "HO – HOLD BATCH"}, {"v": "OP", "l": "OP – OPEN BATCH"}], "addVal": "OP"}, {"label": "Check Code", "view": "R - REGULAR", "e": "both", "k": "select", "src": "Options: GET /v1/codes/CHECK_CODE (table 00453)", "val": "R", "options": [{"v": "A", "l": "A – AUTO ALLOWANCE"}, {"v": "D", "l": "D – ADVANCE DISABILITY"}, {"v": "E", "l": "E – EDUCATION ASSISTANCE"}, {"v": "G", "l": "G – WAGE ASSIGNMENT"}, {"v": "M", "l": "M – MANAGEMENT INCENTIVE"}, {"v": "R", "l": "R – REGULAR"}, {"v": "S", "l": "S – SUGGESTION AWARDS"}, {"v": "T", "l": "T – THIRD PARTY CHECK"}, {"v": "W", "l": "W – WORKER'S COMPENSATION"}]}, {"label": "Effective Date", "view": "08/21/2026", "e": "edit", "k": "text", "val": "08/21/2026", "ph": "MM/DD/YYYY", "addView": "Set by Payroll"}, {"label": "Detail Form", "view": "G5", "e": "none", "k": "text", "val": "G5", "addView": "From the Transaction Type"}, {"label": "Last Item", "view": "—", "e": "none", "k": "text", "val": "", "addView": "—"}, {"label": "Batch Edit Ind", "view": "N", "e": "none", "k": "text", "val": "N", "addView": "—"}], "cols": 3}, {"title": "Report and Balancing Controls", "fields": [{"label": "Batch Balance Ind", "view": "Y - Yes", "e": "both", "k": "select", "val": "Y", "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}], "addVal": "Y"}, {"label": "Batch List Ind", "view": "N - No", "e": "both", "k": "select", "val": "N", "options": [{"v": "Y", "l": "Yes"}, {"v": "N", "l": "No"}], "addVal": "N"}, {"label": "Batch Ctl Count", "view": "14", "e": "both", "k": "text", "val": "14", "ph": "0", "help": "Optional control totals: balancing compares the details against them."}, {"label": "Amount", "view": "2,840.00", "e": "both", "k": "text", "val": "2840.00", "ph": "0.00"}, {"label": "Batch Ctl Base Hours", "view": "112.00", "e": "both", "k": "text", "val": "112.00", "ph": "0.00"}, {"label": "Batch Ctl Rates", "view": "0.00", "e": "both", "k": "text", "val": "0.00", "ph": "0.00"}, {"label": "Batch Ctl Units", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}], "cols": 3}, {"title": "Results from Balancing the Batch", "fields": [{"label": "Balance Status", "view": "O", "e": "none", "k": "text", "val": "O", "addView": "—"}], "cols": 3}, {"title": "Last Balance", "fields": [{"label": "Count", "view": "12", "e": "none", "k": "text", "val": "12", "addView": "—"}, {"label": "Amount", "view": "2,612.50", "e": "none", "k": "text", "val": "2,612.50", "addView": "—"}, {"label": "Base Hours", "view": "104.00", "e": "none", "k": "text", "val": "104.00", "addView": "—"}, {"label": "Rates", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Units", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}], "cols": 5}, {"title": "Out of Balance", "fields": [{"label": "Count", "view": "2", "e": "none", "k": "text", "val": "2", "addView": "—"}, {"label": "Amount", "view": "227.50", "e": "none", "k": "text", "val": "227.50", "addView": "—"}, {"label": "Base Hours", "view": "8.00", "e": "none", "k": "text", "val": "8.00", "addView": "—"}, {"label": "Rates", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Units", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}], "cols": 5}, {"title": "Held Details", "fields": [{"label": "Count", "view": "0", "e": "none", "k": "text", "val": "0", "addView": "—"}, {"label": "Amount", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Base Hours", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Rates", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Units", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}], "cols": 5}, {"title": "Open Details", "fields": [{"label": "Count", "view": "12", "e": "none", "k": "text", "val": "12", "addView": "—"}, {"label": "Amount", "view": "2,612.50", "e": "none", "k": "text", "val": "2,612.50", "addView": "—"}, {"label": "Base Hours", "view": "104.00", "e": "none", "k": "text", "val": "104.00", "addView": "—"}, {"label": "Rates", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Units", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}], "cols": 5}, {"title": "Processed Details", "fields": [{"label": "Count", "view": "0", "e": "none", "k": "text", "val": "0", "addView": "—"}, {"label": "Amount", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Base Hours", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Rates", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}, {"label": "Units", "view": "0.00", "e": "none", "k": "text", "val": "0.00", "addView": "—"}], "cols": 5}], "exceptions": true, "addFromEdit": false}; }
+  field(f, mode, n) {
+    var edit = f.e === 'both' ? mode !== 'view' : (f.e === 'add' ? mode === 'add' : (f.e === 'edit' ? mode === 'edit' : false));
+    var cur = mode === 'add' ? (f.addVal != null ? f.addVal : '') : (f.val != null ? f.val : '');
+    var kind = f.k || 'text';
+    var opts = (f.options || []).map(function (o) { return { v: o.v, l: o.l, checked: o.v === cur }; });
+    if (kind === 'select' && cur === '') opts = [{ v: '', l: 'Select…', checked: true }].concat(opts);
+    var help = mode === 'add' && f.helpAdd ? f.helpAdd : (f.help || '');
+    return {
+      id: 'f' + n, label: f.label, view: f.blank ? '' : (mode === 'add' && !edit ? (f.addView || '—') : (f.view || '—')),
+      cur: cur, ph: f.ph || '', options: opts,
+      isText: edit && kind === 'text', isSelect: edit && kind === 'select', isRadio: edit && kind === 'radio',
+      isCheck: edit && kind === 'checkbox', checked: cur === 'Y', cbText: f.cb || '',
+      showValue: !edit, valCls: mode !== 'view' ? 'val muted' : 'val',
+      reqMark: edit && !!f.req, hasHelp: edit && !!help, help: help,
+      hasSrc: edit && !!f.src, src: f.src || ''   // where a dropdown's options come from: only on an input. In View the GET already carries the description (no lookup).
+    };
+  }
+  renderVals() {
+    var self = this, S = this.spec(), mode = this.state.mode, admin = this.state.role === 'admin';
+    var canEdit = S.modes.indexOf('edit') >= 0, canAdd = S.modes.indexOf('add') >= 0;
+    var n = 0;
+    var sections = S.sections.map(function (s) { return { title: s.title, gridCls: 'grid c' + (s.cols || 3), fields: s.fields.map(function (f) { n++; return self.field(f, mode, n); }) }; });
+    var set = function (o) { return function () { self.setState(o); }; };
+    var clr = { banner: '', err: '', conflict: false };
+    var ERR = {
+      err: ['Effective Date must be within the current pay period, 08/08/2026 through 08/21/2026.', 'TS8033 – EFFECTIVE DATE NOT IN CURRENT PAY PERIOD'],
+      w403: ['Changes can’t be saved right now: writes are turned off on this gateway. Nothing was saved.', ''],
+      '122': ['The payroll system flagged an exception on this change. Try again with Override Exceptions to accept it.', 'TS0122 – PROHIBITED FIELD']
+    };
+    var R = this.state.result, ld = this.state.loading, X = this.state.exc, sv = this.state.saving;
+    // what = 'add' (a new row) or 'update' (this record in place). The Save buttons show a busy state for ~1s first.
+    var finish = function (what, ovr) {
+      var msg = what === 'add' ? (mode === 'add' ? S.addedMsg : 'Added as a new row; the record you opened is unchanged.') : 'Updated.';
+      self.setState({ banner: msg + (ovr ? ' Exceptions were overridden.' : ''), err: '', conflict: false, mode: 'view', exc: 'return', saving: '' });
+    };
+    var run = function (what, ovr) {
+      if (R === 'err' || R === 'w403') return self.setState({ err: R, banner: '', conflict: false, saving: '' });
+      if (R === '409') return self.setState({ conflict: true, err: '', banner: '', saving: '', mode: mode === 'add' ? 'add' : 'view' });
+      if (R === '122' && !ovr) return self.setState({ err: '122', banner: '', saving: '', last: what });
+      finish(what, ovr);
+    };
+    var go = function (what, ovr) { return function () { self.setState({ saving: what }); setTimeout(function () { run(what, ovr); }, 900); }; };
+    var e = ERR[this.state.err];
+    return {
+      sections: ld ? [] : sections, loading: ld,
+      showErr: !!e, errDetail: e ? e[0] : '', errHost: e ? e[1] : '',
+      showBannerRow: !!e || this.state.conflict,
+      showConflict: this.state.conflict,
+      excReturn: X === 'return' ? 'on' : '', excOverride: X === 'override' ? 'on' : '',
+      setReturn: set({ exc: 'return' }), setOverride: set({ exc: 'override' }),
+      showAddBtn: mode === 'add' || (mode === 'edit' && S.addFromEdit), showUpdateBtn: mode === 'edit',
+      addCls: mode === 'add' ? 'btn primary' : 'btn',
+      doAdd: go('add', X === 'override'), doUpdate: go('update', X === 'override'),
+      savingAdd: sv === 'add', idleAdd: sv !== 'add', busyAdd: sv === 'add' ? 'true' : 'false',
+      savingUpd: sv === 'update', idleUpd: sv !== 'update', busyUpd: sv === 'update' ? 'true' : 'false',
+      segLoaded: ld ? '' : 'on', segLoading: ld ? 'on' : '', toLoaded: set({ loading: false }), toLoading: set({ loading: true }),
+      segRok: R === 'ok' ? 'on' : '', segRerr: R === 'err' ? 'on' : '', segR409: R === '409' ? 'on' : '', segR122: R === '122' ? 'on' : '', segR403: R === 'w403' ? 'on' : '',
+      rOk: set({ result: 'ok' }), rErr: set({ result: 'err' }), r409: set({ result: '409' }), r122: set({ result: '122' }), r403: set({ result: 'w403' }),
+      title: mode === 'add' ? S.addTitle : S.title,
+      subtitle: mode === 'add' ? S.addSubtitle : S.subtitle,
+      showViewActions: mode === 'view' && !ld, showEditBtn: admin && canEdit,
+      showSaveActions: mode !== 'view' && !ld,
+      showEditDelete: mode === 'edit' && S.canDelete,
+      banner: this.state.banner,
+      showDialog: this.state.dialog,
+      segView: mode === 'view' ? 'on' : '', segEdit: mode === 'edit' ? 'on' : '', segAdd: mode === 'add' ? 'on' : '',
+      segAdmin: admin ? 'on' : '', segReader: admin ? '' : 'on',
+      toView: set(Object.assign({ mode: 'view' }, clr)), toEdit: set(Object.assign({ mode: 'edit', exc: 'return' }, clr)), toAdd: set(Object.assign({ mode: 'add', exc: 'return' }, clr)),
+      toAdmin: set({ role: 'admin' }), toReader: set(Object.assign({ role: 'reader', mode: 'view' }, clr)),
+      cancel: set(Object.assign({ mode: 'view' }, clr)),
+      askDelete: set({ dialog: true }), closeDialog: set({ dialog: false }),
+      confirmDelete: set({ dialog: false, mode: 'view', banner: S.deletedMsg })
+    };
+  }
+}
+
+__dcMount(Component);
+</script>
+</body>
+</html>

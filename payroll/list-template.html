@@ -101,9 +101,11 @@ table.acc tr.total td{font-weight:600}
 .tile{border:1px solid #dde2e9;border-radius:6px;min-height:76px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:600;font-size:14px;color:#2b3340;background:#fff}
 .tile .ic{color:#0a5bd3;font-size:16px}
 .tile.on{background:#e3edfb;border-color:#0a5bd3;color:#0a5bd3}
-.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid #d3d9e1;margin-bottom:22px}
-.tabs button{border:0;background:none;font:inherit;font-size:13px;color:#2b3340;padding:10px 13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
-.tabs button.on{border-bottom-color:#1c2431;font-weight:600}
+.tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;border-bottom:1px solid #dde2e9;margin-bottom:16px}
+.tabs button{flex:none;display:inline-flex;align-items:center;white-space:nowrap;min-height:42px;box-sizing:border-box;border:0;background:none;font:inherit;font-size:14px;font-weight:400;color:#6a7383;padding:8px 16px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color 180ms ease,border-color 200ms linear}
+.tabs button:hover:not(.on){color:#1c2431}
+.tabs button.on{color:#1c2431;text-shadow:0 0 .5px currentColor;border-bottom-color:#0a5bd3}
+.tabs button:focus-visible{outline:none;background:#e3edfb;color:#1c2431}
 .lhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
 .lhead h2{margin:0;font-size:16px;font-weight:700}
 .sbtn{min-height:32px;padding:0 14px;border-radius:4px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #0a5bd3;background:#0a5bd3;color:#fff;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}

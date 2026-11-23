@@ -84,10 +84,7 @@ td.empty{text-align:center;color:#5b6575;padding:18px 10px}
 .tblwrap{overflow-x:auto;padding:4px 20px 20px}
 table.acc{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
 table.acc th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
-table.acc th.num{text-align:right}
 table.acc td{padding:10px 12px;border-bottom:1px solid #e8ecf1}
-table.acc td.num{text-align:right;font-variant-numeric:tabular-nums}
-table.acc td.na{text-align:right;color:#8a93a1}
 table.acc tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
 table.acc tr.total td{font-weight:600}
 
@@ -113,6 +110,7 @@ table.acc tr.total td{font-weight:600}
 .sbtn[disabled]{opacity:.45;cursor:default}
 .filters{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;margin-bottom:14px}
 .filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
+.filters .factions{display:flex;gap:8px}
 .filters input{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;box-sizing:border-box}
 table.list{border-collapse:collapse;width:100%;font-size:12px}
 table.list th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;padding:12px 10px}
@@ -190,7 +188,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>Pay Period<input type="text" placeholder="e.g. 17"></label>
       <label>Status<input type="text" placeholder="e.g. A"></label>
       <label>Transaction Type<select><option>Select…</option><option>AD - ADVANCED DISABILITY</option><option>CRRCTN - DEPT ENTER PP CORECTION BATCH</option><option>DED - DEDUCTION TRANSACTIONS</option><option>EARN - EARNINGS TRANSACTIONS</option><option>ED - EDUCATION ASSIST</option><option>ME - MILEAGE EXPENSE</option><option>PAYADJ - PAY ADJUSTMENTS</option><option>PERIOD - PERIOD OVERRIDES</option><option>TAX - TAX CYCLE FILE</option><option>TAX/DED - TAXES AND DEDUCTIONS</option><option>TIMECARD - TIME CARDS</option><option>TR - TRIP REDUCTION</option><option>WP - WORKER COMP ADJUSTMENT</option></select></label>
-      <button type="button" class="sbtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search</button><button type="button" class="sbtn out"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Reset</button>
+      <div class="factions"><button type="button" class="sbtn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search</button><button type="button" class="sbtn out"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Reset</button></div>
     </div>
     <template data-sc-if value="{{lsEmpty}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5l5 5"/></svg>No results found matching search criteria.</div></template>
     <template data-sc-if value="{{lsError}}" hint-placeholder-val="{{ false }}"><div class="nores" role="alert"><svg class="nores-i warn-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18.2a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>Couldn’t load this list: the server didn’t respond in time. Try again in a moment.</div></template>
@@ -246,7 +244,7 @@ table.list tbody tr:nth-child(even) td{background:#eaf1fb}
       <label>BT Stat<input type="text" placeholder="e.g. R"></label>
       <label>Detail Status<input type="text" placeholder="e.g. A"></label>
       <label>Transaction Type<select><option>Select…</option><option>AD - ADVANCED DISABILITY</option><option>CRRCTN - DEPT ENTER PP CORECTION BATCH</option><option>DED - DEDUCTION TRANSACTIONS</option><option>EARN - EARNINGS TRANSACTIONS</option><option>ED - EDUCATION ASSIST</option><option>ME - MILEAGE EXPENSE</option><option>PAYADJ - PAY ADJUSTMENTS</option><option>PERIOD - PERIOD OVERRIDES</option><option>TAX - TAX CYCLE FILE</option><option>TAX/DED - TAXES AND DEDUCTIONS</option><option>TIMECARD - TIME CARDS</option><option>TR - TRIP REDUCTION</option><option>WP - WORKER COMP ADJUSTMENT</option></select></label>
-      <button type="button" class="sbtn" onClick="{{search}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search</button><button type="button" class="sbtn out"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Reset</button>
+      <div class="factions"><button type="button" class="sbtn" onClick="{{search}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>Search</button><button type="button" class="sbtn out"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Reset</button></div>
     </div>
     <template data-sc-if value="{{needEmp}}" hint-placeholder-val="{{ false }}"><div class="nores" role="status"><svg class="nores-i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Enter an Employee ID and click Search.</div></template>
     <template data-sc-if value="{{empSearched}}" hint-placeholder-val="{{ false }}">

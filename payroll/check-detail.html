@@ -55,9 +55,7 @@ h1{margin:0;font-size:24px;font-weight:600}
 .tblwrap{overflow-x:auto;padding:4px 20px 20px}
 table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
 th{background:#0a5bd3;color:#fff;text-align:left;font-weight:600;font-size:12px;padding:10px 12px}
-th.num{text-align:right}
 td{padding:9px 12px;border-bottom:1px solid #e8ecf1}
-td.num{text-align:right;font-variant-numeric:tabular-nums}
 tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;letter-spacing:.03em;text-transform:uppercase;padding:8px 12px}
 .addline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 20px 20px}
 .banner{padding:12px 16px;border-radius:8px;background:#e7f4ec;border:1px solid #9fd3b4;color:#14532d;font-size:14px;margin-bottom:16px}
@@ -152,7 +150,7 @@ tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;lett
     <div class="tblwrap">
       <table>
         <thead>
-          <tr><th scope="col">ETV Code</th><th scope="col">ETV ID</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Base</th><th scope="col" class="num">Rate</th><th scope="col" class="num">Amount</th><th scope="col">Status</th><th scope="col">Sequence #</th><template data-sc-if value="{{editing}}"><th scope="col"><span style="position: absolute; left: -9999px">Remove</span></th></template></tr>
+          <tr><th scope="col">ETV Code</th><th scope="col">ETV ID</th><th scope="col">Hours</th><th scope="col">Base</th><th scope="col">Rate</th><th scope="col">Amount</th><th scope="col">Status</th><th scope="col">Sequence #</th><template data-sc-if value="{{editing}}"><th scope="col"><span style="position: absolute; left: -9999px">Remove</span></th></template></tr>
         </thead>
         <tbody>
           <template data-sc-for list="{{lines}}" as="l" hint-placeholder-count="6">
@@ -160,20 +158,20 @@ tr.group td{background:#f3f6fa;font-size:12px;font-weight:600;color:#3a4350;lett
               <td>{{l.code}}</td>
               <td>{{l.id}}</td>
               <template data-sc-if value="{{editing}}">
-                <td class="num"><input class="in cell" type="text" aria-label="Hours for {{l.id}}" defaultValue="{{l.hours}}"></td>
-                <td class="num"><input class="in cell" type="text" aria-label="Base for {{l.id}}" defaultValue="{{l.base}}"></td>
-                <td class="num"><input class="in cell" type="text" aria-label="Rate for {{l.id}}" defaultValue="{{l.rate}}"></td>
-                <td class="num"><input class="in cell" type="text" aria-label="Amount for {{l.id}}" defaultValue="{{l.amount}}"></td>
+                <td><input class="in cell" type="text" aria-label="Hours for {{l.id}}" defaultValue="{{l.hours}}"></td>
+                <td><input class="in cell" type="text" aria-label="Base for {{l.id}}" defaultValue="{{l.base}}"></td>
+                <td><input class="in cell" type="text" aria-label="Rate for {{l.id}}" defaultValue="{{l.rate}}"></td>
+                <td><input class="in cell" type="text" aria-label="Amount for {{l.id}}" defaultValue="{{l.amount}}"></td>
               </template>
               <template data-sc-if value="{{viewing}}">
-                <td class="num">{{l.hours}}</td>
-                <td class="num">{{l.base}}</td>
-                <td class="num">{{l.rate}}</td>
-                <td class="num">{{l.amount}}</td>
+                <td>{{l.hours}}</td>
+                <td>{{l.base}}</td>
+                <td>{{l.rate}}</td>
+                <td>{{l.amount}}</td>
               </template>
               <td>{{l.status}}</td>
               <td>{{l.seq}}</td>
-              <template data-sc-if value="{{editing}}"><td class="num"><button type="button" class="btn small" aria-label="Remove {{l.id}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button></td></template>
+              <template data-sc-if value="{{editing}}"><td><button type="button" class="btn small" aria-label="Remove {{l.id}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Remove</button></td></template>
             </tr>
           </template>
         </tbody>
@@ -316,14 +314,14 @@ class Component extends DCLogic {
     var L = function (code, id, hours, base, rate, amount, status, seq) { return { code: code, id: id, hours: hours, base: base, rate: rate, amount: amount, status: status, seq: seq }; };
     var lines = P ? [
       L('E', '[BASE PAY CODE] – Base Pay', '80.00', '0.00', '59.9169', '4,793.35', 'A', '001'),
-      L('T', '$$002 – U.S. Tax', '0.00', '4,793.35', '0.0000', '512.30', 'A', '002'),
-      L('T', 'CA – CA State', '0.00', '4,793.35', '0.0000', '191.24', 'A', '003'),
-      L('T', '$$00M – U.S. Med', '0.00', '4,793.35', '0.0000', '69.50', 'A', '004'),
-      L('V', '011 – PERS', '0.00', '4,793.35', '0.0000', '380.00', 'A', '005'),
-      L('V', '040 – Health Insurance', '0.00', '0.00', '0.0000', '124.48', 'A', '006'),
-      L('V', '999 – Direct Deposit', '0.00', '3,515.83', '0.0000', '3,515.83', 'A', '007')
+      L('T', '$$002 - U.S. Tax', '0.00', '4,793.35', '0.0000', '512.30', 'A', '002'),
+      L('T', 'CA - CA State', '0.00', '4,793.35', '0.0000', '191.24', 'A', '003'),
+      L('T', '$$00M - U.S. Med', '0.00', '4,793.35', '0.0000', '69.50', 'A', '004'),
+      L('V', '011 - PERS', '0.00', '4,793.35', '0.0000', '380.00', 'A', '005'),
+      L('V', '040 - Health Insurance', '0.00', '0.00', '0.0000', '124.48', 'A', '006'),
+      L('V', '999 - Direct Deposit', '0.00', '3,515.83', '0.0000', '3,515.83', 'A', '007')
     ] : [
-      L('E', 'ALV – Vacation Payoff', '16.00', '0.00', '59.9169', '958.67', 'P', '001')
+      L('E', 'ALV - Vacation Payoff', '16.00', '0.00', '59.9169', '958.67', 'P', '001')
     ];
     var dlgs = {
       reverse: { title: 'Reverse check 262790000861?', body: 'This creates a reversing check (type CR) that cancels the 10/09/2026 pay of 4,793.35 and posts it. It can’t be undone from here.', ok: 'Reverse Check', cls: 'btn danger-solid' },

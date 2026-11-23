@@ -110,6 +110,7 @@ table.acc tr.total td{font-weight:600}
 .lhead h2{margin:0;font-size:16px;font-weight:700}
 .sbtn{min-height:32px;padding:0 14px;border-radius:4px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #0a5bd3;background:#0a5bd3;color:#fff;text-decoration:none;display:inline-flex;align-items:center;box-sizing:border-box}
 .sbtn.out{background:#fff;color:#0a5bd3}
+.sbtn[disabled]{opacity:.45;cursor:default}
 .filters{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;margin-bottom:14px}
 .filters label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#3a4350}
 .filters input{height:32px;width:320px;max-width:100%;border:1px solid #c5ccd6;border-radius:4px;padding:0 10px;font:inherit;font-size:13px;box-sizing:border-box}
@@ -285,6 +286,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
       </div>
       </template>
       <template data-sc-if value="{{status_row}}" hint-placeholder-val="{{ false }}">
@@ -327,6 +335,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
       </div>
       </template>
       <template data-sc-if value="{{comp_row}}" hint-placeholder-val="{{ false }}">
@@ -366,6 +381,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -421,6 +443,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
       </div>
       </template>
       <template data-sc-if value="{{demo_row}}" hint-placeholder-val="{{ false }}">
@@ -460,6 +489,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
       </div>
@@ -532,6 +568,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
    </template>
    <template data-sc-if value="{{addr_row}}" hint-placeholder-val="{{ false }}">
     <button type="button" class="crumb" onClick="{{addr_toHist}}">← Back to Address History</button>
@@ -598,6 +641,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -635,6 +685,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -730,6 +787,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -810,6 +874,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -928,6 +999,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1019,6 +1097,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1117,6 +1202,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1154,6 +1246,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1270,6 +1369,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1300,6 +1406,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1339,6 +1452,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1400,6 +1520,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1516,6 +1643,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1554,6 +1688,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1587,6 +1728,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1623,6 +1771,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
@@ -1663,6 +1818,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
     <div class="notes">
     <h3>Notes for the OutSystems build</h3>
     <ul>
@@ -1693,6 +1855,13 @@ table.list td select,table.list td input[type=text]{height:28px;border:1px solid
       <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" onClick="{{pgPrev}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
       <span class="pg" aria-live="polite">{{pgLabel}}</span>
       <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" onClick="{{pgNext}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
+    </nav>
+    </template>
+    <template data-sc-if value="{{lsLoading}}" hint-placeholder-val="{{ false }}">
+    <nav class="pager" aria-label="Pages" aria-busy="true">
+      <template data-sc-if value="{{pgHasPrev}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Previous</button></template>
+      <span class="pg">{{pgLabel}}</span>
+      <template data-sc-if value="{{pgHasNext}}"><button type="button" class="sbtn" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Next</button></template>
     </nav>
     </template>
     <div class="notes">
